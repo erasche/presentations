@@ -1,0 +1,12 @@
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,minimum height=4em]
+\tikzstyle{block-can-auto} = [rectangle, draw, fill=red!20, minimum height=4em]
+\tikzstyle{decision} = [circle,draw, fill=blue!20]
+
+\begin{tikzpicture}[->, auto]
+\node [block] (init) {Update Tool};
+\node [block-can-auto, node distance = 14cm,right of=init] (validate) {Valid XML Tool File};
+\node [block-can-auto, right of=validate, node distance=8cm] (push) {Toolshed};
+\path
+(init) edge [ultra thick]node  {Auto-Generate XML} (validate)
+(validate) edge [ultra thick]node {push} (push);
+\end{tikzpicture}

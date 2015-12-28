@@ -1,0 +1,289 @@
+\begin{columns}[t]
+        \begin{column}{.30\linewidth}
+            \begin{block}{Current Suboptimal Workflow}
+                \normalsize
+                \input{current-workflow.pgf}
+            \end{block}
+            \begin{block}{Rationale}
+        \justifying
+                We want our tools available \emph{both} in Galaxy \emph{and} at
+                the command line--for cluster users. We want to focus on
+                writing useful tools, not spending time updating XML files every time a new option is added.
+
+                Furthermore, there are pitfalls and hurdles to deploying tools to Galaxy, not to mention a significant time investment.
+            \end{block}
+            \begin{block}{Problems Identified}
+        \justifying
+                \begin{itemize}
+                    \item Galaxy XML Tool files are not DRY! The data and structure behind the XML file is identical to that which defines the command line interface
+                    \item Hand crafted XML is error prone and requires validation
+                    \item Galaxy is picky about how files should be named
+                    \item Command line users should not be second class citizens
+                \end{itemize}
+            \end{block}
+            \begin{block}{What This Does and Does Not Do}
+                These libraries are capable of a lot, but not everything:
+                \begin{table}
+                    \begin{tabular}{lp{15em}c}
+                        Component                          & Ability                                                             & Implemented\\\hline
+                        \multirow{6}{*}{Parameter Types}   & Integers                                                            & \checkmark \\
+                                                           & Float                                                               & \checkmark \\
+                                                           & Bools (Flags)                                                       & \checkmark \\
+                                                           & Files (Input/Output)                                                & \checkmark \\
+                                                           & Strings                                                             & \checkmark \\
+                                                           & Select/Option/ComboBox                                              & \checkmark\\ \hline
+                        \multirow{6}{*}{Parameter Options} & Multiple Values                                                     & \checkmark\\
+                                                           & Default Values                                                      & \checkmark\\
+                                                           & Galaxy/CLI Specificity                                              & \checkmark \\
+                                                           & Hidden                                                              & \checkmark\\
+                                                           & Type-specific validation (e.g., min/max)                            & \checkmark\\ \hline
+                        \multirow{7}{*}{Galaxy Specific}   & Conditional/Which                                                   & X \\
+                                                           & \texttt{.loc} files                                                 & X \\
+                                                           & Custom Value Validation Code                                        & X \\
+                                                           & \texttt{<repeat/>}                                                  & \checkmark\\
+                                                           & Test Cases Generated                                                & \checkmark\\
+                                                           & Documentation extracted from scripts                                & \checkmark \\
+                                                           & 100\% Valid XML, 100\% of the time                                  & \checkmark \\ \hline
+                        \multirow{2}{*}{CLI Specific}      & Test Scripts Generated                                              & \checkmark \\
+                                                           & GNU GetOpt Parameter Parsing                                        & \checkmark \\ \hline
+                        \multirow{5}{*}{Output Files}      & Single API for both Galaxy/CLI                                      & \checkmark \\
+                                                           & Handle files destined for new History Items                         & \checkmark \\
+                                                           & Handle files that are part of a single item (e.g, pictures in HTML) & \checkmark \\
+                    \end{tabular}
+                \end{table}
+                Conditional/Which support is planned for \texttt{v2.1} release
+\vspace{1cm}
+            \end{block}
+        \end{column}
+        \begin{column}{.30\linewidth}
+            \begin{block}{Improved Workflow}
+                \normalsize
+                \input{new-workflow.pgf}
+            \end{block}
+            \begin{block}{Solution}
+                \begin{itemize}
+                    \item Wrap \texttt{GetOpt::Long::Descriptive} in Perl and \texttt{argparse} in Python
+                    \item Use the developer's specified options to automatically generate the XML code.
+                    \item Provide routines to automatically handle naming and processing of output data
+                    \item Automatically provide \emph{sane} interfaces in Galaxy and at CLI by using standard \texttt{argparse}/\texttt{GetOpt} facilities.
+                \end{itemize}
+            \end{block}
+            \begin{block}{Example - Perl}
+                \tiny
+                \begin{lstlisting}[language=perl]
+#!/usr/bin/perl
+use strict;
+use warnings;
+use CPT::GalaxyGetOpt;
+my $ggo  = CPT::GalaxyGetOpt->new();
+my $options = $ggo->getOptions(
+ 'options' => [
+  [ 'file', 'Input file', { validate => 'File/Input'} ],
+  [ 'int', 'An integer', { validate => 'Int', min => 10, deafult => 30}],
+  [ 'option', 'Select an option!',{ validate => 'Option', options => { 'a' => 'Alpha', 'b' => 'Bravo' }, multiple => 1 } ],
+ ],
+ 'outputs' => [
+  ['test_output','Output Data', { validate => 'File/Output', required => 1, default => 'out', data_format => 'text/plain', default_format => 'TXT'
+   }
+  ],
+ ],
+ 'defaults' => [
+  'appid' => 'org.cpt.examples.GGOPoster', 'appname' => 'Example Utility', 'appdesc' => 'prints out options passed to it', 'appvers' => '1.0.0',
+ ],
+ 'tests' => [
+  {
+   test_name => "Default", params => {}, outputs => { 'test_output' =>
+      ["out.txt", 'test-data/outputs/template.default.txt' ],},
+  },
+ ],
+);
+=head1 DESCRIPTION
+
+Print out options passed to it
+
+=cut
+                \end{lstlisting}
+            \end{block}
+            \begin{block}{Example - Python}
+                \tiny
+                \begin{lstlisting}[language=python]
+#!/usr/bin/env python
+"""
+DESCRIPTION
+===========
+
+Print out options passed to it
+"""
+from galaxygetopt.ggo import GalaxyGetOpt as GGO
+def main():
+    c = GGO(
+        options=[
+            ['file', 'Input file', {'required': True, 'validate': 'File/Input'}],
+            ['int', 'An integer', {'required': True, 'validate': 'Int', 'min': 10, 'default': 30}],
+            ['option', 'A selection type parameter', {'validate': 'Option', 'options': {'a': 'Alpha', 'b': 'Bravo'}, 'multiple': True }],
+        ],
+        outputs=[
+            ['test_output', 'Output Data',
+                {
+                    'validate': 'File/Output',
+                    'required': True,
+                    'default': 'ggo_out.complex',
+                    'data_format': 'text/tabular',
+                    'default_format': 'TSV_U',
+                }
+            ]
+        ],
+        defaults={
+            'appid': 'org.cpt.examples.GGOPoster',
+            'appname': 'Example Utility',
+            'appdesc': 'prints out options passed to it',
+            'appvers': '1.0.0',
+        },
+        tests=[
+            {'test_name': 'Default', 'params': {}, 'outputs': {
+                    'test_output': ['ggo_out.complex.Sheet1.tsv',
+                'galaxygetopt/tests/test_file.tsv'],}
+            }
+        ],
+        doc=__doc__
+    )
+                \end{lstlisting}
+            \end{block}
+            \begin{block}{Example Result XML}
+                \tiny
+                \begin{lstlisting}[language=xml]
+<?xml version="1.0"?>
+<tool id="org.cpt.examples.GGOPoster" name="Example Utility" version="1.0.0">
+  <description>prints out options passed to it</description>
+  <version_command>python example.py --version</version_command>
+  <stdio>
+    <exit_code level="fatal" range="1:"/>
+  </stdio>
+  <command interpreter="python">example.py
+--galaxy
+--outfile_supporting $__new_file_path__
+--file "${file}"
+--int "${int}"
+#for $item in $repeat_option:
+--option "${item.option}"
+#end for
+--test_output "${test_output}"
+--test_output_files_path "${test_output.files_path}"
+--test_output_format "${test_output_format}"
+--test_output_id "test_output.id"
+</command>
+  <inputs>
+    <param help="Input file" label="file" name="file" optional="False" type="data"/>
+    <param help="An integer" label="int" min="10" name="int" optional="False" type="integer" value="30"/>
+    <repeat name="repeat_option" title="Option">
+      <param help="A selection type parameter" label="option" name="option" optional="True" type="select">
+        <option value="a">Alpha</option>
+        <option value="b">Bravo</option>
+      </param>
+    </repeat>
+    <param help="Output Data" label="Format of test_output" name="test_output_format" optional="False" type="select">
+      <option value="CSV">CSV</option>
+      <option value="CSV_U">CSV_U</option>
+      <option value="TSV">TSV</option>
+      <option selected="True" value="TSV_U">TSV_U</option>
+    </param>
+  </inputs>
+  <outputs>
+    <data format="TSV_U" name="test_output">
+      <change_format>
+        <when format="tabular" input="test_output_format" value="CSV"/>
+        <when format="tabular" input="test_output_format" value="CSV_U"/>
+        <when format="tabular" input="test_output_format" value="TSV"/>
+        <when format="tabular" input="test_output_format" value="TSV_U"/>
+      </change_format>
+    </data>
+  </outputs>
+  <help>DESCRIPTION
+===========
+
+Print out options passed to it
+</help>
+  <tests>
+    <test>
+      <output file="galaxygetopt/tests/test_file.tsv" name="test_output"/>
+    </test>
+  </tests>
+</tool>
+                \end{lstlisting}
+            \end{block}
+        \end{column}
+    \begin{column}{.3\linewidth}
+            \begin{block}{Ideal, CI Server Based Workflow}
+                \normalsize
+                \input{ci-workflow.pgf}
+            \end{block}
+            \begin{block}{Great for Automation, Peace of Mind}
+                \begin{itemize}
+                    \item Focus on writing tools, not on galaxy integration
+                    \item Support a larger user base (CLI+Galaxy)
+                    \item CI Servers like Jenkins can generate the XML automatically
+                    \item No more issues of XML matching up with the latest tool version
+                    \item No more time spent validating XML
+                \end{itemize}
+            \end{block}
+            \begin{block}{How to Start Using It}
+                \begin{itemize}
+                    \item \texttt{CPT::GalaxyGetOpt} in perl
+                    \item \texttt{galaxygetopt} in python
+                \end{itemize}
+                \justifying
+                When you need to generate galaxy XML files:
+                \begin{lstlisting}[language=bash,basicstyle=\small]
+    python script.py --generate_galaxy_xml > script.xml
+      perl script.pl --generate_galaxy_xml > script.xml
+                \end{lstlisting}
+
+                When you want to generate test scripts for your tools:
+                \begin{lstlisting}[language=bash,basicstyle=\small]
+    python script.py --gen_tests > test_script.py
+      perl script.pl --gen_tests > script.t
+                \end{lstlisting}
+                These tests are based on information you store in your tool's
+                GalaxyGetOpt call. By specifying the inputs and outputs of the
+                tool, this library can construct both the Galaxy XML test cases
+                and generalized command line test cases
+            \end{block}
+            \begin{block}{Get the code!}
+                \justifying
+                Perl version will require you to check out the
+                \texttt{build/develop} branch, unless you have DistZilla
+                installed.\\
+                \url{https://cpt.tamu.edu/gitlab/cpt/libcpt}
+
+
+                Python version\\
+                \texttt{pip install galaxygetopt}
+            \end{block}
+            \begin{block}{Future Work}
+                \justifying
+                These libraries receive heavy use internally. If they spark
+                that sort of interest within the galaxy community, we're
+                considering looking into R and C/C++ ports of the code.
+            \end{block}
+            \begin{block}{Galaxy and the CPT}
+                \justifying
+                At the Center for Phage Technology, we face a large number of
+                problems not faced by the eukaryotic community; hundreds of
+                small genomes, lack of existing toolsets, and comparatively
+                transient datasets. In response to these challenges and others,
+                to date we have added over 100 brand new, phage specific, tools
+                to our Galaxy instance.\\\ \\
+
+                In the past year the CPT has migrated from a bespoke
+                bioinformatics platform to a 100\% Galaxy organization with
+                extremely tangible benefits, especially in our novel phage
+                annotation course. Bacteriophage Genomics at the CPT, taught by
+                Dr. Ryland Young, has been able to successfully utilise Galaxy
+                to significantly accelerate our analysis due to the increased
+                ability to produce and synthesize results within Galaxy. Use of
+                workflows has allowed for reallocation of teaching time to
+                actual teaching and improvement of genome annotations, away
+                from time wasted shepherding students through the command line.
+            \end{block}
+    \end{column}
+  \end{columns}

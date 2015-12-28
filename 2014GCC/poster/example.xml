@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<tool id="org.cpt.examples.GGOPoster" name="Example Utility" version="1.0.0">
+  <description>prints out options passed to it</description>
+  <version_command>python example.py --version</version_command>
+  <stdio>
+    <exit_code level="fatal" range="1:"/>
+  </stdio>
+  <command interpreter="python">example.py
+--galaxy
+--outfile_supporting $__new_file_path__
+--file "${file}"
+
+--int "${int}"
+
+#for $item in $repeat_option:
+--option "${item.option}"
+#end for
+
+--test_output "${test_output}"
+
+--test_output_files_path "${test_output.files_path}"
+
+--test_output_format "${test_output_format}"
+
+--test_output_id "test_output.id"
+
+</command>
+  <inputs>
+    <param help="Input file" label="file" name="file" optional="False" type="data"/>
+    <param help="An integer" label="int" min="10" name="int" optional="False" type="integer" value="30"/>
+    <repeat name="repeat_option" title="Option">
+      <param help="A selection type parameter" label="option" name="option" optional="True" type="select">
+        <option value="a">Alpha</option>
+        <option value="b">Bravo</option>
+      </param>
+    </repeat>
+    <param help="Output Data" label="Format of test_output" name="test_output_format" optional="False" type="select">
+      <option value="CSV">CSV</option>
+      <option value="CSV_U">CSV_U</option>
+      <option value="Dumper">Dumper</option>
+      <option value="JSON">JSON</option>
+      <option value="ODS">ODS</option>
+      <option value="TSV">TSV</option>
+      <option selected="True" value="TSV_U">TSV_U</option>
+      <option value="XLS">XLS</option>
+      <option value="XLSX">XLSX</option>
+      <option value="YAML">YAML</option>
+    </param>
+  </inputs>
+  <outputs>
+    <data format="TSV_U" name="test_output">
+      <change_format>
+        <when format="tabular" input="test_output_format" value="CSV"/>
+        <when format="tabular" input="test_output_format" value="CSV_U"/>
+        <when format="txt" input="test_output_format" value="Dumper"/>
+        <when format="txt" input="test_output_format" value="JSON"/>
+        <when format="data" input="test_output_format" value="ODS"/>
+        <when format="tabular" input="test_output_format" value="TSV"/>
+        <when format="tabular" input="test_output_format" value="TSV_U"/>
+        <when format="data" input="test_output_format" value="XLS"/>
+        <when format="data" input="test_output_format" value="XLSX"/>
+        <when format="txt" input="test_output_format" value="YAML"/>
+      </change_format>
+    </data>
+  </outputs>
+  <help>DESCRIPTION
+===========
+
+Print out options passed to it
+</help>
+  <tests>
+    <test>
+      <output file="galaxygetopt/tests/test_file.tsv" name="test_output"/>
+    </test>
+  </tests>
+</tool>

@@ -1,0 +1,16 @@
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,minimum height=4em]
+\tikzstyle{block-auto} = [rectangle, draw, fill=green!20, minimum height=4em]
+
+\begin{tikzpicture}[->, auto, node distance=8cm]
+\node [block] (init) {Update Tool};
+\node [block,right of=init, node distance=12cm] (commit) {Repository};
+\node [block-auto,right of=commit] (CI) {CI Server};
+\node [block-auto,below of=commit] (deploy) {Server/Cluster};
+\node [block-auto,below of=CI] (toolshed) {Toolshed};
+\path
+(init) edge [ultra thick] node  {Commit/Push} (commit)
+(commit) edge [ultra thick] node {Web Hook} (CI)
+(CI) edge [ultra thick] node [swap] {Standard Deployment} (deploy)
+(CI) edge [ultra thick] node {Generate XML, Deploy to Toolshed} (toolshed)
+;
+\end{tikzpicture}

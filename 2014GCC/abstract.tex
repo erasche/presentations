@@ -1,0 +1,29 @@
+Argument Parsing Libraries for Automatic Galaxy XML Generation
+
+Eric Rasche, Center for Phage Technology, Texas A\&M University
+
+
+Addition of new software to galaxy is currently a non-trivial task.
+Galaxy tools consist of many interdependent parts; packaged
+executables or scripts, tool data, and tool configuration in the form
+of XML files. This presents a problem in the form of a large codebase
+to maintain, especially for groups which regularly produce tools to
+add to galaxy.
+
+With the goals of code deduplication, simplification of deployment
+workflow, and improved accessibility of the galaxy platform for new
+developers, we have developed python and perl libraries which function
+to replace traditional methods of obtaining command line arguments
+like GetOpt and argparse.
+
+Our libraries are capable of automatically generating valid Galaxy XML
+tool description files which represent the full set of a tool's
+command line options. This removes the need to maintain the
+python/perl script and the XML file separately, as the XML files can
+be regenerated at any time from the python/perl script.
+
+We believe this will lead to significant reductions in time spent on
+maintenance of codebases and decreases turn around times for shipping
+new releases. These libraries will benefit anyone adding new custom
+tools to galaxy by providing a convenient method to specify command
+line parameters, accessible way to access user entered parameters.

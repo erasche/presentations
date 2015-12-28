@@ -1,0 +1,39 @@
+\documentclass[]{beamer}
+\usepackage{amssymb,amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\setcounter{secnumdepth}{0}
+\usetheme{Berkeley}
+\usecolortheme{seagull}
+\usepackage{xcolor}
+
+\input{data}
+\title[]{}
+\author[\myName\\ \color{gray} \myGpgFingerprint]{\myName}
+
+\date{\today}
+
+\begin{document}
+\frame{\titlepage}
+
+\section{Section Title}
+\begin{frame}{Slide Title}
+\end{frame}
+
+\section{Q \& A}
+\begin{frame}{Q \& A}
+
+    \begin{center}
+        Thank you! Questions? \\\ \\
+
+        \begin{tabular}{rl}
+            \color{gray} GPG Fingerprint  & \texttt{\myGpgA} \\
+                                          & \texttt{\myGpgB} \\
+            \color{gray} GitHub           & \myGithub\\
+            \color{gray} Twitter          & \myTwitter\\
+            \color{gray} Work Email       & \myEmail%
+        \end{tabular}
+    \end{center}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+sub bg{
+	return sprintf("\033[%sm", int(rand(8)) + 40);
+}
+sub fg{
+	return sprintf("\033[%s;%sm", int(rand(2)) ,  int(rand(8)) + 30);
+}
+my @chars = split(//,'Hello, World');
+foreach(@chars){
+	printf("%s%s%s\033[0m",fg(),bg(),$_);
+}
+print "\n";
+

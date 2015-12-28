@@ -1,0 +1,14 @@
+Source: cpt-build-tut-04
+Section: misc
+Priority: extra
+Maintainer: Eric Rasche <rasche.eric@yandex.ru>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+
+Package: cpt-build-tut-04
+Architecture: all
+Depends: perl
+Description: CPT Build Tutorial Part 4
+ Simple logging script which runs a Sieve of Eratosthenes
+ to find prime numbers
+ .

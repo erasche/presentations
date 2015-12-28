@@ -1,0 +1,13 @@
+Source: cpt-build-tut-06
+Section: misc
+Priority: extra
+Maintainer: Eric Rasche <rasche.eric@yandex.ru>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+
+Package: cpt-build-tut-06
+Architecture: all
+Depends: perl
+Description: CPT Build Tutorial Part 6
+ Now with more man pages
+ .

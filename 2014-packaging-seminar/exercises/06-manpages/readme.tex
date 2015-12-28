@@ -1,0 +1,273 @@
+\documentclass[]{article}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifxetex
+  \usepackage{fontspec,xltxtra,xunicode}
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+\else
+  \ifluatex
+    \usepackage{fontspec}
+    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \else
+    \usepackage[utf8]{inputenc}
+  \fi
+\fi
+\usepackage{color}
+\usepackage{fancyvrb}
+\DefineShortVerb[commandchars=\\\{\}]{\|}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
+% Redefine labelwidth for lists; otherwise, the enumerate package will cause
+% markers to extend beyond the left margin.
+\makeatletter\AtBeginDocument{%
+  \renewcommand{\@listi}
+    {\setlength{\labelwidth}{4em}}
+}\makeatother
+\usepackage{enumerate}
+\usepackage{ctable}
+\usepackage{float} % provides the H option for float placement
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex,
+              colorlinks=true,
+              linkcolor=blue]{hyperref}
+\else
+  \usepackage[unicode=true,
+              colorlinks=true,
+              linkcolor=blue]{hyperref}
+\fi
+\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+\title{Man, oh man.}
+\author{2013-12-03}
+\date{Eric Rasche}
+
+\begin{document}
+\maketitle
+
+\section{Man pages}
+
+Man pages are the helpful pages available to tell you how to use a piece
+of software, what the invocation options are, etc. There are a number of
+different categories of man pages:
+
+\ctable[pos = H, center, botcap]{ll}
+{% notes
+}
+{% rows
+\FL
+\parbox[b]{0.11\columnwidth}{\raggedright
+\#/Cat
+} & \parbox[b]{0.89\columnwidth}{\raggedright
+Description
+}
+\ML
+\parbox[t]{0.11\columnwidth}{\raggedright
+1 user
+} & \parbox[t]{0.89\columnwidth}{\raggedright
+commands
+}
+\\\noalign{\medskip}
+\parbox[t]{0.11\columnwidth}{\raggedright
+2 syst
+} & \parbox[t]{0.89\columnwidth}{\raggedright
+em calls
+}
+\\\noalign{\medskip}
+\parbox[t]{0.11\columnwidth}{\raggedright
+3 C li
+} & \parbox[t]{0.89\columnwidth}{\raggedright
+brary functions (on some platforms 3c for C, 3f for FORTRAN, etc.)
+}
+\\\noalign{\medskip}
+\parbox[t]{0.11\columnwidth}{\raggedright
+4 devi
+} & \parbox[t]{0.89\columnwidth}{\raggedright
+ces and network interfaces
+}
+\\\noalign{\medskip}
+\parbox[t]{0.11\columnwidth}{\raggedright
+5 file
+} & \parbox[t]{0.89\columnwidth}{\raggedright
+formats
+}
+\\\noalign{\medskip}
+\parbox[t]{0.11\columnwidth}{\raggedright
+6 game
+} & \parbox[t]{0.89\columnwidth}{\raggedright
+s and demos
+}
+\\\noalign{\medskip}
+\parbox[t]{0.11\columnwidth}{\raggedright
+7 envi
+} & \parbox[t]{0.89\columnwidth}{\raggedright
+ronments, tables, and troff macros
+}
+\\\noalign{\medskip}
+\parbox[t]{0.11\columnwidth}{\raggedright
+8 main
+} & \parbox[t]{0.89\columnwidth}{\raggedright
+tenance commands
+}
+\\\noalign{\medskip}
+\parbox[t]{0.11\columnwidth}{\raggedright
+9 x wi
+} & \parbox[t]{0.89\columnwidth}{\raggedright
+ndow system
+}
+\\\noalign{\medskip}
+\parbox[t]{0.11\columnwidth}{\raggedright
+l loca
+} & \parbox[t]{0.89\columnwidth}{\raggedright
+l commands
+}
+\\\noalign{\medskip}
+\parbox[t]{0.11\columnwidth}{\raggedright
+n new
+} & \parbox[t]{0.89\columnwidth}{\raggedright
+commands (tcl and tk use this)
+}
+\LL
+}
+
+(for the source, see reference under format)
+
+\section{Format}
+
+\href{https://www.fnal.gov/docs/products/ups/ReferenceManual/html/manpages.html}{Reference}
+
+\section{Example man page}
+
+\begin{verbatim}
+.TH HELLO 1 LOCAL
+.SH NAME
+hello - print "Hello world" on stdout
+.SH SYNOPSIS
+.B hello [options]
+.I option option
+.B ["
+.I -yy -zz
+.B ..."]
+.SH AVAILABILITY
+All UNIX flavors
+.SH DESCRIPTION
+hello prints the string "Hello world" on standard output.
+.SH OPTIONS
+There are no options, but we'll make some up.
+.TP 5
+-yy
+is one option
+.TP
+-zz
+is another option
+.SH AUTHOR
+Joe Aggie
+\end{verbatim}
+(Also from above reference)
+
+\section{Important Files}
+
+\begin{description}
+\item[\texttt{\$PKG\_ROOT/debian/manpages}]
+This file specifies the location of all your man pages. Optimally you
+might put them in a \texttt{man/} directory in the \texttt{\$PKG\_ROOT}
+
+\item[\texttt{\$PKG\_ROOT/man/cpt-build-tut-06.1}]
+This file will need to be created and is the properly formatted man page
+that will be installed to the target system
+
+\end{description}
+\section{How to include man pages}
+
+Man pages can be included with two steps:
+
+\begin{enumerate}[1.]
+\item
+  Move your produce man page to
+  \texttt{\$PKG\_ROOT/man/\{package-name\}.1}
+\item
+  Set the content of \texttt{\$PKG\_ROOT/debian/manpages} to
+  \texttt{man/\{package\}.1}
+\end{enumerate}
+You can, of course, list more manual pages and store them in different
+locations.
+
+\section{Exercise}
+
+In this exercise, we will be making use of \texttt{Ronn} to convert a
+markdown formatted file into a roff formatted man page.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ronn test.md}
+\end{Highlighting}
+\end{Shaded}
+The ronn software will produce a test.1 and test.1.html; you may delete
+test.1.html, test.1 is the man page we will use. Move the man page into
+the correct directory and ensure the correct contents of the
+\texttt{manpages} file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cp} \NormalTok{test.1 }\OtherTok{$PKG_ROOT}\NormalTok{/man/cpt-build-tut-06.1}
+\NormalTok{editor }\OtherTok{$PKG_ROOT}\NormalTok{/debian/manpages }
+\end{Highlighting}
+\end{Shaded}
+\subsection{Building}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cd} \OtherTok{$PKG_ROOT}
+\NormalTok{dpkg-buildpackage}
+\end{Highlighting}
+\end{Shaded}
+\subsection{Instalation}
+
+Assuming you were still in \texttt{\$PKG\_ROOT}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cd} \NormalTok{../}
+\KeywordTok{sudo} \NormalTok{dpkg -i }\KeywordTok{<}\NormalTok{package}\KeywordTok{>}\NormalTok{.deb}
+\end{Highlighting}
+\end{Shaded}
+\subsection{Verification of Success}
+
+After installing, run
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{man} \NormalTok{cpt-build-tut-06}
+\end{Highlighting}
+\end{Shaded}
+and you should be presented with the contents of your man file
+
+\section{On your own}
+
+If you ever have to write man pages on your own, I recommend against
+writing {[}gnt{]}roff syntax. It's quite unpleasant. There are
+alternatives! For instance, try using the software we used, called
+\href{http://rtomayko.github.io/ronn/}{Ronn} which allows one to write
+markdown syntax and convert directly to man pages.
+
+\end{document}

@@ -1,0 +1,54 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+# This script is designed to produce some log files
+my $LOGDIR = '/var/log/cpt-build-tut/';
+#my $LOGDIR = './';
+if(! -d $LOGDIR){
+	die 'Cannot find my log directory! Did you forget to create?';
+}
+
+open(my $fh,'>',$LOGDIR . 'run.log');
+logger($fh, 'CPT-Build-tut-04 Booting up');
+
+# Here begins our programme.
+logger($fh, 'Allocating array for our seive');
+my @numbers = (2..50_000);
+logger($fh, 'Seieve allocated from 2 to 1000');
+my %primes = map { $_ => 1 } @numbers;
+logger($fh, 'Converted to a hash');
+logger($fh, 'Running seive up to 50_000');
+for(my $i=2;$i< sqrt(50_000) ;$i++){
+	if($i % 10 == 0){
+		logger($fh, 'Making progress... ' . $i . '/' . int(sqrt(50_000)));
+	}
+	foreach(keys(%primes)){
+		if($_ % $i == 0){
+			$primes{$_} = 0;
+		}
+	}
+}
+logger($fh, 'Done, reordering + counting + printing');
+my @primes;
+foreach( sort {$a <=> $b} keys(%primes)){
+	if ($primes{$_}){
+		push(@primes,$_);
+	}
+}
+logger($fh, 'We found ' . scalar @primes. ' primes');
+open(my $primes, '>', $LOGDIR . 'primes.log');
+foreach(@primes){
+	print $primes "$_\n";
+}
+logger($fh, sprintf('Stored %s primes to %s', scalar(@primes), $LOGDIR . 'primes.log'));
+
+
+sub logger{
+	my ($fh, $message) = @_;
+	(my $sec,my $min,my $hour,my $mday,my $mon,my $year,my $wday, my $yday, my $isdst) = localtime();
+	printf $fh "[%s-%s-%sT%s:%s:%s] %s\n", $year, $mon,$mday,$hour,$min,$sec, $message;
+	printf STDERR "[%s-%s-%sT%s:%s:%s] %s\n", $year, $mon,$mday,$hour,$min,$sec, $message;
+
+
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="2013-12-03">
+  <title>Cleaning up</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="https://cpt.tamu.edu/md.css">
+</head>
+<body>
+<header>
+<h1 class="title">Cleaning up</h1>
+<h2 class="author">2013-12-03</h2>
+<h3 class="date">Eric Rasche</h3>
+</header>
+<h1 id="cleanup">Cleanup</h1>
+<p>In this exercise, you will be modifying the pre- and post- installation and removal executables</p>
+<h1 id="important-files">Important Files</h1>
+<p>Via <a href="http://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html#s-maintscripts">here</a></p>
+<dl>
+<dt><code>$PKG_ROOT/debian/preinst</code></dt>
+<dd><p>This script executes before that package will be unpacked from its Debian archive (&quot;.deb&quot;) file. Many 'preinst' scripts stop services for packages which are being upgraded until their installation or upgrade is completed (following the successful execution of the 'postinst' script).</p>
+</dd>
+<dt><code>$PKG_ROOT/debian/postinst</code></dt>
+<dd><p>This script typically completes any required configuration of the package foo once foo has been unpacked from its Debian archive (&quot;.deb&quot;) file. Often, 'postinst' scripts ask the user for input, and/or warn the user that if he accepts default values, he should remember to go back and re-configure that package as the situation warrants. Many 'postinst' scripts then execute any commands necessary to start or restart a service once a new package has been installed or upgraded.</p>
+</dd>
+<dt><code>$PKG_ROOT/debian/prerm</code></dt>
+<dd><p>This script typically stops any daemons which are associated with a package. It is executed before the removal of files associated with the package.</p>
+</dd>
+<dt><code>$PKG_ROOT/debian/postrm</code></dt>
+<dd><p>This script typically modifies links or other files associated with foo, and/or removes files created by the package. (Also see <a href="http://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html#s-virtual">What is a Virtual Package?, Section 7.8.</a>)</p>
+</dd>
+</dl>
+<p>Sometimes you will see the above as <code>$packagename.$type</code> where <code>$type</code> is one of the above file names.</p>
+<h1 id="exercise">Exercise</h1>
+<p>In this exercise you will be doing two things:</p>
+<ol type="1">
+<li>In the postinst, you will be creating a log directory (<code>mkdir -p /var/log/cpt-build-tut/</code>)</li>
+<li>In the postrm, you will be removing the log directory if a purge was specified (<code>rm -rf /var/log/cpt-build-tut/</code>)</li>
+</ol>
+<h2 id="building">Building</h2>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> files
+dpkg-buildpackage</code></pre>
+<h2 id="installing">Installing</h2>
+<p>Assuming you were still in <code>$PKG_ROOT</code></p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ../
+<span class="kw">sudo</span> dpkg -i <span class="kw">&lt;</span>package<span class="kw">&gt;</span>.deb
+<span class="kw">&lt;</span>command_name<span class="kw">&gt;</span></code></pre>
+</body>
+</html>

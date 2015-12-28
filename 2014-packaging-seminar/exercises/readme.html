@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="2013-12-03">
+  <title>Main Readme</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="https://cpt.tamu.edu/md.css">
+</head>
+<body>
+<header>
+<h1 class="title">Main Readme</h1>
+<h2 class="author">2013-12-03</h2>
+<h3 class="date">Eric Rasche</h3>
+</header>
+<h1 id="exercises">Exercises</h1>
+<p>These are a set of simple packages we will build during the course which will give you the skills necessary to create simple packages and build them for use on your debian based systems.</p>
+<h1 id="list-of-exercises">List of Exercises</h1>
+<ol type="1">
+<li>My First Package</li>
+<li>Dependenices</li>
+<li>Linking</li>
+<li>Cleaning up after yourself</li>
+<li>Signing your builds</li>
+<li>Man pages</li>
+<li>Update alternatives</li>
+<li>Aliens!</li>
+<li>Modifying existing packages</li>
+<li>Metapackages and Equivs</li>
+<li>Putting it all together (take-home)</li>
+</ol>
+<h1 id="dev-environment">Dev Environment</h1>
+<p>To start building packages at home, you will need a few packages installed</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> apt-get <span class="kw">install</span> dpkg-dev build-essential <span class="kw">make</span> debhelper</code></pre>
+<p>If you want <code>Ronn</code> for man pages,</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> apt-get <span class="kw">install</span> rubygems
+<span class="kw">sudo</span> gem <span class="kw">install</span> ronn</code></pre>
+</body>
+</html>

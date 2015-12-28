@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="2013-12-03">
+  <title>Assuming Direct Control</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="https://cpt.tamu.edu/md.css">
+</head>
+<body>
+<header>
+<h1 class="title">Assuming Direct Control</h1>
+<h2 class="author">2013-12-03</h2>
+<h3 class="date">Eric Rasche</h3>
+</header>
+<h1 id="modifying-the-control-file">Modifying the Control file</h1>
+<p>In this exercise, you will be modifying the control file to specify some additional dependencies</p>
+<h1 id="control-files">Control Files</h1>
+<p>Here is an example control file:</p>
+<pre><code>Source: mypackage
+Section: unknown
+Priority: extra
+Maintainer: Josip Rodin &lt;joy-mg@debian.org&gt;
+Build-Depends: debhelper (&gt;=9)
+Standards-Version: 3.9.4
+Homepage: &lt;insert the upstream URL, if relevant&gt;
+
+Package: mypackage
+Architecture: any
+Depends: ${perl:Depends}
+Description: &lt;insert up to 60 chars description&gt;
+ &lt;insert long description, indented with spaces&gt;
+ . 
+ &lt;further description&gt;</code></pre>
+<p>Briefly,</p>
+<table>
+<col style="width: 25%" /><col style="width: 38%" /><thead>
+<tr class="header">
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Meaning/Values</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Source</td>
+<td style="text-align: left;">Your package's name.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Section</td>
+<td style="text-align: left;">section of the distribution the source package goes into. (I often use &quot;science&quot;)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Priority</td>
+<td style="text-align: left;">This will pretty much always be extra for your stuff</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Maintainer</td>
+<td style="text-align: left;">That's you!</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Package</td>
+<td style="text-align: left;">Same as 'Source'</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Architecture</td>
+<td style="text-align: left;"><code>amd64</code>,<code>i386</code>, <code>all</code>, <code>any</code> (there are more.) Use <code>all</code> for script and architecture independent stuff</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Depends</td>
+<td style="text-align: left;">List your dependenices here</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Description</td>
+<td style="text-align: left;">There's a short description (&lt;60 char) and a long one. Be sure to write both, as they are re helpful to end users.</td>
+</tr>
+</tbody>
+</table>
+<p>You can read in depth about control files and their options <a href="http://www.debian.org/doc/manuals/maint-guide/dreq.en.html">here</a>. Additionally, there are a lot more complicated methods of specifying dependencies which can be helpful to users figuring out what they need to do to run your software.</p>
+<h1 id="important-files">Important Files</h1>
+<dl>
+<dt><code>$PKG_ROOT/src/any/usr/bin/cpt-build-tut-02.pl</code></dt>
+<dd><p>Our initial perl script now has some dependencies</p>
+</dd>
+<dt><code>$PKG_ROOT/debian/control</code></dt>
+<dd><p>This is one of the more important files in a package and part of what makes packages and the APT system work. Control files allow you to specify dependencies and package relationships. In this exercise we'll do precisely that. Specifically the dependencies we'll add are</p>
+<ul>
+<li>perl</li>
+<li>libdigest-md5-perl</li>
+<li>libdigest-crc-perl</li>
+<li>libdigest-sha-perl</li>
+</ul>
+</dd>
+</dl>
+<h1 id="exercise">Exercise</h1>
+<p>Please add the previously mentioned depenencies to the control file in <code>$PKG_ROOT/debian/control/</code>. This should be done as a &quot;, &quot; (comma and space) separated list.</p>
+<h2 id="building">Building</h2>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> <span class="ot">$PKG_ROOT</span>
+dpkg-buildpackage</code></pre>
+<h2 id="installation">Installation</h2>
+<p>This package has an additional installation step. Because we're installing from a .deb file, instead of from a repository, we have to do the following. The first step will complain about the package not being able to be configured.</p>
+<p>Assuming you were still in <code>$PKG_ROOT</code></p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ../
+dpkg -i <span class="kw">&lt;</span>package<span class="kw">&gt;</span>.deb
+apt-get -f <span class="kw">install</span></code></pre>
+<p>This happens because we've specified dependencies in the package, but dpkg has no knowledge of how to handle those extra dependencies. For that we would need a higher level tool like <code>apt-get</code> or <code>aptitude</code>.</p>
+</body>
+</html>

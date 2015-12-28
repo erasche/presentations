@@ -1,0 +1,113 @@
+\documentclass[]{article}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifxetex
+  \usepackage{fontspec,xltxtra,xunicode}
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+\else
+  \ifluatex
+    \usepackage{fontspec}
+    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \else
+    \usepackage[utf8]{inputenc}
+  \fi
+\fi
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex,
+              colorlinks=true,
+              linkcolor=blue]{hyperref}
+\else
+  \usepackage[unicode=true,
+              colorlinks=true,
+              linkcolor=blue]{hyperref}
+\fi
+\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+\title{Final}
+\author{2013-12-03}
+\date{Eric Rasche}
+
+\begin{document}
+\maketitle
+
+\section{Take Home}
+
+I have no illusions as to how busy all of you are. However, in the event
+that you wish to work on creating packages some more, I've written a
+spec for a take home project. If you complete this, feel free to email
+it to me and I'll check it over for you.
+
+\section{Specification}
+
+At least try to achieve the main objectives. If you are feeling brave
+and have time for reading and coding, then feel free to attempt the
+other objectives! They should require some reading and searching the web
+for information. If you get stuck, email me and I will be happy to send
+you pointers.
+
+\subsection{Main objectives}
+
+\begin{itemize}
+\item
+  Should provide a command that does something, anything. Recommendation
+  of printing static text.
+\item
+  Control file should be properly filled out such that the package can
+  install on a \emph{clean} system without issue.
+\item
+  Invokes update-alternatives to create and remove alternate names for
+  itself.
+\item
+  Complete man page with all of the proper sections filled out so I can
+  figure out what it does just by \texttt{man yourcommand}.
+\item
+  Sign your package
+\end{itemize}
+\subsection{Optional objectives}
+
+These should be well within your reach.
+
+\begin{itemize}
+\item
+  Scripting
+  \begin{itemize}
+  \item
+    Ask the user questions about how the programme should be configured
+    in \texttt{postinst} (hint,
+    \href{http://www.fifi.org/doc/debconf-doc/tutorial.html}{read this})
+  \item
+    Clean up all possibly created files in \texttt{postrm}
+  \end{itemize}
+\end{itemize}
+\subsection{Advanced Objectives}
+
+Feel free to IM/email me on these, I am not 100\% familiar with the
+\texttt{dbconfig} package and will be happy to offer any assistance I
+can.
+
+\begin{itemize}
+\item
+  Daemon
+  \begin{itemize}
+  \item
+    Should run as a daemon, install \texttt{/etc/init.d/} script
+  \item
+    Should start and stop the daemon in \texttt{postinst} and start
+  \end{itemize}
+\item
+  Database
+  \begin{itemize}
+  \item
+    Use \texttt{dbconfig-common}.
+  \item
+    Take advantage of \texttt{debian-sys-maint} for MySQL users.
+  \end{itemize}
+\end{itemize}
+
+\end{document}

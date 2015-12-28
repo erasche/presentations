@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="2013-11-18" />
+  <title>Debian Packaging Seminar</title>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="https://cpt.tamu.edu/md.css" />
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js.gz"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">Debian Packaging Seminar</h1>
+  <p class="author">
+2013-11-18
+  </p>
+  <p class="date">Eric Rasche</p>
+</div>
+<div class="section slide level1" id="debian-packages">
+<h1 id="debian-packages">Debian Packages</h1>
+<p>Debian packages are made up of a few things</p>
+<ul>
+<li>Files to be moved into the host file system</li>
+<li>Scripts which are executed before and after installation and removal to aid in the process</li>
+<li>Information about the software and its dependencies</li>
+</ul>
+</div>
+<div class="section slide level1" id="structure-of-debian-packages">
+<h1 id="structure-of-debian-packages">Structure of Debian Packages</h1>
+<p>Debian archives, a <code>.deb</code> file, is essentially just an <code>.ar</code> archive, which contains two files:</p>
+<dl>
+<dt>control.tar.gz</dt>
+<dd><p>Contains the <code>/debian/</code> directory which instructs the package how to be installed, the dependencies, et cetera.</p>
+</dd>
+<dt>data.tar.gz</dt>
+<dd><p>This archive contains the binaries, source, and other files which will be moved to the filesystem.</p>
+</dd>
+</dl>
+</div>
+<div class="section slide level1" id="control-files">
+<h1 id="control-files">Control files</h1>
+<p>Control files specify meta information about a package, such as</p>
+<ul>
+<li>who maintains it</li>
+<li>dependencies</li>
+<li>description of the package</li>
+</ul>
+</div>
+<div class="section slide level1" id="packaging-compiled-software">
+<h1 id="packaging-compiled-software">Packaging Compiled Software</h1>
+<ul>
+<li>Very rarely needs special steps.</li>
+<li>Most you just check where the software is set to go to, build it, and then move those files into your package tree.</li>
+</ul>
+</div>
+<div class="section slide level1" id="modification-of-existing-packages">
+<h1 id="modification-of-existing-packages">Modification of existing Packages</h1>
+<ul>
+<li>Easy to do.</li>
+<li>Modify <em>any</em> DEB</li>
+<li>Break apart in two steps and put back together in one.</li>
+</ul>
+</div>
+<div class="section slide level1" id="building-signing-simple-packagies">
+<h1 id="building-signing-simple-packagies">Building + Signing Simple Packagies</h1>
+<ul>
+<li>Use the <code>-k</code> option.</li>
+<li>If you are not using GPG, start using it!</li>
+<li>Sign packages, encrypt email; prove you are who you say you are.</li>
+<li><a href="https://wiki.debian.org/SecureApt">Read more here</a></li>
+</ul>
+</div>
+<div class="section slide level1" id="update-alternatives">
+<h1 id="update-alternatives">Update alternatives</h1>
+<ul>
+<li>Allows easy configuration of shortcuts for binaries</li>
+<li>e.g., how <code>vim</code>, <code>emacs</code>, and <code>nano</code> can exist as alternatives for the default editor (available as <code>editor</code> from the terminal).</li>
+</ul>
+</div>
+<div class="section slide level1" id="apt">
+<h1 id="apt">APT</h1>
+<ul>
+<li>Collection of tools for managing binaries and depenencies</li>
+<li><a href="https://wiki.debian.org/Apt">Further Reading</a></li>
+</ul>
+</div>
+<div class="section slide level1" id="reprepro-apt-servers">
+<h1 id="reprepro-apt-servers">Reprepro &amp; APT Servers</h1>
+<ul>
+<li>Reprepro allows creation and maintenance of an apt repository</li>
+<li>For documentation, install reprepro and see (<code>/usr/share/doc/reprepro/manual</code>)[https://cpt.tamu.edu/reprepro/manual.html].</li>
+</ul>
+</div>
+</body>
+</html>

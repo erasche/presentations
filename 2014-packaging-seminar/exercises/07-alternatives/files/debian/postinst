@@ -1,0 +1,24 @@
+#! /bin/sh
+# postinst script 
+#
+# see: dh_installdeb(1)
+
+set -e
+
+if [ -f /usr/share/debconf/confmodule ]; then
+. /usr/share/debconf/confmodule
+fi
+    
+case "$1" in
+    configure)
+        update-alternatives --install \
+            /usr/bin/cpt-build-tut-01 cpt-build-tut-01 /usr/bin/cpt-build-tut-01v2  500
+    ;;
+    *)  
+    ;;
+esac    
+                
+#DEBHELPER#             
+                
+exit 0          
+

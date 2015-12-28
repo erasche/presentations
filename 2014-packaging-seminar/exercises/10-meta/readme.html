@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="2013-12-03">
+  <title>Meta</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="https://cpt.tamu.edu/md.css">
+</head>
+<body>
+<header>
+<h1 class="title">Meta</h1>
+<h2 class="author">2013-12-03</h2>
+<h3 class="date">Eric Rasche</h3>
+</header>
+<h1 id="metapackages">Metapackages</h1>
+<p>Metapackages simply provide collecctions of packages as their dependencies, without providing any real software themselves. A good example of this would be the <code>kubuntu-desktop</code> package, which install KDE in Ubuntu. See below:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">Package: kubuntu-desktop                 
+State: installed
+Automatically installed: no
+Version: 1.254
+Priority: optional
+Section: metapackages
+Maintainer: Kubuntu Developers <span class="kw">&lt;</span>kubuntu-devel@lists.ubuntu.com<span class="kw">&gt;</span>
+Architecture: i386
+Uncompressed Size: 54.3 k
+Depends: alsa-base, alsa-utils, anacron, ark, <span class="kw">bc</span>, ca-certificates, dolphin, foomatic-db-compressed-ppds, foomatic-filters, genisoimage,
+         ghostscript-x, inputattach, kde-window-manager, kde-workspace-bin, kde-zeroconf, kdemultimedia-kio-plugins, kdepasswd, kdm,
+         khelpcenter4, klipper, kmix, konsole, ksnapshot, ksysguard, kubuntu-netbook-default-settings, language-selector-kde,
+         libpam-ck-connector, libsasl2-modules, libxp6, nvidia-common, okular, openprinting-ppds, phonon-backend-gstreamer,
+         plasma-desktop, plasma-netbook, printer-driver-pnm2ppa, rfkill, software-properties-kde, systemsettings, ttf-dejavu-core,
+         ttf-freefont, ubuntu-extras-keyring, <span class="kw">unzip</span>, wireless-tools, wpasupplicant, xdg-user-dirs, xkb-data, xorg, <span class="kw">zip</span>
+Recommends: acpi-support, akregator, amarok, appmenu-gtk, appmenu-gtk3, apport-kde, apturl-kde, avahi-autoipd, avahi-daemon, bluedevil,
+            bluez, bluez-alsa, bluez-cups, brltty, <span class="kw">cdrdao</span>, cryptsetup, cups, cups-bsd, cups-client, dragonplayer, fonts-kacst-one,
+            fonts-khmeros-core, fonts-lao, fonts-liberation, fonts-nanum, fonts-takao-pgothic, fonts-thai-tlwg, gnupg-agent, gpgsm,
+            gstreamer0.10-qapt, gtk2-engines-oxygen, gtk3-engines-oxygen, gwenview, hplip, ibus-qt4, im-switch, jockey-kde, k3b,
+            kaccessible, kaddressbook, kamera, kate, kcalc, kde-config-gtk, kde-config-touchpad, kdegraphics-strigi-analyzer,
+            kdenetwork-filesharing, kdepim-kresources, kdepim-runtime, kdepim-strigi-plugins, kdesudo, kerneloops-daemon, kmag, kmail,
+            kmousetool, knotes, kontact, kopete, korganizer, kpat, kppp, ksystemlog, ktimetracker, ktorrent, kubuntu-default-settings,
+            kubuntu-docs, kubuntu-firefox-installer, kubuntu-notification-helper, kubuntu-web-shortcuts, kvkbd, kwalletmanager,
+            laptop-detect, libnss-mdns, libqca2-plugin-ossl, libreoffice-calc, libreoffice-impress, libreoffice-kde,
+            libreoffice-style-oxygen, libreoffice-writer, mobile-broadband-provider-info, muon, muon-installer, muon-notifier,
+            okular-extra-backends, oxygen-cursor-theme, oxygen-icon-theme, partitionmanager, pcmciautils, pinentry-qt4,
+            plasma-widget-facebook, plasma-widget-folderview, plasma-widget-kimpanel, plasma-widget-menubar,
+            plasma-widget-message-indicator, plasma-widget-networkmanagement, plasma-widgets-addons, plymouth-theme-kubuntu-logo,
+            plymouth-theme-kubuntu-text, policykit-desktop-privileges, polkit-kde-1, printer-applet, printer-driver-c2esp,
+            printer-driver-foo2zjs, printer-driver-min12xxw, printer-driver-ptouch, printer-driver-pxljr, printer-driver-sag-gdi,
+            printer-driver-splix, pulseaudio, pulseaudio-module-bluetooth, python-qt4-dbus, qapt-deb-installer, quassel, rekonq,
+            system-config-printer-kde, ttf-indic-fonts-core, ttf-punjabi-fonts, ttf-ubuntu-font-family, ttf-wqy-microhei, udisks, upower,
+            usb-creator-kde, userconfig, xcursor-themes, xdg-utils, xsettings-kde
+Description: Kubuntu Plasma Desktop/Netbook system
+ This package depends on all of the packages <span class="kw">in</span> the Kubuntu desktop system<span class="kw">.</span> Installing this package will include the default Kubuntu
+ Plasma Desktop or Netbook installation<span class="kw">.</span> 
+
+ It is safe to remove this package if some of the desktop system packages are not desired.</code></pre>
+<p>Note that the section is set as 'metapackages' and that the dependency list is a bit crazy. These metapackages can be useful if you have a lot of software and users commonly want to install all of it together. A genomics related example might be a GMOD metapackage which would install Chado, GBrowse, WebApollo, etc.</p>
+<h1 id="equivs">Equivs</h1>
+<p>Equivs is a package which provides scripts to create control files and build packages from control files. It is <em>perfect</em> for building metapackages, and lying to your installation about installing a package (I have done this...)</p>
+<h2 id="equivs-control">equivs-control</h2>
+<p>This script generates a control file. It literally just copies a template control file provided with the package.</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ equivs-control control
+$ <span class="kw">cat</span> control 
+<span class="co">### Commented entries have reasonable defaults.</span>
+<span class="co">### Uncomment to edit them.</span>
+<span class="co"># Source: &lt;source package name; defaults to package name&gt;</span>
+Section: misc
+Priority: optional
+<span class="co"># Homepage: &lt;enter URL here; no default&gt;</span>
+Standards-Version: 3.9.2
+
+Package: <span class="kw">&lt;</span>package name; defaults to equivs-dummy<span class="kw">&gt;</span>
+<span class="co"># Version: &lt;enter version here; defaults to 1.0&gt;</span>
+<span class="co"># Maintainer: Your Name &lt;yourname@example.com&gt;</span>
+<span class="co"># Pre-Depends: &lt;comma-separated list of packages&gt;</span>
+<span class="co"># Depends: &lt;comma-separated list of packages&gt;</span>
+<span class="co"># Recommends: &lt;comma-separated list of packages&gt;</span>
+<span class="co"># Suggests: &lt;comma-separated list of packages&gt;</span>
+<span class="co"># Provides: &lt;comma-separated list of packages&gt;</span>
+<span class="co"># Replaces: &lt;comma-separated list of packages&gt;</span>
+<span class="co"># Architecture: all</span>
+<span class="co"># Copyright: &lt;copyright file; defaults to GPL2&gt;</span>
+<span class="co"># Changelog: &lt;changelog file; defaults to a generic changelog&gt;</span>
+<span class="co"># Readme: &lt;README.Debian file; defaults to a generic one&gt;</span>
+<span class="co"># Extra-Files: &lt;comma-separated list of additional files for the doc directory&gt;</span>
+<span class="co"># Files: &lt;pair of space-separated paths; First is file to include, second is destination&gt;</span>
+<span class="co">#  &lt;more pairs, if there&#39;s more than one file to include. Notice the starting space&gt;</span>
+Description: <span class="kw">&lt;</span>short description; defaults to some wise words<span class="kw">&gt;</span> 
+ long description and info
+ .
+ second paragraph</code></pre>
+<p>This control file can now be used to do create a metapackage, or an empty version of existing package (e.g., LaTeX + kile case).</p>
+<h2 id="equivs-build">equivs-build</h2>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ equivs-build .
+dh_testdir
+dh_testroot
+dh_prep
+dh_testdir
+dh_testroot
+dh_install
+dh_installdocs
+dh_installchangelogs
+dh_compress
+dh_fixperms
+dh_installdeb
+dh_gencontrol
+dh_md5sums
+dh_builddeb
+dpkg-deb: building package <span class="kw">`</span>equivs-dummy<span class="st">&#39; in `../equivs-dummy_1.0_all.deb&#39;</span>.
+
+The package has been created.
+Attention, the package has been created <span class="kw">in</span> the current directory,
+not <span class="kw">in</span> <span class="st">&quot;..&quot;</span> <span class="kw">as</span> indicated by the message above!</code></pre>
+<p>equivs-build however has some useful options. It provides a <code>--full</code> flag to have a signed build and a <code>--arch</code> flag to build dummy packages for other architectures.</p>
+<h1 id="exercise">Exercise</h1>
+<p>Please create a metapackage specifying the following packages as dependencies:</p>
+<ul>
+<li>vim</li>
+<li>emacs</li>
+<li>firefox</li>
+<li>mysql-client</li>
+<li>mysql-server</li>
+<li>openjdk-7-jdk</li>
+<li>openjdk-6-jdk</li>
+</ul>
+<p>and name the metapackage &quot;devloper-tools&quot;. Then build the package using equivs-build and verify that you were successful using</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">dpkg --info equivs-dummy_1.0_all.deb</code></pre>
+</body>
+</html>

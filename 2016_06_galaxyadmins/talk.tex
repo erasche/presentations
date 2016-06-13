@@ -2,6 +2,7 @@
 
 \definecolor{links}{HTML}{0D6957}
 \hypersetup{colorlinks,linkcolor=,urlcolor=links}
+\logo{\includegraphics[width=1.5cm]{img/grt-t.png}}
 
 \usepackage{amssymb,amsmath}
 \usepackage[utf8x]{inputenc}
@@ -15,10 +16,9 @@
 \usepackage{xcolor}
 
 \input{../base/data}
-\title[GRT]{Galactic Radio Telescope}
+\title[GRT]{\includegraphics[width=4cm]{img/grt.png}}
 \author[\myName\\ \color{gray} \myGpgFingerprint]{\myName}
-
-\date{\today}
+\date[\today]{\today}
 
 \begin{document}
 \frame{\titlepage}
@@ -109,6 +109,7 @@
         \item Fix CPU count issue (Hopefully by time of presentation)
         \item Integrate Jupyter server for crowd sourcing statistical analysis?
         \item If models can be built, then integrate \href{https://github.com/phac-nml/dynamic-tool-destination}{PHAC-NML's dynamic tool destinations}
+        \item Galactic Tool / Analysis Directory (Where should I run my mapping job? Is there a public Galaxy for doing X?)
     \end{itemize}
 \end{frame}
 

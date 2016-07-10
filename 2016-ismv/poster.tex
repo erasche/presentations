@@ -28,10 +28,10 @@
         \begin{column}{.36\linewidth}
             \begin{block}{Why Undergraduate Phage Genomics?}
                 \begin{itemize}
-                    \item Phages are ideal; small size, high coding
-                        density.
+                    \item Phages are ideal--small size, high coding
+                        density
                     \item Can be annotated within a single semester, by a
-                        single undergraduate.
+                        single undergraduate
                     \item Sequencing and assembly are no longer the
                         throughput-limiting step.
                     \item Great test bed for teaching bioinformatics. Many computations are extremely fast (seconds to hours), which allows for more interactive exploration.
@@ -43,29 +43,29 @@
                 Students
                 \begin{itemize}
                     \item \textbf{Students hated the command line!}
-                    \item And they were bad at it too; they struggled to
-                        correctly copy command line statements, and failed to
+                    \item They also struggled to
+                        correctly copy command line statements and failed to
                         understand the relationship between their printed
                         protocols and what they were doing on the screen.
                     \item Keeping track of a huge number of files from various
-                        tool outputs  was tough for untrained undergraduates.
+                        tool outputs was tough for untrained undergraduates.
                 \end{itemize}
                 Staff
                 \begin{itemize}
                     \item Could not keep tabs on student progress throughout the semester.
-                    \item Documenting the exact command line, and exact parameters students ran software with was impossible (typos, websites not under our control).
+                    \item Documenting the exact command line and parameters with which students ran software was impossible (typos, websites not under our control).
                     \item Strong dependence on mutable third party services was concerning for reproducibility.
                 \end{itemize}
 
-                All of this resulted in \emph{Completely Unreproducible Annotations} and a sub-optimal experience for everyone involved.
+                These issues resulted in \emph{Completely Unreproducible Annotations} and a sub-optimal experience for everyone involved.
             \end{block}
 
             \begin{block}{CPT Innovations}
                 Galaxy
                 \begin{itemize}
-                    \item We switched from using a variety of third party
-                        websites, to a local Galaxy deployment.
-                    \item Galaxy provides a single interface to all software
+                    \item Allowed the switch from a variety of third party
+                        websites to a local Galaxy deployment.
+                    \item Galaxy provides a single interface to all software,
                         from BLAST to InterProScan to TMHMM.
                     \item Automatic tracking of user's files and tool run history.
                     \item Automatic, standardized file organisation across all students.
@@ -76,13 +76,13 @@
                 Workflows
                 \begin{itemize}
                     \item Students run workflows instead of tools one-by-one.
-                    \item Everyone runs identical workflows, admins can
+                    \item Everyone runs identical workflows, and admins can
                         pre-configure steps, reducing user error rate.
                 \end{itemize}
                 Apollo
                 \begin{itemize}
                     \item Students only see the most up-to-date copy, which we
-                        transparently, automatically back up.
+                        transparently and automatically back up.
                     \item Students cannot lose files or progress. They cannot
                         accidentally switch to an old version.
                     \item Staff could non-intrusively observe student
@@ -106,7 +106,7 @@
                     \includegraphics[width=0.98\textwidth]{./media/apollo.png}
                     \caption{\textbf{Apollo}, the online collaborative genome annotation
                     suite, has significantly increased student/staff
-                    collaboration and productivity while decreasing IT burden.
+                    collaboration and productivity and decreased IT burden.
                     Also visible: display of heterogeneous data within the Apollo
                     Genome Browser. Results from highly disparate HTML pages,
                     text files, etc. are visually unified, allowing researchers to
@@ -120,9 +120,9 @@
                     adjust these workflows whenever new and improved methods
                     become available. We recently added MetaGeneAnnotator to our
                     gene callers. Students and researchers could then
-                    compare identically styled GeneMarkS, Glimmer3, and MGA
-                    outputs in Apollo, cutting through the opaqueness of large text
-                    files, right to the biology.}
+                    compare identically-styled GeneMarkS, Glimmer3, and MGA
+                    outputs in Apollo, bypassing the opaqueness of large text
+                    files and cutting right to the biology.}
                 \end{figure}
             \end{block}
         \end{column}

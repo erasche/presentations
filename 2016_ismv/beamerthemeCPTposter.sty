@@ -10,12 +10,14 @@
 
 \hypersetup{colorlinks,linkcolor=,urlcolor=CPTcolorschemeDarkGrey}
 \setbeamercolor{caption name}{fg=CPTcolorschemeDarkGrey}
+\usepackage[font=Large]{caption}
+\captionsetup[figure]{labelformat=empty}% redefines the caption setup of the figures environment in the beamer class.
 
 
 % headline colors and fonts
 \setbeamercolor{headline}{fg=white,bg=CPTcolorschemeHeadline}
 \setbeamercolor{title in headline}{fg=white}
-\setbeamercolor{author in headline}{fg=lightgray}
+\setbeamercolor{author in headline}{fg=white}
 \setbeamercolor{institute in headline}{fg=lightgray}
 \setbeamercolor{logo in headline}{fg=black,bg=lightgray}
 
@@ -26,6 +28,7 @@
 
 % body colors and fonts
 \setbeamercolor*{normal text}{fg=black,bg=CPTcolorschemeDarkGrey}
+\newcommand{\columnPadding}[1]{\begin{column}{#1\linewidth}\end{column}}
 
 
 \setbeamercolor{alerted text}{fg=CPTcolorschemeMaroon}
@@ -65,29 +68,25 @@
 
   \begin{beamercolorbox}[wd=\paperwidth]{headline}
     \begin{columns}[T]
-      \begin{column}{.2\paperwidth}
+      \columnPadding{.02}
+      \begin{column}{.18\paperwidth}
         \begin{center}
             \Large Day 2-T03-Pos-27\\
-          \includegraphics[width=0.1\paperwidth]{figures/logos/TAM-Logo-white.png}
+          \includegraphics[width=0.1\paperwidth]{figures/logos/TAM-Logo-white.png}\\
+          \includegraphics[]{figures/logos/cpt.png}
         \end{center}
         \vskip1ex
       \end{column}
-      \begin{column}{.6\paperwidth}
-        \vskip4ex
+      \columnPadding{.02}
+      \begin{column}{.76\paperwidth}
         \raggedleft
+        \vskip4ex
+        \vspace{2ex}
         \usebeamercolor{title in headline}{\centering\color{fg}\textbf{\VeryHuge{\inserttitle}}\\[7ex]}
         \usebeamercolor{author in headline}{\color{fg}\veryHuge{\insertauthor}\\[1ex]}
         \usebeamercolor{institute in headline}{\color{fg}\LARGE{\insertinstitute}\\[1ex]}
       \end{column}
-      \begin{column}{.02\paperwidth}
-      \end{column}
-      \begin{column}{.2\paperwidth}
-        \vskip1cm
-        \begin{center}
-          \includegraphics[]{figures/logos/cpt.png}
-        \end{center}
-        \vskip1.5cm
-      \end{column}
+      \columnPadding{.02}
     \end{columns}
   \end{beamercolorbox}
   \begin{beamercolorbox}[wd=\paperwidth]{lower separation line head}

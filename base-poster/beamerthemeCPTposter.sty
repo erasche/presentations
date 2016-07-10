@@ -8,10 +8,6 @@
 \definecolor{CPTcolorschemeHeadline}{HTML}{500000}  % for headline bg
 \definecolor{CPTcolorschemeFootline}{HTML}{100D09}  % for headline bg
 
-\hypersetup{colorlinks,linkcolor=,urlcolor=CPTcolorschemeDarkGrey}
-\setbeamercolor{caption name}{fg=CPTcolorschemeDarkGrey}
-
-
 % headline colors and fonts
 \setbeamercolor{headline}{fg=white,bg=CPTcolorschemeHeadline}
 \setbeamercolor{title in headline}{fg=white}
@@ -65,19 +61,21 @@
 
   \begin{beamercolorbox}[wd=\paperwidth]{headline}
     \begin{columns}[T]
-      \begin{column}{.2\paperwidth}
+      \begin{column}{.07\paperwidth}
         \begin{center}
-            \Large Day 2-T03-Pos-27\\
-          \includegraphics[width=0.1\paperwidth]{figures/logos/TAM-Logo-white.png}
+          %\includegraphics[width=.6\linewidth]{logos/CPT-hks44}
+          \includegraphics[height=\linewidth]{figures/logos/TAM-Logo-white.png}
         \end{center}
         \vskip1ex
       \end{column}
-      \begin{column}{.6\paperwidth}
+      \begin{column}{.08\paperwidth}
+      \end{column}
+      \begin{column}{.5\paperwidth}
         \vskip4ex
         \raggedleft
         \usebeamercolor{title in headline}{\centering\color{fg}\textbf{\VeryHuge{\inserttitle}}\\[7ex]}
         \usebeamercolor{author in headline}{\color{fg}\veryHuge{\insertauthor}\\[1ex]}
-        \usebeamercolor{institute in headline}{\color{fg}\LARGE{\insertinstitute}\\[1ex]}
+        \usebeamercolor{institute in headline}{\color{fg}\LARGE{\insertinstitute}\\[1ex]}     
       \end{column}
       \begin{column}{.02\paperwidth}
       \end{column}

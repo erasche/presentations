@@ -1,4 +1,4 @@
-\documentclass[final,t,20pt]{beamer}
+\documentclass[final,t]{beamer}
 \mode<presentation>{
   \usetheme{CPTposter}
 }
@@ -8,15 +8,19 @@
 \usepackage{listings}
 \usepackage{amsmath,amsthm, amssymb, latexsym}
 \usepackage{exscale}
-\usepackage[orientation=portrait,size=a0]{beamerposter}
+\usepackage[orientation=portrait,size=a0,scale=0.8]{beamerposter}
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows}
 \usepackage{multirow}
 
 
+
 \title{Enhancing Student Engagement with Online Annotation of Bacteriophage Genomes}
 \author{\huge Eric Rasche$^{\text{1}}$, Jason Gill$^{\text{2}}$, Ryland Young$^{\text{1, 3}}$}
-\institute{\large 1. Center for Phage Technology, Texas A\&M University, College Station, United States\\2. Department of Animal Science, Texas A\&M University, College Station, United States\\3. Biochemistry and Biophysics, Texas A\&M, College Station, United States}
+\institute{\Large %
+1. Center for Phage Technology, Texas A\&M University, College Station, United States\\%
+2. Department of Animal Science, Texas A\&M University, College Station, United States\\%
+3. Department of Biochemistry and Biophysics, Texas A\&M University, College Station, United States}
 
 % abbreviations
 \setlength\parindent{1cm}
@@ -27,6 +31,23 @@
     \begin{columns}[t]
         \columnPadding{0.00}
         \begin{column}{.36\linewidth}
+
+            \begin{block}{BICH464: Phage Genomics for undergraduates}
+                1 semester, 3 credit course taught for 12 years (pre-dates HHMI Phage Hunters). Each student:
+                \begin{itemize}
+                    \item Annotates a complete, novel phage genome in 1 semester
+                    \item Prepares and polishes a Genbank file for submission
+                    \item Writes a 500 word submission for ASM Genome Announcements
+                \end{itemize}
+                The students additionally isolate novel phages from the environment for future years.
+
+                The ultimate goal of the course is student exposure to real research,
+                including the time demands, requirement for initiative,
+                intense phage biology, and fundamental genomics required.
+            \end{block}
+
+
+
             \begin{block}{Why Undergraduate Phage Genomics?}
                 \begin{itemize}
                     \item Phages are ideal--small size, high coding
@@ -52,7 +73,7 @@
                     \item Documenting parameters students used in
                         software was impossible (typos, closed-source websites).
                     \item Dependence on mutable third party services was
-                        very concerning for reproducibility.
+                        quite problematic for reproducibility.
                 \end{itemize}
 
                 These issues resulted in sub-optimal experience for everyone
@@ -65,15 +86,16 @@
                     \item Galaxy provides a single interface to all software,
                         from BLAST to InterProScan to TMHMM.
                     \item Galaxy is a robust system with extremely large community
-                        supporting development and features. Not just for eukaryotes!
+                        supporting development and features. Not just for eukaryotic genomics!
                     \item \emph{100\% reproducible science.}
                     \item Automatic tracking of user's files and tool run history.
-                    \item Perfect documentation of precise commands run.
+                    \item Perfect documentation of commands run and parameters used.
                 \end{itemize}
                 Workflows!
                 \begin{itemize}
                     \item Students run complete, automated workflows instead of
-                        tools one-by-one, or CLI commands.
+                        running individual tools, or typing in complex command
+                        line statements.
                     \item Everyone runs identical workflows, and admins can
                         pre-configure steps, eliminating user error rate.
                     \item More time for teaching and bioinformatics.
@@ -94,13 +116,13 @@
                 Try it Today! \url{https://cpt.tamu.edu/beta}
                 \begin{itemize}
                     \item Open Beta for Galaxy \& Apollo annotation workflow.
-                    \item All work is open source, and community focused.
+                    \item All work is open source, and community-focused.
                     \item NSF funding for further development of community
-                        viral annotation (de-novo and re-annotation) efforts.
+                        viral annotation (\emph{de novo} and re-annotation) efforts.
                 \end{itemize}
                 Future
                 \begin{itemize}
-                    \item Easily clone our infrastructure, deploy your own
+                    \item Easily clone our infrastructure, and deploy your own
                         annotation community!
                 \end{itemize}
             \end{block}
@@ -116,7 +138,7 @@
                         use any of the $\approx$600 tools available in the
                         CPT's Galaxy, just by understanding the tool's use
                         case. Tool runs are automatically recorded in their
-                        \emph{history}, like a automated lab notebook.}
+                        \emph{history}, like an automated lab notebook.}
                 \end{figure}
                 \begin{figure}
                     \includegraphics[width=0.98\textwidth]{./media/apollo.png}

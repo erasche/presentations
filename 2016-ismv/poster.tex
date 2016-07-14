@@ -3,7 +3,9 @@
   \usetheme{CPTposter}
 }
 \usepackage{ragged2e}
-
+\usepackage{enumitem}
+\setlist[itemize]{topsep=.7ex,parsep=.4ex,label=$-$,leftmargin=4ex}
+\captionsetup{belowskip=4ex}
 % additional packages
 \usepackage{listings}
 \usepackage{amsmath,amsthm, amssymb, latexsym}
@@ -12,7 +14,6 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows}
 \usepackage{multirow}
-
 
 
 \title{Enhancing Student Engagement with Online Annotation of Bacteriophage Genomes}
@@ -33,17 +34,17 @@
         \begin{column}{.36\linewidth}
 
             \begin{block}{BICH464: Phage Genomics for undergraduates}
-                1 semester, 3 credit course taught for 12 years (pre-dates HHMI Phage Hunters). Each student:
+                Semester long, 3 credit course taught for 12 years (pre-dates HHMI Phage Hunters). During the course, each student:
                 \begin{itemize}
-                    \item Annotates a complete, novel phage genome in 1 semester
-                    \item Prepares and polishes a Genbank file for submission
+                    \item Annotates a complete, novel phage genome
+                    \item Prepares and polishes a GenBank file for submission
                     \item Writes a 500 word submission for ASM Genome Announcements
                 \end{itemize}
-                The students additionally isolate novel phages from the environment for future years.
+                The students additionally isolate novel phages from the environment for future years.\\[2ex]
 
-                The ultimate goal of the course is student exposure to real research,
-                including the time demands, requirement for initiative,
-                intense phage biology, and fundamental genomics required.
+                The ultimate goal of the course is to expose students to real
+                research, including the time demands, requirement for
+                initiative, phage biology, and fundamental genomics required.
             \end{block}
 
 
@@ -56,22 +57,24 @@
                         single undergraduate
                     \item Sequencing and assembly are no longer the
                         throughput-limiting step.
+                    \item Not computationally intensive, analysis steps run in
+                        fraction of time of bacteria/eukaryotes
                 \end{itemize}
             \end{block}
 
             \begin{block}{Previous Course Iterations}
                 \justifying
-                Students
+                Students:
                 \begin{itemize}
                     \item Students hated the command line!
                     \item Struggled to copy command line statements and failed
                         to understand the relationship between their printed
                         protocols and their screen.
                 \end{itemize}
-                Staff
+                Staff:
                 \begin{itemize}
                     \item Documenting parameters students used in
-                        software was impossible (typos, closed-source websites).
+                        software was impossible (student typos, closed-source websites).
                     \item Dependence on mutable third party services was
                         quite problematic for reproducibility.
                 \end{itemize}
@@ -81,7 +84,7 @@
             \end{block}
 
             \begin{block}{CPT Viral Annotation Innovations}
-                Use Galaxy
+                Use Galaxy:
                 \begin{itemize}
                     \item Galaxy provides a single interface to all software,
                         from BLAST to InterProScan to TMHMM.
@@ -100,15 +103,15 @@
                         pre-configure steps, eliminating user error rate.
                     \item More time for teaching and bioinformatics.
                 \end{itemize}
-                Apollo is the Future
+                Apollo is the Future:
                 \begin{itemize}
-                    \item Leverages a widely used system with large community
-                        for annotation of viral organisms.
+                    \item Can adapt the widely used eukaryotic system for viral
+                        annotation needs.
                     \item Students only see the most up-to-date copy, which we
                         transparently and automatically back up.
                     \item Students cannot lose files or progress. They cannot
                         accidentally switch to an old version.
-                    \item Unified display of outputs of very different tools.
+                    \item Unified display of outputs from very different tools.
                 \end{itemize}
             \end{block}
 
@@ -130,9 +133,9 @@
         \end{column}
         \columnPadding{0.00}
         \begin{column}{.60\linewidth}
-            \begin{block}{Galaxy \& Apollo: Automation \& Unified Results Display }
+            \begin{block}{Galaxy \& Apollo: Automation \& Unified Results Display}
                 \begin{figure}
-                    \includegraphics[width=0.98\textwidth]{./media/galaxy.png}
+                    \includegraphics[width=0.98\textwidth]{./media/galaxy.png}\vspace{1ex}
                     \caption{In \textbf{Galaxy}, every tool has a standardized
                         interface. Once students learn the interface, they can
                         use any of the $\approx$600 tools available in the
@@ -141,7 +144,7 @@
                         \emph{history}, like an automated lab notebook.}
                 \end{figure}
                 \begin{figure}
-                    \includegraphics[width=0.98\textwidth]{./media/apollo.png}
+                    \includegraphics[width=0.98\textwidth]{./media/apollo.png}\vspace{1ex}
                     \caption{\textbf{Apollo}, the online, real-time,
                     collaborative genome annotation suite, has significantly
                     increased student/staff productivity and
@@ -152,7 +155,7 @@
                 \end{figure}
 
                 \begin{figure}
-                    \includegraphics[width=\textwidth]{./media/workflow.png}
+                    \includegraphics[width=\textwidth]{./media/workflow.png}\vspace{1ex}
                     \caption{Galaxy Workflows enable researchers to develop
                     common analysis units such as ``Gene Calling'', and to
                     adjust these workflows whenever new and improved methods
@@ -161,7 +164,7 @@
                     compare identically-styled GeneMarkS, Glimmer3, and MGA
                     outputs in Apollo. They could bypass the opaqueness of
                     large text reports, and cut right to the biology.}
-                    \vspace{-0.3cm}
+                    \vspace{0.097cm}
                 \end{figure}
             \end{block}
         \end{column}

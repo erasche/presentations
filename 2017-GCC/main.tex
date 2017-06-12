@@ -1,6 +1,7 @@
 \documentclass[12pt]{phage3slides} %
 
-\title[GGA]{Galaxy Genome Annotation: Galaxy and GMOD for Annotation, Teaching, and Genomic Databases}
+\logo{\includegraphics[width=1cm]{gga-small.png}}
+\title[Galaxy for Genome Annotation]{Galaxy Genome Annotation: Galaxy and GMOD for Annotation, Teaching, and Genomic Databases}
 \author[ER, BG, ND, AB]{Eric Rasche, Bj\"orn Gr\"uning, Nathan Dunn, Anthony Bretaudeau}
 
 \begin{document}
@@ -25,19 +26,60 @@
 % Very interesting subject. We encourage the presenters to focus on 3-4 key
 % aspects of the project rather than try to cover every aspect.
 
-\section{Data Analysis}
-\begin{frame}{Data Analysis for Genome Annotation}
-	\begin{itemize}
-	\end{itemize}
+\section[GGA]{Galaxy for Genome Annotoation}
+\begin{frame}{Galaxy for Genome Annotation}
+    Galaxy has room to expand into the Genome Annotation space.
+    Needs community, we are that community.
+    Needs tooling, we're building that.
+    Needs integrations, we're building that.
+\end{frame}
+
+\subsection{Who}
+\begin{frame}{Who are we?}
+    \begin{itemize}
+        \item Bj\"orn Gr\"uning
+        \item Eric Rasche
+        \item Anthony Bretaudeau
+        \item Peter van Heusen
+        \item Nathan Dunn
+        \item Eduardo de Paiva Alves
+        \item Suzanna Lewis
+        \item Torsten Seemann
+        \item \ldots you!
+    \end{itemize}
+\end{frame}
+
+\subsection{What}
+\begin{frame}{What are we building?}
+    \begin{itemize}
+        \item Small components enhancing integration
+        \item Standalone services augmenting the experience
+        \item Which all build to: Completely pre-configured
+            Galaxy+Apollo deployments with optional Tripal/Chado
+            additions
+    \end{itemize}
+\end{frame}
+
+\section{Projects}
+\begin{frame}{Overview of Projects}
+    \begin{itemize}
+        \item Docker Image: Galaxy + Annotation Tools {\color{gray}(Apollo Tools, Tripal Admin Tools, Circos, JBrowse, BLAST+, InterProScan, Glimmer, Augustus, FASTA manipulation tools, Spades, Mira, CD-Hit, ClustalW, AntiSmash, mummer, EMBOSS, BLAST, Diamond, Blast2GO)}
+        \item Dockerized GMOD Deployment {\color{gray}(Most GMOD projects pre-configured to work together seamlessly)}
+        \item Apollo Client library {\color{gray}(+parsec like tool, ``Arrow'')}
+        \item Various Apollo support projects {\color{gray}(git-backup, experimental google docs integration)}
+    \end{itemize}
 \end{frame}
 
 
-{%
-  \usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{gx-tool.png}}
-  \setbeamertemplate{navigation symbols}{}
-  \begin{frame}[plain]
-  \end{frame}
-}
+\section{Real Life}
+\begin{frame}{How are These Used in Real Life?}
+    \begin{itemize}
+        \item The Galaxy-Apollo bridge grew out of use in an undergraduate course
+        \item We have improved upon them as students find new bugs and corner cases we did not expect
+        \item 
+    \end{itemize}
+\end{frame}
+
 
 
 \section{Q\&A}

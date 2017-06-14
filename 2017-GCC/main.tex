@@ -1,8 +1,9 @@
 \documentclass[12pt]{phage3slides} %
 
 \logo{\includegraphics[width=1cm]{gga-small.png}}
-\title[Galaxy for Genome Annotation]{Galaxy Genome Annotation: Galaxy and GMOD for Annotation, Teaching, and Genomic Databases}
+\title[Galaxy for Genome Annotation, Teaching, Databases]{Galaxy Genome Annotation: Galaxy and GMOD for Annotation, Teaching, and Genomic Databases}
 \author[ER, BG, ND, AB]{Eric Rasche, Bj\"orn Gr\"uning, Nathan Dunn, Anthony Bretaudeau}
+\date{2017-06-29T13:50:00Z}
 
 \begin{document}
 \frame{\titlepage}
@@ -32,6 +33,9 @@
     Needs community, we are that community.
     Needs tooling, we're building that.
     Needs integrations, we're building that.
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{gga-clean.png}
+    \end{center}
 \end{frame}
 
 \subsection{Who}
@@ -52,17 +56,6 @@
 \subsection{What}
 \begin{frame}{What are we building?}
     \begin{itemize}
-        \item Small components enhancing integration
-        \item Standalone services augmenting the experience
-        \item Which all build to: Completely pre-configured
-            Galaxy+Apollo deployments with optional Tripal/Chado
-            additions
-    \end{itemize}
-\end{frame}
-
-\section{Projects}
-\begin{frame}{Overview of Projects}
-    \begin{itemize}
         \item Docker Image: Galaxy + Annotation Tools {\color{gray}(Apollo Tools, Tripal Admin Tools, Circos, JBrowse, BLAST+, InterProScan, Glimmer, Augustus, FASTA manipulation tools, Spades, Mira, CD-Hit, ClustalW, AntiSmash, mummer, EMBOSS, BLAST, Diamond, Blast2GO)}
         \item Dockerized GMOD Deployment {\color{gray}(Most GMOD projects pre-configured to work together seamlessly)}
         \item Apollo Client library {\color{gray}(+parsec like tool, ``Arrow'')}
@@ -70,18 +63,27 @@
     \end{itemize}
 \end{frame}
 
-
-\subsection{Docker Images}
-\begin{frame}{Docker Images}
+\subsection{Why}
+\begin{frame}{Why?}
     \begin{itemize}
-        \item Docker images for major GMOD projects (Apollo, Chado, Tripal)
-        \item Galaxy image with huge array of tools
-        \item Docker-compose configuration for entire deployment
+        \item Fun Challenges
+        \item Useful to real-life people, solve real problems
     \end{itemize}
 \end{frame}
 
 
-\subsection{Galaxy/Apollo}
+
+
+
+\section{Annotation}
+\begin{frame}{Annotation Infrastructure}
+    \begin{itemize}
+        \item Docker Image: Many annotation tools collected in a single place, pre-installed and ready to annotate
+        \item Easy to deploy connections to annotation backends (e.g. Apollo)
+        \item Peripheral tools to move data easily across annotation system boundaries %(Extract from Chado -> Load to Galaxy -> Analyse -> Push to Apollo)
+    \end{itemize}
+\end{frame}
+
 \begin{frame}{Galaxy / Apollo Bridge}
     \begin{itemize}
         \item Initially simple tooling to move data in/out of Apollo
@@ -94,39 +96,48 @@
 
 
 
-\section{Real Life}
+
+
+
+
+
+
+\section{Teaching}
 \begin{frame}{Course}
     \begin{itemize}
-        \item Used in Course
+        \item Course Background
         \item Current Course Applications
         \item Ongoing Expansions
-        \item Future Work
     \end{itemize}
 \end{frame}
-
 
 \subsection{Background}
 \begin{frame}{Course Background}
     \begin{itemize}
-        \item Undergraduate phage annotation course
+        \item Undergraduate Phage annotation course
         \item Genome sequence to publication
         \item (Parallel track for environmental sample to isolated phage)
+        \item Gigantic workflows using many of the tools pre-installed in image
+        \item Converging implementations; updates to our phage course + GGA suite
     \end{itemize}
 \end{frame}
 
 \subsection{Current}
 \begin{frame}{Current Applications}
     \begin{itemize}
-        \item Apollo for annotation
-        \item But how to democratize annotation?
-        \item Galaxy Tools can create genomes, update permissions
-        \item (But we do end up having to check user's apollo permissions at every step)
+        \item Apollo for annotation is amazing, ``google docs'' of genome annotation
+        \item Student+Faculty collaboration is easy
+        \item Faculty+Faculty collaboration is easy
+
+        \item Workflows (publicly available) for Phage Annotation
+        \item More workflows available from training-material repo for 
     \end{itemize}
 \end{frame}
 
 \subsection{Expansion}
 \begin{frame}{Applications}
     \begin{itemize}
+        % Too personal to CPT implementation?
         \item Using automated Chado export in Apollo
         \item Adding on Tripal + JBrowse-based public sequence display
         \item Internal sample tracking database
@@ -135,13 +146,35 @@
 \end{frame}
 
 
-\subsection{Future}
-\begin{frame}{Future Work}
+
+
+
+\section{Database}
+
+\begin{frame}{Genomic Databases}
     \begin{itemize}
-        \item More tools (IUC, GGA)
-        \item More annotation community
+        \item Perfect match
+        \item Reproducibility + generally unreproducible external databases
+        \item Democratization of resources. (Easier access control through galaxy tools)
+
+        \item But how to democratize annotation?
+        \item Galaxy Tools can create genomes, update permissions
+        \item (But we do end up having to check user's apollo permissions at every step)
     \end{itemize}
 \end{frame}
+
+\subsection{Tooling}
+\begin{frame}{Genomic Databases}
+    \begin{itemize}
+        \item Tools for querying annotation resources, answering specific questions. % TODO: integrate chado tools
+        \item Tools for fetching remote data into Galaxy
+        \item Galaxy is used for Analysis
+        \item Tools for creating new annotations from analysis results
+    \end{itemize}
+\end{frame}
+
+
+
 
 
 \section{Q\&A}

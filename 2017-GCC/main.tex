@@ -60,10 +60,12 @@
 \subsection{What}
 \begin{frame}{What are we building?}
     \begin{itemize}
-        \item Docker Image: Galaxy + Annotation Tools {\color{gray}(Apollo Tools, Tripal Admin Tools, Circos, JBrowse, BLAST+, InterProScan, Glimmer, Augustus, FASTA manipulation tools, Spades, Mira, CD-Hit, ClustalW, AntiSmash, mummer, EMBOSS, BLAST, Diamond, Blast2GO)}
-        \item Dockerized GMOD Deployment {\color{gray}(Galaxy, JBrowse, Apollo, Chado, Chado APIs, Tripal pre-configured to work together seamlessly)}
-        \item Apollo, Chado python libraries {\color{gray}(+parsec like tools, ``Arrow'' and ``Chakin'')}
-        \item Various Apollo support projects {\color{gray}(git-backup, experimental google docs integration)}
+        \item Galaxy Images
+        \item GMOD Containers
+        \item Glue Code
+        \item Training Materials
+        \item Peripherals
+        \item Community
     \end{itemize}
 \end{frame}
 
@@ -92,11 +94,10 @@
 \subsection{Solutions}
 \begin{frame}{Annotation Solutions}
     \begin{itemize}
-        \item Galaxy Images: Suites of annotation tools pre-installed in docker images
-        \item GMOD Containers: Containers for the big projects
-        \item Glue Code: Easy to deploy connections to annotation backends (e.g. Apollo)
-        \item \texttt{docker-compose.yml}: describe complete infrastructure stack
-        \item Peripherals: parsec, arrow, chakin
+        \item Docker Image: Galaxy + Annotation Tools {\color{gray}(Apollo Tools, Tripal Admin Tools, Circos, JBrowse, BLAST+, InterProScan, Glimmer, Augustus, FASTA manipulation tools, Spades, Mira, CD-Hit, ClustalW, AntiSmash, mummer, EMBOSS, BLAST, Diamond, Blast2GO)}
+        \item Dockerized GMOD Deployment {\color{gray}(Galaxy, JBrowse, Apollo, Chado, Chado APIs, Tripal pre-configured to work together seamlessly)}
+        \item Apollo, Chado python libraries {\color{gray}(+parsec like tools, ``Arrow'' and ``Chakin'')}
+        \item Various Apollo support projects {\color{gray}(git-backup, experimental google docs integration)}
     \end{itemize}
 \end{frame}
 
@@ -105,8 +106,8 @@
     \begin{itemize}
         \item Grew out of use in an undergraduate course
         \item Initially quite simple, tool to add organism (JBrowse instance) to Apollo
-        \item Expanded to include automation, tools for creating \& removing ``human-created'' annotations.
-        \item Jenkins job now re-runs functional annotation workflows regularly
+        \item Expanded to include automation, tools for creating/updating/removing annotations.
+        \item Jenkins job re-runs functional annotation workflows regularly
         \item Improved with student help, finding unexpected bugs
     \end{itemize}
 \end{frame}
@@ -122,9 +123,12 @@
 \section{Teaching}
 \begin{frame}{Bacteriophage Annotation Course}
     \begin{itemize}
-        \item CPT runs a GGA deployment, Galaxy+Apollo+Chado
-        \item Students run tools in Galaxy, annotate in Apollo, ``published'' data is stored in Chado
-        \item Converging implementations; updates to our phage course + GGA suite
+        \item Undergraduate Phage annotation course
+        \item Genome sequence to publication
+        \item Parallel track for environmental sample to isolated phage
+        \item Novel genome, de novo annotation
+        %\item Students run tools in Galaxy, annotate in Apollo, ``published'' data is stored in Chado
+        %\item Converging implementations; updates to our phage course + GGA suite
     \end{itemize}
 \end{frame}
 %\item ``Google Docs'' of genome annotation
@@ -134,15 +138,14 @@
 \subsection{Current}
 \begin{frame}{Current Applications of GGA}
     \begin{itemize}
-        \item Undergraduate Phage annotation course
-        \item Genome sequence to publication
-        \item (Parallel track for environmental sample to isolated phage)
-        \item Gigantic workflows using many of the tools pre-installed in image
+        \item Great example of GGA in real life
+        \item CPT can leverage the GGA infrastructure, easily deploying Galaxy+Apollo+Chado
+        \item GGA tools help the CPT build phage annotation workflows.
     \end{itemize}
 \end{frame}
 
 \subsection{Expansion}
-\begin{frame}{Applications}
+\begin{frame}{Planned Expansions}
     % Too personal to CPT implementation?
     CPT's use case:
     \begin{itemize}
@@ -191,7 +194,7 @@
 \begin{frame}{Q\&A}
     Thank you \\\ \\
     \begin{center}
-        \begin{tabular}{rl}
+        \begin{tabular}{ll}
             \color{gray} GGA GitHub & \href{https://galaxy-genome-annotation.github.io/}{galaxy-genome-annotation.github.io}\\
             \color{gray} GGA Gitter & \href{https://gitter.im/galaxy-genome-annotation/Lobby}{gitter.im/galaxy-genome-annotation/Lobby}\\
             \end{tabular}\\[1cm]

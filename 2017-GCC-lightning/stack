@@ -1,0 +1,27 @@
+2017-06-19 14:59:18,233 [http-nio-8080-exec-17] WARN  authenticator.RemoteUserAuthenticatorService  - Remote user found [null]
+2017-06-19 14:59:18,233 [http-nio-8080-exec-17] WARN  authenticator.RemoteUserAuthenticatorService  - No remote user passed in header!
+2017-06-19 14:59:20,360 [http-nio-8080-exec-15] ERROR apollo.AnnotatorController  - User does not have permissions for the site
+2017-06-19 14:59:21,447 [http-nio-8080-exec-12] WARN  authenticator.RemoteUserAuthenticatorService  - Remote user found [null]
+2017-06-19 14:59:21,447 [http-nio-8080-exec-12] WARN  authenticator.RemoteUserAuthenticatorService  - No remote user passed in header!
+2017-06-19 14:59:24,882 [http-nio-8080-exec-17] WARN  authenticator.RemoteUserAuthenticatorService  - Remote user found [esr@tamu.edu]
+2017-06-19 14:59:24,883 [http-nio-8080-exec-17] WARN  authenticator.RemoteUserAuthenticatorService  - User exists org.bbop.apollo.User : 1976 ? 
+2017-06-19 14:59:24,883 [http-nio-8080-exec-17] WARN  authenticator.RemoteUserAuthenticatorService  - for username: esr@tamu.edu
+2017-06-19 14:59:24,889 [http-nio-8080-exec-17] WARN  apollo.PreferenceService  - Multiple preferences found: 13
+2017-06-19 14:59:25,700 [http-nio-8080-exec-16] INFO  apollo.UserController  - updateTrackListPreference
+2017-06-19 14:59:25,702 [http-nio-8080-exec-16] INFO  apollo.UserController  - Added userOrganismPreference false
+Comparing 164085 to names
+2017-06-19 14:59:36,397 [http-nio-8080-exec-8] WARN  apollo.JbrowseController  - File not found: /opt/apollo/data/galaxy//164085/names/e9a.json
+2017-06-19 14:59:47,179 [http-nio-8080-exec-12] WARN  authenticator.RemoteUserAuthenticatorService  - Remote user found [null]
+2017-06-19 14:59:47,179 [http-nio-8080-exec-12] WARN  authenticator.RemoteUserAuthenticatorService  - No remote user passed in header!
+2017-06-19 14:59:53,126 [http-nio-8080-exec-15] WARN  authenticator.RemoteUserAuthenticatorService  - Remote user found [null]
+2017-06-19 14:59:53,126 [http-nio-8080-exec-15] WARN  authenticator.RemoteUserAuthenticatorService  - No remote user passed in header!
+2017-06-19 15:00:20,361 [http-nio-8080-exec-8] ERROR apollo.AnnotatorController  - User does not have permissions for the site
+2017-06-19 15:00:30,036 [http-nio-8080-exec-15] WARN  authenticator.RemoteUserAuthenticatorService  - Remote user found [null]
+2017-06-19 15:00:30,036 [http-nio-8080-exec-15] WARN  authenticator.RemoteUserAuthenticatorService  - No remote user passed in header!
+Comparing 163861 to names
+2017-06-19 15:00:47,203 [http-nio-8080-exec-6] WARN  apollo.JbrowseController  - File not found: /opt/apollo/data/galaxy//163861/names/root.json
+2017-06-19 15:01:20,359 [http-nio-8080-exec-11] ERROR apollo.AnnotatorController  - User does not have permissions for the site
+2017-06-19 15:02:20,393 [http-nio-8080-exec-14] ERROR apollo.AnnotatorController  - User does not have permissions for the site
+2017-06-19 15:03:20,358 [http-nio-8080-exec-12] ERROR apollo.AnnotatorController  - User does not have permissions for the site
+2017-06-19 15:04:20,380 [http-nio-8080-exec-11] ERROR apollo.AnnotatorController  - User does not have permissions for the site
+2017-06-19 15:05:20,363 [http-nio-8080-exec-14] ERROR apollo.AnnotatorController  - User does not have permissions for the site

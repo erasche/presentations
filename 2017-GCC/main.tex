@@ -1,7 +1,7 @@
 \documentclass[12pt]{phage3slides} %
 
 \logo{\includegraphics[width=1cm]{gga-small.png}}
-\title[Galaxy for Genome Annotation, Teaching, Databases]{Galaxy Genome Annotation: Galaxy and GMOD for Annotation, Teaching, and Genomic Databases}
+\title[Galaxy for Genome Annotation, Teaching, Databases]{Galaxy for Genome Annotation: Galaxy and GMOD for Annotation, Teaching, and Genomic Databases}
 \author[ER, BG, ND, AB]{Eric Rasche, Bj\"orn Gr\"uning, Nathan Dunn, Anthony Bretaudeau}
 \date{2017-06-29T13:50:00Z}
 
@@ -29,20 +29,24 @@
 
 \section[GGA]{Galaxy for Genome Annotoation}
 \begin{frame}{Galaxy for Genome Annotation}
-    Galaxy has room to expand into the Genome Annotation space.
-    Needs community, we are that community.
-    Needs tooling, we're building that.
-    Needs integrations, we're building that.
-    \begin{center}
-        \includegraphics[width=0.5\textwidth]{gga-clean.png}
-    \end{center}
+    Galaxy is great for:
+    \begin{itemize}
+        \item NGS Analysis
+        \item Assembly
+        \item ...
+        \item Annotation Analysis (Tabular processing, etc)
+        \item Proteomics, Metagenomics, *omics
+    \end{itemize}
+    But we are missing the Annotation step.\\\ \\
+    We are missing the tooling, the
+    trainings, and the community for genome annotation.
 \end{frame}
 
 \subsection{Who}
 \begin{frame}{Who are we?}
     \begin{itemize}
         \item Bj\"orn Gr\"uning
-        \item Eric Rasche
+        \item CPT Team (Eric Rasche, Eleni Mijalis, Cory Maughmer)
         \item Anthony Bretaudeau
         \item Peter van Heusen
         \item Nathan Dunn
@@ -57,8 +61,8 @@
 \begin{frame}{What are we building?}
     \begin{itemize}
         \item Docker Image: Galaxy + Annotation Tools {\color{gray}(Apollo Tools, Tripal Admin Tools, Circos, JBrowse, BLAST+, InterProScan, Glimmer, Augustus, FASTA manipulation tools, Spades, Mira, CD-Hit, ClustalW, AntiSmash, mummer, EMBOSS, BLAST, Diamond, Blast2GO)}
-        \item Dockerized GMOD Deployment {\color{gray}(Most GMOD projects pre-configured to work together seamlessly)}
-        \item Apollo Client library {\color{gray}(+parsec like tool, ``Arrow'')}
+        \item Dockerized GMOD Deployment {\color{gray}(Galaxy, JBrowse, Apollo, Chado, Chado APIs, Tripal pre-configured to work together seamlessly)}
+        \item Apollo, Chado python libraries {\color{gray}(+parsec like tools, ``Arrow'' and ``Chakin'')}
         \item Various Apollo support projects {\color{gray}(git-backup, experimental google docs integration)}
     \end{itemize}
 \end{frame}
@@ -68,6 +72,7 @@
     \begin{itemize}
         \item Fun Challenges
         \item Useful to real-life people, solve real problems
+        \item Project longevity
     \end{itemize}
 \end{frame}
 
@@ -78,19 +83,31 @@
 \section{Annotation}
 \begin{frame}{Annotation Infrastructure}
     \begin{itemize}
-        \item Docker Image: Many annotation tools collected in a single place, pre-installed and ready to annotate
-        \item Easy to deploy connections to annotation backends (e.g. Apollo)
-        \item Peripheral tools to move data easily across annotation system boundaries %(Extract from Chado -> Load to Galaxy -> Analyse -> Push to Apollo)
+        \item Easy to deploy
+        \item Shareable
+        \item Configurable, pick-and-choose subcomponents
     \end{itemize}
 \end{frame}
 
+\subsection{Solutions}
+\begin{frame}{Annotation Solutions}
+    \begin{itemize}
+        \item Galaxy Images: Suites of annotation tools pre-installed in docker images
+        \item GMOD Containers: Containers for the big projects
+        \item Glue Code: Easy to deploy connections to annotation backends (e.g. Apollo)
+        \item \texttt{docker-compose.yml}: describe complete infrastructure stack
+        \item Peripherals: parsec, arrow, chakin
+    \end{itemize}
+\end{frame}
+
+\subsection{Galaxy-Apollo}
 \begin{frame}{Galaxy / Apollo Bridge}
     \begin{itemize}
-        \item Initially simple tooling to move data in/out of Apollo
-        \item Expanded to include annotation automation, tools for creating / removing ``human-created'' annotations.
-        \item Jenkins scripts ran functional annotation workflows automatically, regularly.
-        \item The Galaxy-Apollo bridge grew out of use in an undergraduate course
-        \item We have improved upon them as students find new bugs and corner cases we did not expect
+        \item Grew out of use in an undergraduate course
+        \item Initially quite simple, tool to add organism (JBrowse instance) to Apollo
+        \item Expanded to include automation, tools for creating \& removing ``human-created'' annotations.
+        \item Jenkins job now re-runs functional annotation workflows regularly
+        \item Improved with student help, finding unexpected bugs
     \end{itemize}
 \end{frame}
 
@@ -103,45 +120,39 @@
 
 
 \section{Teaching}
-\begin{frame}{Course}
+\begin{frame}{Bacteriophage Annotation Course}
     \begin{itemize}
-        \item Course Background
-        \item Current Course Applications
-        \item Ongoing Expansions
+        \item CPT runs a GGA deployment, Galaxy+Apollo+Chado
+        \item Students run tools in Galaxy, annotate in Apollo, ``published'' data is stored in Chado
+        \item Converging implementations; updates to our phage course + GGA suite
     \end{itemize}
 \end{frame}
+%\item ``Google Docs'' of genome annotation
+%\item Student+Faculty collaboration is easy
+%\item Faculty+Faculty collaboration is easy
 
-\subsection{Background}
-\begin{frame}{Course Background}
+\subsection{Current}
+\begin{frame}{Current Applications of GGA}
     \begin{itemize}
         \item Undergraduate Phage annotation course
         \item Genome sequence to publication
         \item (Parallel track for environmental sample to isolated phage)
         \item Gigantic workflows using many of the tools pre-installed in image
-        \item Converging implementations; updates to our phage course + GGA suite
-    \end{itemize}
-\end{frame}
-
-\subsection{Current}
-\begin{frame}{Current Applications}
-    \begin{itemize}
-        \item Apollo for annotation is amazing, ``google docs'' of genome annotation
-        \item Student+Faculty collaboration is easy
-        \item Faculty+Faculty collaboration is easy
-
-        \item Workflows (publicly available) for Phage Annotation
-        \item More workflows available from training-material repo for 
     \end{itemize}
 \end{frame}
 
 \subsection{Expansion}
 \begin{frame}{Applications}
+    % Too personal to CPT implementation?
+    CPT's use case:
     \begin{itemize}
-        % Too personal to CPT implementation?
-        \item Using automated Chado export in Apollo
         \item Adding on Tripal + JBrowse-based public sequence display
-        \item Internal sample tracking database
-        \item More GMOD projects to come?
+        \item Building a sample tracking database, can leverage GGA Apollo / Chado, and Galaxy integrations
+    \end{itemize}
+    GGA:
+    \begin{itemize}
+        \item More tutorials / training resources
+        \item More GMOD projects
     \end{itemize}
 \end{frame}
 
@@ -149,17 +160,16 @@
 
 
 
-\section{Database}
+\section{Databases}
 
 \begin{frame}{Genomic Databases}
     \begin{itemize}
-        \item Perfect match
-        \item Reproducibility + generally unreproducible external databases
-        \item Democratization of resources. (Easier access control through galaxy tools)
-
-        \item But how to democratize annotation?
-        \item Galaxy Tools can create genomes, update permissions
-        \item (But we do end up having to check user's apollo permissions at every step)
+        \item Galaxy tools for Genomic Access
+        \item Reproducibility for generally unreproducible external databases
+        \item Democratization of resources%. (Easier access control through galaxy tools)
+        %\item But how to democratize annotation?
+        \item Galaxy Tools handle CRUD operations \& updating permissions
+        %\item (But we do end up having to check user's apollo permissions at every step)
     \end{itemize}
 \end{frame}
 

@@ -1,5 +1,7 @@
 \documentclass[12pt]{phage3slides} %
 
+\beamertemplatenavigationsymbolsempty
+
 \logo{\includegraphics[width=1cm]{gga-small.png}}
 \title[Galaxy for Genome Annotation, Teaching, Databases]{Galaxy for Genome Annotation: Galaxy and GMOD for Annotation, Teaching, and Genomic Databases}
 \author[ER, BG, ND, AB]{Eric Rasche, Bj\"orn Gr\"uning, Nathan Dunn, Anthony Bretaudeau}
@@ -42,40 +44,66 @@
     trainings, and the community for genome annotation.
 \end{frame}
 
-\subsection{Who}
-\begin{frame}{Who are we?}
-    \begin{itemize}
-        \item Bj\"orn Gr\"uning
-        \item CPT Team (Eric Rasche, Eleni Mijalis, Cory Maughmer)
-        \item Anthony Bretaudeau
-        \item Peter van Heusen
-        \item Nathan Dunn
-        \item Eduardo de Paiva Alves
-        \item Suzanna Lewis
-        \item Torsten Seemann
-        \item (\ldots you!)
-    \end{itemize}
-\end{frame}
-
 \subsection{What}
 \begin{frame}{What are we building?}
-    \begin{itemize}
-        \item Galaxy Images
-        \item GMOD Containers
-        \item Glue Code
-        \item Training Materials
-        \item Peripherals
-        \item Community
-    \end{itemize}
+    \begin{columns}
+        \begin{column}{0.38\textwidth}
+            \begin{itemize}
+                \item Galaxy Images
+                \item GMOD Containers
+                \item Glue Code
+                \item Training Materials
+                \item Peripherals
+                \item Community
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.58\textwidth}
+            \includegraphics[width=3cm]{img/gga-chat.png}
+            \includegraphics[width=3cm]{img/gga-gh.png} \\[.7cm]
+            \includegraphics[width=6cm]{img/gga-docs.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Who}
+\begin{frame}{Who are we?}
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+            \begin{itemize}
+                \item CPT Phage Team (Eric Rasche, Eleni Mijalis, Cory Maughmer)
+                \item Anthony Bretaudeau
+                \item Nathan Dunn
+                \item Bj\"orn Gr\"uning
+                \item Peter van Heusen
+                \item Suzanna Lewis
+                \item Eduardo de Paiva Alves
+                \item Torsten Seemann
+                \item (\ldots you!)
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \includegraphics[width=1.5cm]{people/Eduardo-Alves}
+            \includegraphics[width=1.5cm]{people/abretaud}
+            \includegraphics[width=1.5cm]{people/bgruening} \\
+            \includegraphics[width=1.5cm]{people/elenimijalis}
+            \includegraphics[width=1.5cm]{people/erasche}
+            \includegraphics[width=1.5cm]{people/moffmade} \\
+            \includegraphics[width=1.5cm]{people/selewis}
+            \includegraphics[width=1.5cm]{people/nathandunn}
+            \includegraphics[width=1.5cm]{people/pvanheus} \\
+            \includegraphics[width=1.5cm]{people/tseemann}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \subsection{Why}
 \begin{frame}{Why?}
     \begin{itemize}
         \item GMOD at its best
+        \item Annotation still requires humans
         \item Easy to build, computer aided annotation systems
         \item Combination of scalable, powerful analysis systems with interactive annotations
-        \item Fun Challenges
+        %\item Fun Challenges
         \item Useful to real-life people, solve real problems
         \item Project longevity
     \end{itemize}
@@ -85,17 +113,17 @@
 
 
 
-\section{Annotation}
-\begin{frame}{Annotation Infrastructure}
-    \begin{itemize}
-        \item Easy to deploy
-        \item Shareable
-        \item Configurable, pick-and-choose subcomponents
-    \end{itemize}
+\section{Infrastructure}
+\begin{frame}{\#InfrastructureGoals}
+    \begin{center}
+        \includegraphics[scale=0.2]{img/launch} \\
+        \includegraphics[scale=0.2]{img/share} \\
+        \includegraphics[scale=0.2]{img/customize} \\
+    \end{center}
 \end{frame}
 
 \subsection{Solutions}
-\begin{frame}{Annotation Solutions}
+\begin{frame}{Infrastructure Solutions}
     \begin{itemize}
         \item Docker Image: Galaxy + Annotation Tools {\color{gray}(Apollo Tools, Tripal Admin Tools, Circos, JBrowse, BLAST+, InterProScan, Glimmer, Augustus, FASTA manipulation tools, Spades, Mira, CD-Hit, ClustalW, AntiSmash, mummer, EMBOSS, BLAST, Diamond, Blast2GO, \ldots{})}
         \item Dockerized GMOD Deployment {\color{gray}(Galaxy, JBrowse, Apollo, Chado, Chado APIs, Tripal pre-configured to work together seamlessly)}
@@ -111,7 +139,32 @@
         \item Initially quite simple, only a tool to add an organism (JBrowse instance) to Apollo
         \item Expanded to include automation, tools for creating/updating/removing annotations.
         \item Jenkins job re-runs functional annotation workflows regularly
-        \item Improved with student help, finding unexpected bugs
+        \item Tested and revised in multiple iterations with curators
+    \end{itemize}
+\end{frame}
+
+
+
+\section{Databases}
+
+\begin{frame}{Genomic Databases}
+    \begin{itemize}
+        \item Galaxy tools for Genomic Database Access
+        \item Reproducibility for generally unreproducible external databases
+        \item Democratization of resources%. (Easier access control through galaxy tools)
+        %\item But how to democratize annotation?
+        \item Galaxy Tools handle CRUD operations \& updating permissions
+        %\item (But we do end up having to check user's apollo permissions at every step)
+    \end{itemize}
+\end{frame}
+
+\subsection{Tooling}
+\begin{frame}{Genomic Databases}
+    \begin{itemize}
+        \item Tools for querying annotation resources, answering specific questions. % TODO: integrate chado tools
+        \item Tools for fetching remote data into Galaxy
+        \item Galaxy is used for Analysis
+        \item Tools for creating new annotations from analysis results
     \end{itemize}
 \end{frame}
 
@@ -163,31 +216,6 @@
 \end{frame}
 
 
-
-
-
-\section{Databases}
-
-\begin{frame}{Genomic Databases}
-    \begin{itemize}
-        \item Galaxy tools for Genomic Access
-        \item Reproducibility for generally unreproducible external databases
-        \item Democratization of resources%. (Easier access control through galaxy tools)
-        %\item But how to democratize annotation?
-        \item Galaxy Tools handle CRUD operations \& updating permissions
-        %\item (But we do end up having to check user's apollo permissions at every step)
-    \end{itemize}
-\end{frame}
-
-\subsection{Tooling}
-\begin{frame}{Genomic Databases}
-    \begin{itemize}
-        \item Tools for querying annotation resources, answering specific questions. % TODO: integrate chado tools
-        \item Tools for fetching remote data into Galaxy
-        \item Galaxy is used for Analysis
-        \item Tools for creating new annotations from analysis results
-    \end{itemize}
-\end{frame}
 
 
 

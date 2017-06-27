@@ -134,13 +134,20 @@
 
 \subsection{Galaxy-Apollo}
 \begin{frame}{Galaxy / Apollo Bridge}
-    \begin{itemize}
-        \item Grew out of use in an undergraduate course
-        \item Initially quite simple, only a tool to add an organism (JBrowse instance) to Apollo
-        \item Expanded to include automation, tools for creating/updating/removing annotations.
-        \item Jenkins job re-runs functional annotation workflows regularly
-        \item Tested and revised in multiple iterations with curators
-    \end{itemize}
+    \begin{columns}
+        \begin{column}{0.58\textwidth}
+            \begin{itemize}
+                \item Grew out of use in an undergraduate course
+                \item Initially quite simple, only a tool to add an organism (JBrowse instance) to Apollo
+                \item Expanded to include automation, tools for creating/updating/removing annotations.
+                \item Jenkins job re-runs functional annotation workflows regularly
+                \item Tested and revised in multiple iterations with curators
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.38\textwidth}
+            \includegraphics[height=\textheight]{wf.png}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 
@@ -150,10 +157,19 @@
 \begin{frame}{Genomic Databases}
     \begin{itemize}
         \item Galaxy tools for Genomic Database Access
-        \item Reproducibility for generally unreproducible external databases
+        \item Reproducibility for generally unreproducible external databases\\
+            \begin{equation*}
+                \text{Database} = %
+                    \textbf{f}_{\text{publication}}(%
+                    \textbf{g}_{\text{functional}}(%
+                    \textbf{h}_{\text{structural}}(%
+                    \text{data}%
+                    )))
+            \end{equation*}
+        \item Annotator Independence
         \item Democratization of resources%. (Easier access control through galaxy tools)
         %\item But how to democratize annotation?
-        \item Galaxy Tools handle CRUD operations \& updating permissions
+        %\item Galaxy Tools handle CRUD operations \& updating permissions
         %\item (But we do end up having to check user's apollo permissions at every step)
     \end{itemize}
 \end{frame}
@@ -161,8 +177,8 @@
 \subsection{Tooling}
 \begin{frame}{Tooling for Curators}
     \begin{itemize}
-        \item Tools for querying annotation resources, answering specific questions.
-        \item Tools for fetching remote data into Galaxy
+        \item Tools for querying annotation resources, answering specific questions. (E.g. Find features with specific qualifier, GO terms)
+        \item Tools for fetching data into Galaxy (Chado, Apollo)
         \item Galaxy is used for Analysis
         \item Tools for creating new annotations from analysis results
     \end{itemize}
@@ -186,22 +202,29 @@
         %\item Students run tools in Galaxy, annotate in Apollo, ``published'' data is stored in Chado
         %\item Converging implementations; updates to our phage course + GGA suite
     \end{itemize}
+    \includegraphics[width=4cm]{phage.png}
+    \includegraphics[width=6cm]{pub.png}
 \end{frame}
-%\item ``Google Docs'' of genome annotation
-%\item Student+Faculty collaboration is easy
-%\item Faculty+Faculty collaboration is easy
 
-\subsection{Current}
+\subsection{Application}
 \begin{frame}{Current Applications of GGA}
+    Good for Community and Us
     \begin{itemize}
-        \item Great example of GGA in real life
-        \item CPT can leverage the GGA infrastructure, easily deploying Galaxy+Apollo+Chado
-        \item GGA tools help the CPT build phage annotation workflows.
+        \item CPT can leverage the GGA infrastructure
+        \item GGA tools help bring community best practices to the CPT
+        \item CPT can contribute back well tested workflows
+    \end{itemize}
+    \ \\\ \\
+    From students to experienced curators:
+    \begin{itemize}
+        \item Collaboration is easy
+        \item High level: ``Google Docs'' of genome annotation
+        \item Low level: Optimised genomic database queries as tools
     \end{itemize}
 \end{frame}
 
-\subsection{Expansion}
-\begin{frame}{Planned Expansions}
+\section{Future}
+\begin{frame}{Going Forward}
     % Too personal to CPT implementation?
     CPT's use case:
     \begin{itemize}

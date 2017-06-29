@@ -2,10 +2,10 @@
 
 \beamertemplatenavigationsymbolsempty
 
-\logo{\includegraphics[width=1cm]{gga-small.png}}
-\title[Galaxy for Genome Annotation, Teaching, Databases]{Galaxy for Genome Annotation: Galaxy and GMOD for Annotation, Teaching, and Genomic Databases}
+\logo{\includegraphics[width=1.4cm]{gga-small.png}}
+\title[Galaxy for Genome Annotation, Teaching, Databases]{GGA: Galaxy for Genome Annotation, Teaching, and Genomic Databases}
 \author[ER, BG, ND, AB]{Eric Rasche, Bj\"orn Gr\"uning, Nathan Dunn, Anthony Bretaudeau}
-\date{2017-06-29T13:50:00Z}
+\date{2017-06-29T09:50:00Z}
 
 \begin{document}
 \frame{\titlepage}
@@ -37,7 +37,7 @@
         \item Assembly
         \item ...
         \item Annotation Analysis (Tabular processing, etc)
-        \item Proteomics, Metagenomics, *omics
+        \item *omics
     \end{itemize}
     But we are missing the Annotation step.\\\ \\
     We are missing the tooling, the
@@ -49,7 +49,7 @@
     \begin{columns}
         \begin{column}{0.38\textwidth}
             \begin{itemize}
-                \item Galaxy Images
+                \item Galaxy Flavour(s)
                 \item GMOD Containers
                 \item Glue Code
                 \item Training Materials
@@ -101,8 +101,7 @@
     \begin{itemize}
         \item GMOD at its best
         \item Annotation still requires humans
-        \item Easy to build, computer aided annotation systems
-        \item Combination of scalable, powerful analysis systems with interactive annotations
+        \item Powerful Analysis + Interactive Annotations
         %\item Fun Challenges
         \item Useful to real-life people, solve real problems
         \item Project longevity
@@ -137,12 +136,12 @@
     \begin{columns}
         \begin{column}{0.58\textwidth}
             \begin{itemize}
-                \item Grew out of use in an undergraduate course
+                %\item Grew out of use in an undergraduate course
                 \item Initially quite simple, only a tool to add an organism (JBrowse instance) to Apollo
-                \item Expanded to include automation, tools for creating/updating/removing annotations.
-                \item Jenkins job re-runs functional annotation workflows regularly
-                \item Tested and revised in multiple iterations with curators
+                \item Now includes automation (tools for creating/editing annotations)
+                \item Tested and revised in collaboration with curators
             \end{itemize}
+            \includegraphics[width=\textwidth]{img/select}
         \end{column}
         \begin{column}{0.38\textwidth}
             \includegraphics[height=\textheight]{wf.png}
@@ -154,9 +153,20 @@
 
 \section{Databases}
 
-\begin{frame}{Genomic Databases}
+\begin{frame}{Genomic Databases \& Curators}
     \begin{itemize}
-        \item Galaxy tools for Genomic Database Access
+        \item Annotator Independence \& Agency
+        \item Democratization of resources%. (Easier access control through galaxy tools)
+        \item Enabled them to build powerful annotation and analysis pipelines
+        %\item But how to democratize annotation?
+        %\item Galaxy Tools handle CRUD operations \& updating permissions
+        %\item (But we do end up having to check user's apollo permissions at every step)
+    \end{itemize}
+\end{frame}
+
+\subsection{Reproducibility}
+\begin{frame}{Reproducibility}
+    \begin{itemize}
         \item Reproducibility for generally unreproducible external databases\\
             \begin{equation*}
                 \text{Database} = %
@@ -166,11 +176,6 @@
                     \text{data}%
                     )))
             \end{equation*}
-        \item Annotator Independence
-        \item Democratization of resources%. (Easier access control through galaxy tools)
-        %\item But how to democratize annotation?
-        %\item Galaxy Tools handle CRUD operations \& updating permissions
-        %\item (But we do end up having to check user's apollo permissions at every step)
     \end{itemize}
 \end{frame}
 
@@ -179,7 +184,6 @@
     \begin{itemize}
         \item Tools for querying annotation resources, answering specific questions. (E.g. Find features with specific qualifier, GO terms)
         \item Tools for fetching data into Galaxy (Chado, Apollo)
-        \item Galaxy is used for Analysis
         \item Tools for creating new annotations from analysis results
     \end{itemize}
 \end{frame}
@@ -218,21 +222,16 @@
     From students to experienced curators:
     \begin{itemize}
         \item Collaboration is easy
-        \item High level: ``Google Docs'' of genome annotation
+        \item High level: Apollo is the ``Google Docs'' of genome annotation
         \item Low level: Optimised genomic database queries as tools
     \end{itemize}
 \end{frame}
 
 \section{Future}
-\begin{frame}{Going Forward}
+\begin{frame}{GGA Going Forward}
     % Too personal to CPT implementation?
-    CPT's use case:
     \begin{itemize}
-        \item Adding on Tripal + JBrowse-based public sequence display
-        \item Building a sample tracking database, can leverage GGA Apollo / Chado, and Galaxy integrations
-    \end{itemize}
-    GGA:
-    \begin{itemize}
+        \item Sharing of genomic database querying tools
         \item More tutorials / training resources
         \item More GMOD projects
     \end{itemize}

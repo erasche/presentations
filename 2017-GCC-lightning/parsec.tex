@@ -1,5 +1,10 @@
 \documentclass[12pt]{phage3slides} %
 
+\beamertemplatenavigationsymbolsempty
+\hypersetup{%
+	colorlinks=true,
+	linkcolor=black,
+}
 
 \usepackage{listings}
 \usepackage{minted}
@@ -23,7 +28,7 @@
 }
 
 \title[Parsec]{Parsec: Galaxy at the speed of light}
-\author[ER]{Eric Rasche}
+\author[erasche]{Eric Rasche}
 %\date{2017-06-29T13:50:00Z}
 
 \begin{document}
@@ -408,16 +413,20 @@ Parsec is good for DevOps and Galactic Automation
 
 \begin{frame}[fragile,t]{API Keys}
 \begin{minted}{bash}
+# Reset API keys
 $ parsec users create_user_apikey eee708f9257ce041
-ffff2e55e4e1759d0dd657ae6c72984f
-
 $ parsec users get_users | jq .[].id \
   xargs -n 1 parsec users create_user_apikey
-...
 
+# Get all API keys
 $ parsec users get_users | jq .[].id \
   xargs -n 1 parsec users get_user_apikey
-...
+
+# Reset API keys for users with a specific domain
+$ parsec users get_users | \
+   jq '.[] | \
+    select(.username|contains("@gmail.com"))|.id' | \
+   xargs -n 1 parsec users create_user_apikey
 \end{minted}
 \end{frame}
 
@@ -504,7 +513,7 @@ $ arrow users get_users
 \section{Q\&A}
 \begin{frame}{Q\&A}
 	Thank you\\[1em]
-
+\small
 BioBlend / Parsec \\
 \url{github.com/galaxy-iuc/parsec} \\[.5em]
 Chado / Chakin \\
@@ -513,8 +522,7 @@ Apollo / Arrow \\
 \url{github.com/galaxy-genome-annotation/python-apollo}\\[.5em]
 
 	\begin{center}
-		\informationErascheTable%
-		\logosTamuCPT%
+		\informationErascheTable\\
 		\fundingNSFABIannotation%
 	\end{center}
 \end{frame}

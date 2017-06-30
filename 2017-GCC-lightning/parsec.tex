@@ -1,5 +1,27 @@
 \documentclass[12pt]{phage3slides} %
 
+
+\usepackage{listings}
+\usepackage{minted}
+\lstset{
+    language=Bash, % choose the language of the code
+    basicstyle=\fontfamily{pcr}\color{black},
+    keywordstyle=\color{blue}\bfseries, % style for keywords
+    numbers=none, % where to put the line-numbers
+    numberstyle=\tiny, % the size of the fonts that are used for the line-numbers     
+    backgroundcolor=\color{lightgray},
+    showspaces=false, % show spaces adding particular underscores
+    showstringspaces=false, % underline spaces within strings
+    showtabs=false, % show tabs within strings adding particular underscores
+    frame=single, % adds a frame around the code
+    tabsize=2, % sets default tabsize to 2 spaces
+    rulesepcolor=\color{gray},
+    rulecolor=\color{black},
+    captionpos=b, % sets the caption-position to bottom
+    breaklines=true, % sets automatic line breaking
+    breakatwhitespace=false, 
+}
+
 \title[Parsec]{Parsec: Galaxy at the speed of light}
 \author[ER]{Eric Rasche}
 %\date{2017-06-29T13:50:00Z}
@@ -9,35 +31,491 @@
 
 
 \section{Parsec}
-\begin{frame}{Parsec}
+\begin{frame}[fragile]
 	\begin{itemize}
 		\item CLI BioBlend wrappers
 		\item All responses as JSON
 		\item Parsec + JQ = $\heartsuit$
 	\end{itemize}
+\setminted{fontsize=\Large,baselinestretch=1}
+\begin{minted}{bash}
+$ pip install galaxy-parsec
+$ parsec init
+\end{minted}
+\end{frame}
+
+
+\subsection{Help}
+\begin{frame}[fragile]{Parsec Help}
+
+\begin{minted}{bash}
+$ parsec
+Options:
+  -g, --galaxy_instance TEXT  Name of Galaxy Instance
+  -f, --path TEXT             config file path
+  -h, --help                  Show this message and exit.
+
+Commands:
+  config
+  datasets
+  datatypes
+  folders
+  forms
+  ftpfiles
+  genomes
+  groups
+  histories
+  jobs
+  libraries
+  quotas
+  roles
+  tool_data
+  tools
+  toolshed
+  users
+  utils
+  visual
+  workflows
+  toolshed_categories
+  toolshed_repositories
+  toolshed_tools
+\end{minted}
 \end{frame}
 
 
 
-\section{Circos}
-\begin{frame}{Circos}
-	\begin{itemize}
-		\item Link support
-		\item Now mostly feature-complete, support for all major circos features
-		\item Soon in IUC
-	\end{itemize}
+
+\section{Histories}
+\begin{frame}[fragile]{Parsec History Help}
+\begin{minted}{bash}
+$ parsec histories
+Usage: parsec histories [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create_dataset_collection       Create a new dataset collection Output:
+  create_history                  Create a new history, optionally setting
+                                  the...
+  create_history_tag              Create history tag Output: A dictionary
+                                  with...
+  delete_dataset                  Mark corresponding dataset as deleted.
+  delete_dataset_collection       Mark corresponding dataset collection as...
+  delete_history                  Delete a history.
+  download_dataset                ..
+  download_history                Download a history export archive.
+  export_history                  Start a job to create an export archive
+                                  for...
+  get_current_history             ..
+  get_histories                   Get all histories or filter the specific...
+  get_most_recently_used_history  Returns the current user's most recently
+                                  used...
+  get_status                      Returns the state of this history Output:
+\end{minted}
 \end{frame}
 
+\subsection{fetch all}
+\begin{frame}[fragile,t]{Fetching all histories}
+\begin{minted}{bash}
+$ parsec histories get_histories
+\end{minted}
+\begin{minted}{json}
+[
+  {
+    "annotation": null,
+    "deleted": false,
+    "id": "5148a1f64f25bf61",
+    "model_class": "History",
+    "name": "BuildID=Manual WF=Structural Org=P-NIH10_LMin Source=Jenkins",
+    "published": false,
+    "purged": false,
+    "tags": ["Automated"],
+    "url": "/galaxy/api/histories/5148a1f64f25bf61"
+  },
+  "..."
+]
+\end{minted}
+\end{frame}
+
+
+\subsection{\ldots{}with JQ}
+\begin{frame}[fragile,t]{Fetching the First History}
+\begin{minted}{bash}
+$ parsec histories get_histories | jq .[0]
+\end{minted}
+\begin{minted}{json}
+{
+  "annotation": null,
+  "deleted": false,
+  "id": "5148a1f64f25bf61",
+  "model_class": "History",
+  "name": "BuildID=Manual WF=Structural Org=P-NIH10_LMin Source=Jenkins",
+  "published": false,
+  "purged": false,
+  "tags": ["Automated"],
+  "url": "/galaxy/api/histories/5148a1f64f25bf61"
+}
+\end{minted}
+\end{frame}
+
+
+\subsection{attributes}
+\begin{frame}[fragile,t]{Fetching the First History's ID}
+\begin{minted}{bash}
+$ parsec histories get_histories | jq .[0].id
+\end{minted}
+\begin{minted}{json}
+"5148a1f64f25bf61"
+\end{minted}
+\end{frame}
+
+
+\subsection{all attributes}
+\begin{frame}[fragile,t]{Fetching ALL History IDs}
+\begin{minted}{bash}
+$ parsec histories get_histories | jq .[].id
+\end{minted}
+\setminted{fontsize=\tiny,baselinestretch=1}
+\begin{minted}{json}
+"96f7d0364fee9384"
+"95ef3413d7e7ee5b"
+"10f65fe385037913"
+"b0fac40f72726344"
+"f8fb0fb2a1475498"
+"c986d68e808d1f1b"
+"dd64eb6009f37788"
+"80e3a9497d06f961"
+"262d732a5c8f92e0"
+"b1efa94c6df9872d"
+"26878b6f18a648a1"
+"063e597a9f134f1b"
+"6497f6d3325080ef"
+"08453d7ae4f91dee"
+"c0c58f242817ab4f"
+"be1a30dcac314ef9"
+"f9d1b553680d2daa"
+"266c965c37fb9872"
+"1742342ad1933233"
+"5b2c2bfc47f8a42d"
+\end{minted}
+\end{frame}
+
+
+
+\subsection{xargs}
+\begin{frame}[fragile,t]{Running Show History on All Histories}
+\begin{minted}{bash}
+$ parsec histories get_histories | jq .[].id | \
+    xargs -n 1 parsec histories show_history
+\end{minted}
+\setminted{fontsize=\tiny,baselinestretch=1}
+\begin{minted}{json}
+{
+  "annotation": null,
+  "contents_url": "/galaxy/api/histories/5148a1f64f25bf61/contents",
+  "create_time": "2017-06-26T17:59:52.868909",
+  "deleted": false,
+  "empty": false,
+  "genome_build": null,
+  "id": "5148a1f64f25bf61",
+  "importable": false,
+  "model_class": "History",
+  "name": "BuildID=Manual WF=Structural Org=P-NIH10_LMin Source=Jenkins",
+  "published": false,
+  "purged": false,
+  "size": 1631779681,
+  "slug": null,
+  "state": "ok",
+  "state_details": {
+    "discarded": 0,
+    "empty": 0,
+    "error": 0,
+    "failed_metadata": 0,
+    "new": 0,
+    "ok": 45,
+    "paused": 0,
+    "queued": 0,
+    "running": 0,
+    "setting_metadata": 0,
+    "upload": 0
+  },
+\end{minted}
+\end{frame}
+
+
+\subsection{xargs+jq}
+\begin{frame}[fragile,t]{Fetching Specific History Attributes}
+\begin{minted}{bash}
+$ parsec histories get_histories | jq .[].id | \
+    xargs -n 1 parsec histories show_history | \
+    jq '[.id, .size, .importable, .slug]'
+\end{minted}
+\setminted{fontsize=\tiny,baselinestretch=1}
+\begin{minted}{json}
+[
+  "5148a1f64f25bf61",
+  1631779681,
+  false,
+  null
+]
+[
+  "1e0fb5a4654a13de",
+  111077737,
+  false,
+  null
+]
+[
+  "0e0bc5c03c31a20b",
+  63912787,
+  false,
+  null
+]
+\end{minted}
+\end{frame}
+
+
+\subsection{@tsv}
+\begin{frame}[fragile,t]{\ldots{}but now as tabular}
+\begin{minted}{bash}
+$ parsec histories get_histories | jq .[].id | \
+    xargs -n 1 parsec histories show_history | \
+    jq '[.id, .size, .importable, .slug] | @tsv' -r
+\end{minted}
+\setminted{fontsize=\tiny,baselinestretch=1}
+\begin{minted}{text}
+5148a1f64f25bf61        1631779681      false
+1e0fb5a4654a13de        111077737       false
+0e0bc5c03c31a20b        63912787        false
+742f8640b914f3a2        223110138       false
+bd51b07197d04eef        91514358        false
+125b9423b24a8763        4824946 false
+75ff0b19a07b1520        59332973        false
+c9832d8b307e1578        0       false
+7fa45ec20a19d82d        92842122        false
+...
+\end{minted}
+\end{frame}
+
+
+
+
+\section{Tools}
+\begin{frame}[fragile,t]{Tool information}
+\begin{minted}{bash}
+$ parsec tools show_tool upload1
+\end{minted}
+\begin{minted}{json}
+{
+    "config_file": "/galaxy/tools/data_source/upload.xml",
+    "description": "from your computer",
+    "edam_operations": [],
+    "edam_topics": [],
+    "form_style": "regular",
+    "id": "upload1",
+    "labels": [],
+    "model_class": "Tool",
+    "name": "Upload File",
+    "panel_section_id": "8a843907-df36-4d82-a1ab-2bde1b4ce827",
+    "panel_section_name": "Get Data",
+    "version": "1.1.4"
+}
+\end{minted}
+\end{frame}
+
+
+\subsection{upload}
+\begin{frame}[fragile,t]{Uploading files}
+\begin{minted}{bash}
+$ parsec tools upload_file my_file.tsv c89d6abdbfb26d58
+\end{minted}
+\begin{minted}{json}
+{
+    "output_collections": [],
+    "implicit_collections": [],
+    "jobs": [
+        {
+            "model_class": "Job",
+            "state": "new",
+            "update_time": "2017-06-30T07:02:46.173533",
+            "create_time": "2017-06-30T07:02:45.746877",
+            "tool_id": "upload1",
+            "exit_code": null,
+            "id": "10bf3dfa9c84edf2"
+        }
+    ],
+    "outputs": [
+        {
+            "metadata_dbkey": "?",
+            "state": "queued",
+            "name": "my_file.tsv",
+            "hid": 1,
+\end{minted}
+\end{frame}
+
+
+
+\subsection{bash!}
+\begin{frame}[fragile,t]{Uploading files more easily}
+\begin{minted}{bash}
+$ parsec tools upload_file my_file.tsv \
+   $(parsec histories create_history --name 'Test' \
+     | jq .id) \
+  | jq .outputs[0]
+\end{minted}
+\setminted{fontsize=\tiny,baselinestretch=1}
+\begin{minted}{json}
+{
+  "peek": "<table cellspacing=\"0\" cellpadding=\"3\"></table>",
+  "visible": true,
+  "hid": 1,
+  "create_time": "2017-06-30T07:04:25.058273",
+  "uuid": "049351a2-3d55-4408-91eb-b56920e03985",
+  "data_type": "galaxy.datatypes.data.Text",
+  "update_time": "2017-06-30T07:04:25.127352",
+  "output_name": "output0",
+  "history_content_type": "dataset",
+  "genome_build": "?",
+  "misc_info": null,
+  "id": "ec7715646bde6b45",
+  "purged": false,
+  "hda_ldda": "hda",
+  "tags": [],
+  "file_ext": "auto",
+  "state": "queued",
+  "name": "my_file.tsv",
+  "metadata_dbkey": "?",
+  "metadata_data_lines": null,
+  "model_class": "HistoryDatasetAssociation",
+  "file_size": 0,
+  "history_id": "219382be5f84481d",
+  "misc_blurb": null,
+  "deleted": false
+}
+\end{minted}
+\end{frame}
+
+
+\section{Devops}
+\begin{frame}[fragile]{API Keys}
+Parsec is good for DevOps and Galactic Automation
+\begin{itemize}
+	\item Bash loops \& xargs
+	\item Easily composable functions
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile,t]{API Keys}
+\begin{minted}{bash}
+$ parsec users create_user_apikey eee708f9257ce041
+ffff2e55e4e1759d0dd657ae6c72984f
+
+$ parsec users get_users | jq .[].id \
+  xargs -n 1 parsec users create_user_apikey
+...
+
+$ parsec users get_users | jq .[].id \
+  xargs -n 1 parsec users get_user_apikey
+...
+\end{minted}
+\end{frame}
+
+
+\subsection{Reporting}
+\begin{frame}[fragile,t]{Reporting}
+\begin{minted}{bash}
+$ parsec users get_users | jq '.[].id' | \
+    xargs -n 1 parsec users show_user | \
+    jq '[.username, .email, .] | @tsv' -r
+user-a    user-a@tamu.edu   207.3 MB
+user-b    user-b@tamu.edu   0 bytes
+user-c    user-c@tamu.edu   3.0 KB
+\end{minted}
+\end{frame}
+
+
+
+\section{Related Projects}
+\subsection{Chado/Chakin}
+\begin{frame}[fragile,t]{Related Projects}
+\begin{minted}{bash}
+$ chakin organism get_organisms
+...
+$ chakin organism add_organism escherichia \
+    --species coli 'E. coli' e.coli
+\end{minted}
+\begin{minted}{json}
+{
+  "abbreviation": "e.coli",
+  "comment": null,
+  "common_name": "E. coli",
+  "genus": "escherichia",
+  "organism_id": 7,
+  "species": "coli"
+}
+\end{minted}
+\end{frame}
+
+\subsection{Apollo/Arrow}
+\begin{frame}[fragile,t]{Related Projects}
+\begin{minted}{bash}
+$ arrow users get_users
+\end{minted}
+\setminted{fontsize=\tiny,baselinestretch=1}
+\begin{minted}{json}
+[
+  {
+    "role": "USER",
+    "lastName": "USER",
+    "firstName": "REMOTE",
+    "availableGroups": [
+      {
+        "name": "bich464-2016-spring-admin"
+      },
+      {
+        "name": "bich464-2017"
+      },
+      {
+        "name": "testing2"
+      }
+    ],
+    "groups": [],
+    "username": "redacted@tamu.edu",
+    "userId": 265323,
+    "organismPermissions": [
+      {
+        "permissions": [
+          "EXPORT",
+          "READ",
+          "WRITE"
+        ],
+        "userId": 265323,
+        "organism": "464_2017_assessment1",
+        "id": 267609
+      },
+      {
+        "permissions": [
+          "WRITE",
+\end{minted}
+\end{frame}
 
 
 \section{Q\&A}
 \begin{frame}{Q\&A}
-	Thank you \\\ \\
+	Thank you\\[1em]
+
+BioBlend / Parsec \\
+\url{github.com/galaxy-iuc/parsec} \\[.5em]
+Chado / Chakin \\
+\url{github.com/galaxy-genome-annotation/python-chado} \\[.5em]
+Apollo / Arrow \\
+\url{github.com/galaxy-genome-annotation/python-apollo}\\[.5em]
+
 	\begin{center}
-		\begin{tabular}{rl}
-			\end{tabular}\\[1cm]
-			%\logosTamuCPT
-			\fundingNSFABIannotation
+		\informationErascheTable%
+		\logosTamuCPT%
+		\fundingNSFABIannotation%
 	\end{center}
 \end{frame}
 

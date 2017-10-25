@@ -1,0 +1,455 @@
+\documentclass[12pt]{ufrslides}
+\beamertemplatenavigationsymbolsempty
+
+\title[Projects]{An Exercise in Multi-tasking}
+\subtitle{17 done; 12 in progress; 8 upcoming}
+\author[ER]{E. Rasche}
+\date{2017-11-09T08:00:00Z}
+
+
+\usepackage{siunitx}
+
+\begin{document}
+\frame{\titlepage}
+
+\section[Completed]{Completed Projects}
+\begin{frame}{Completed Projects}
+	%Things that are \emph{completely} done and do not need updating
+	%- galaxy hardening PR #4604
+	%- 41% reduction in startup time https://github.com/galaxyproject/galaxy/pull/4495
+	%- bigger click targets in Galaxy https://github.com/galaxyproject/galaxy/pull/4470
+	%- LAN restrictions https://github.com/galaxyproject/galaxy/pull/4289
+\end{frame}
+
+\subsection{Monitoring}
+	\begin{frame}{Initial Monitoring}
+		\begin{itemize}
+			\item Grafana! InfluxDB! (stickers)!
+			\item \url{https://grafana.denbi.uni-freiburg.de}
+			\item % TODO: image
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Galactic Radio Telescope}
+		\begin{itemize}
+			\item Part of Galaxy 17.09
+			\item Efficiently collects basic metrics (job, state, runtime, input sizes) from participating Galaxies
+			\item A later update will add more metrics
+			\item Currently collecting from UFR Galaxy
+			\item \url{https://telescope.galaxyproject.org}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Sentry}
+		\begin{itemize}
+			\item Service that collects application exceptions
+			\item Galaxy: stack traces, \texttt{log.warn}, \texttt{log.error}, \texttt{log.exception}
+			\item Galaxy Frontend: javascript exceptions + browser info + user identity
+			\item Helps catch + fix real bugs!
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{public-galaxy-servers}
+		\begin{itemize}
+			\item Simple CSV file of public galaxy servers
+			\item Code to contact server + check configuration
+			\item Uptime badges! % TODO: image
+			\item Cool maps!
+		\end{itemize}
+	\end{frame}
+
+\subsection{Freiburg Galaxy}
+	\begin{frame}{Job Conf Migration}
+		\begin{itemize}
+			\item Job configuration migrated from XML to python
+			\item Under testing (Jenkins)
+			\item Enables dynamically choosing where to send jobs when they're received
+			\item Training roles can direct users jobs to condor
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Unzipping of Uploaded Data}
+		\begin{itemize}
+			\item Leverages our Cloud Condor Cluster
+			\item ``Upload'' VMs only handle upload jobs
+			\item All unzipping is done off-host
+			\item \emph{Fewer} random slow downs
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{41\% Reduction in Startup Time}
+		\begin{itemize}
+			\item \href{https://github.com/galaxyproject/galaxy/pull/4495}{galaxyproject/galaxy\#4495}
+			\item Tool loading code did spectacularly stupid things, re-parsing entire tool conf for every tool directory
+			\item Part of ongoing performance efforts
+			\item Many low hanging fruit for would-be-contributors!
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{yaml linting}
+		\begin{itemize}
+			\item \texttt{pykwalify} is great
+			\item Use it.
+				%TODO: image of schema
+		\end{itemize}
+	\end{frame}
+
+\subsection{Galaxy Project}
+	\begin{frame}{Bug Reporting Plugins}
+		\begin{itemize}
+			\item Bug reporting as ``plugins''
+			\item Plugins for: email, sentry, github, influxdb, logfile
+			\item Control over automated submission without user interaction (e.g.~sentry vs email)
+			\item \href{https://github.com/galaxyproject/galaxy/pull/4305}{galaxyproject/galaxy\#4305}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Ansibilization of Galaxy Configuration}
+		\begin{itemize}
+			\item Major Galaxy configuration files now as some custom playbooks
+			\item Not the entirety of galaxy
+			\item GitHub enables reviewing + ``auditing'' of configuration changes
+			\item Services auto-restarted on merges, \emph{no more SSHing}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Bigger Click Targets}
+		\begin{itemize}
+			\item \href{https://github.com/galaxyproject/galaxy/pull/4470}{galaxyproject/galaxy\#4470}
+			\item I hate small click targets
+			\item Be the change you want to see in the world
+		\end{itemize}
+	\end{frame}
+
+\subsection{Performance}
+	\begin{frame}{Zerg Mode}
+		\begin{itemize}
+			\item Configuration worked out by Nate Coraor (@natefoo)
+			\item Zero-downtime restarts of Galaxy
+			\item They work super great! We annotate the restart events in Grafana
+		\end{itemize}
+	\end{frame}
+
+\subsection{Cloud}
+	\begin{frame}{VGCN Images}
+		\begin{itemize}
+			\item Converted existing playbooks to more generic ``roles''
+			\item Integrated work from RZ for easier build process
+			\item Now regularly building + deploying images
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{VGCN Infrastructure}
+		\begin{itemize}
+			\item Regular deployments of images sucked
+			\item Needed rolling restarts
+			\item Infrastructure-as-code (e.g. Terraform/CloudFormation/Heat)
+				%TODO: image
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{bwCloud}
+		\begin{itemize}
+			\item 1-week of training / handover
+			\item Maintenance of bwCloud, StudiCloud, rzCloud
+			\item Full time employee replaces me (yay!)
+			\item No major improvements made, some networking issues triaged and bandaids applied around libvirtd
+		\end{itemize}
+	\end{frame}
+
+\subsection{Security}
+
+	\begin{frame}{Galaxy subprocess hardening}
+		\begin{itemize}
+			\item \href{https://github.com/galaxyproject/galaxy/pull/4604}{galaxyproject/galaxy\#4604}
+			\item \texttt{subprocess.call("\ldots{}", shell=True)} is \emph{bad}
+			\item Replaced with arrays of command parts, removed \texttt{shell=True}
+			\item Missed some \texttt{:(}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{LAN Restrictions}
+		\begin{itemize}
+			\item \href{https://github.com/galaxyproject/galaxy/pull/4289}{galaxyproject/galaxy\#4289}
+			\item Galaxy's upload lets you paste in URLs
+			\item Even ones inside your super secure network
+			\item Galaxy can be used to probe infrastructure and possibly download restricted material
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Security Repo for Galaxyproject}
+		\begin{itemize}
+			\item Tracking security issues in emails is not sensible
+			\item We now have a git repo for this
+			\item Working on a testing setup
+		\end{itemize}
+	\end{frame}
+
+
+\section[Ongoing]{Ongoing Projects}
+\begin{frame}{Ongoing Projects}
+	Projects in-flight
+\end{frame}
+
+\subsection[FR Galaxy]{\texttt{usegalaxy.eu}}
+
+	\begin{frame}{usegalaxy.eu rollout}
+		Done:
+		\begin{itemize}
+			\item Many uptime and performance enhancements in place
+			\item Monitoring continues to help identify issues
+		\end{itemize}
+		\ \\[0.5cm]
+		TODO:
+		\begin{itemize}
+			\item Logo
+			\item Branding things (UFR downplayed, usegalaxy.eu everywhere)
+			\item English and grammar checks of all written materials
+			\item Terms of Service (SLA, SLO) + Privacy Policy
+			\item Communications Materials
+			\item User-facing mailing list, plan out mail campaigns
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Apollo}
+		Background:
+		\begin{itemize}
+			\item We'll be deploying the Apollo Genome Browser alongside \texttt{usegalaxy.eu}
+			\item Apollo has horrifying performance in some parts
+			\item UI is miserable
+			\item Underlying code is not easily fixed
+		\end{itemize}
+		\ \\[0.5cm]
+		TODO:
+		\begin{itemize}
+			\item Working on splitting apart frontend + backend
+			\item Collaborating with some other ``big'' apollo-galaxy sites
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{JBrowe Chat Plugin}
+		Background:
+		\begin{itemize}
+			\item Apollo is based off of JBrowse
+			\item Can use JBrowse plugins
+			\item Apollo is great for collaborative, real-time editing
+			\item But it needs chat + feeling like other people are there.
+		\end{itemize}
+		\ \\[0.5cm]
+		Done:
+		\begin{itemize}
+			\item Proof-of-concept implementation works OK
+		\end{itemize}
+		\ \\[0.5cm]
+		TODO:
+		\begin{itemize}
+			\item CSS
+			\item Needs more authentication options
+			\item Needs archiving / chat log database
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Production Services}
+		\begin{itemize}
+			\item Grafana, InfluxDB, Sentry, public-galaxy-servers, Jenkins
+			\item Slowly becoming core pieces of infrastructure
+			\item \emph{Must} be able to be redeployed quickly ($<$\SI{10}{\minute})
+			\item Backups to be solved
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Advanced Job Conf}
+		\begin{itemize}
+			\item Existing job conf is nice, can be reconfigured by restarting handlers and waiting \SIrange{5}{10}{\minute}
+			\item But we can do better
+			\item Secondary process would allow hot-swapping job confs
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Lecture Material Compilation + Archiving}
+		\begin{itemize}
+			\item Jenkins is now building NGS\_lectures
+			\item Can serve + archive PDFs (forever?)
+			\item Need to define artefact retention policy
+			\item Need to apply to more projects
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{User Filters}
+		\begin{itemize}
+			\item Galaxy user tool filters let users build their own toolbox
+			\item Users can hide sections they aren't interested in
+			\item Currently broken, will be fixed real soon now$^{\text{\tiny \sc{TM}}}$
+		\end{itemize}
+	\end{frame}
+
+\subsection{Galaxy Project}
+
+	\begin{frame}{pg\_tools}
+		\begin{itemize}
+			\item (Re)discovered script \texttt{pglite}
+			\item First set of tools being built
+			\item Datatypes in Galaxy
+			\item Will provide \emph{real} PostgreSQL databases during tool execution
+			\item Useful for chemiinformatics + genome annotation
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Mirroring Galaxy Repos}
+		\begin{itemize}
+			\item \url{https://gitlab.denbi.uni-freiburg.de}
+			\item Plan is to mirror all of galaxyproject's repos
+			\item Recently discovered \texttt{git-appraise}
+			\item Should permit archiving PRs + discussion (+ issues?)
+		\end{itemize}
+	\end{frame}
+
+\subsection{Performance}
+\subsection{Cloud}
+
+	\begin{frame}{deNBI Cloud}
+		\begin{itemize}
+			\item Adding Elixir AAI authentication to deNBI Cloud @ Freiburg
+			\item Unlike any other cloud, so we have special issues
+			\item \texttt{:(}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{VGCN images built + uploaded}
+		\begin{itemize}
+			\item Building VGCN images by hand is silly!
+			\item Let's make jenkins do it
+			\item Builds in bwCloud time out when Jenkins runs them (or I do by hand)
+			\item But they'll build fine in SJ's ``imager'' VM
+			\item ???
+		\end{itemize}
+	\end{frame}
+
+\subsection{Security}
+
+	\begin{frame}{CSP}
+		\begin{itemize}
+			\item CSP helps prevent content from being injected unexpectedly
+			\item E.g. can cause user's browser to disable inline scripting or inline styles
+			\item Currently in ``reporting'' mode
+			\item Will move to ``enforcing'' mode after \texttt{usegalaxy.eu} hard launches
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Cron jobs logged to Jenkins}
+		\begin{itemize}
+			\item Ansibilization lets us discover all manner of hidden jobs
+			\item Let's push the logs to a central location for auditing
+			\item Jenkins can ``monitor'' external jobs
+			\item Everyone gets visibility into our infrastructure
+		\end{itemize}
+	\end{frame}
+
+
+\section[Upcoming]{Upcoming Projects}
+\begin{frame}{Upcoming Projects}
+	Still in planning phase
+\end{frame}
+
+\subsection{Monitoring}
+
+	\begin{frame}{GRT Analysis Suite}
+		Question: What is in the GRT data? \\ \ \\
+		Proposed Solution:
+		\begin{itemize}
+			\item Want to deploy Jupyter / an web-based SQL query suite
+			\item No real plan for making it useful, but it'd be shiny
+			\item Want to encourage analysis of public GRT data
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Testing Workflow execution}
+		Question: Is Galaxy working? \\ \ \\
+		Proposed Solution:
+		\begin{itemize}
+			\item Regular, automated testing of Galaxy installation
+			\item Commonly executed workflows will give good idea
+			\item Can cover jobs going to condor + sge
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{More monitoring}
+		Question: Why is everything still slow? \\ \ \\
+		Proposed Solution:
+		\begin{itemize}
+			\item Upload jobs should be timed (time to upload, job execution, green history element)
+			\item More job timings available in the database
+			\item Need to track all of this, are things getting better for users?
+		\end{itemize}
+	\end{frame}
+
+\subsection{Freiburg Galaxy}
+
+\subsection{Galaxy Project}
+
+	\begin{frame}{GIS}
+		Question: How can I analyse geographic data in Galaxy? \\ \ \\
+		Proposed Solution:
+		\begin{itemize}
+			\item French team wants to work on this
+			\item GIS data is super fun, we can work with some interesting datasets
+			\item Lots of room to build stuff people will love
+		\end{itemize}
+	\end{frame}
+
+\subsection{Performance}
+
+\subsection{Cloud}
+
+\subsection{Security}
+
+	\begin{frame}{Galaxy OAuth2}
+		Question: How can I grant partial access to my account to a third party without violating every security policy ever? \\ \ \\
+		Proposed Solution:
+		\begin{itemize}
+			\item Implement \emph{OAuth2} over the Galaxy API
+			\item API keys with \emph{scopes} that can be granted
+			\item Third parties can build things on top of Galaxy, new UIs, new (limited) tools
+			\item Users feel safe granting privileges
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{User Generated Content}
+		Question: How can admins be 100\% absolutely sure that user generated content is safe?\\ \ \\
+		Proposed Solution:
+		\begin{itemize}
+			\item Host content on a second domain
+			\item Just like GitHub
+			\item Will allow us to ignore / disable whitelisting of ``safe'' tools
+			\item All datasets will be rendered from a second domain (origin)
+			\item Token-based access to datasets instead of cookie-based
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Secrets Server}
+		Question: How can we securely store user-supplied secrets in the safest way possible?\\ \ \\
+		Proposed Solution:
+		\begin{itemize}
+			\item Galaxy should not be responsible for storing super secret secrets (e.g. API keys to third party services)
+			\item Hashicorp's Secrets Server is \emph{built for this} from ground up
+			\item Integration paves way for tools with easier access to remote services (i.e. Apollo suite)
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Medical / DFARS}
+		Question: How can users with extreme data security requirements use Galaxy?\\ \ \\
+		Proposed Solution:
+		\begin{itemize}
+			\item Planning phase began during \texttt{\$oldjob}
+			\item Numerous sub-tasks:
+			\begin{itemize}
+				\item Securely wipe (DoD standard 32-pass) datasets and temporary files
+				\item Allow users to mark datasets, libraries, entire histories as ``secure''
+				\item Any datasets produced from these are also tagged ``secure'' and treated accordingly.
+				\item Data must be encrypted in transit + at rest (requires Secrets Server)
+			\end{itemize}
+			\item Important to numerous US Galaxies + Medical Users
+		\end{itemize}
+	\end{frame}
+
+\end{document}

@@ -63,3 +63,8 @@
 %\setbeamercolor*{block body example}{fg=black,bg=UniRot}
 \setbeamercolor*{separation line}{bg=UniRot}
 \setbeamercolor*{fine separation line}{bg=UniRot}
+
+\hypersetup{colorlinks=true,allcolors=UniRot}
+
+% Disable navigation because erasche doesn't like it.
+\beamertemplatenavigationsymbolsempty

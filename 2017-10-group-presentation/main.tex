@@ -1,10 +1,10 @@
 \documentclass[12pt]{ufrslides}
-\beamertemplatenavigationsymbolsempty
+\usepackage{textcomp}
 
-\title[Projects]{An Exercise in Multi-tasking}
-\subtitle{17 done; 12 in progress; 8 upcoming}
-\author[ER]{E. Rasche}
+\title[Projects]{My projects}
+\author{E. Rasche}
 \date{2017-11-09T08:00:00Z}
+\newcommand{\ghpr}[3]{\href{https://github.com/#1/#2/pull/#3}{#1/#2\##3}}
 
 
 \usepackage{siunitx}
@@ -21,12 +21,56 @@
 	%- LAN restrictions https://github.com/galaxyproject/galaxy/pull/4289
 \end{frame}
 
-\subsection{Monitoring}
+\subsection[Monit/Infra]{Monitoring + Infrastructure}
 	\begin{frame}{Initial Monitoring}
+		\begin{center}
+			\emph{New UFR Service}
+		\end{center}
 		\begin{itemize}
-			\item Grafana! InfluxDB! (stickers)!
+			\item Telegraf $\rightarrow$ InfluxDB $\rightarrow$ Grafana
+			\item Open metrics / statistics
+			\item Sharing dashboards with Galaxy project
 			\item \url{https://grafana.denbi.uni-freiburg.de}
-			\item % TODO: image
+			% TODO: image
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Sentry}
+		\begin{center}
+			\emph{New UFR Service}
+		\end{center}
+		\begin{itemize}
+			\item Collects application exceptions
+			\item Galaxy: stack traces, \texttt{log.warn}, \texttt{log.error}, \texttt{log.exception}
+			\item Galaxy Frontend: javascript exceptions + browser info + user identity
+			\item Helps catch + fix bugs!
+		\end{itemize}
+		% todo: picture
+	\end{frame}
+
+	\begin{frame}{Jenkins}
+		\begin{center}
+			\emph{New UFR Service}
+		\end{center}
+		\begin{itemize}
+			\item Like \textbf{Travis-CI} but different
+			\item Runs in the bwCloud
+			\item Useful if:
+				\begin{itemize}
+					\item Jobs need to run really long
+					\item Code is extremely private/sensitive
+					\item Jobs produce artifacts that must be stored and
+						available to download (e.g. PDF for course slides)
+				\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{public-galaxy-servers}
+		\begin{itemize}
+			\item Simple CSV file of public galaxy servers
+			\item Simple script to contact server + record configuration
+			\item Uptime badges! % TODO: image
+			\item Cool maps!
 		\end{itemize}
 	\end{frame}
 
@@ -40,49 +84,22 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{Sentry}
-		\begin{itemize}
-			\item Service that collects application exceptions
-			\item Galaxy: stack traces, \texttt{log.warn}, \texttt{log.error}, \texttt{log.exception}
-			\item Galaxy Frontend: javascript exceptions + browser info + user identity
-			\item Helps catch + fix real bugs!
-		\end{itemize}
-	\end{frame}
-
-	\begin{frame}{public-galaxy-servers}
-		\begin{itemize}
-			\item Simple CSV file of public galaxy servers
-			\item Code to contact server + check configuration
-			\item Uptime badges! % TODO: image
-			\item Cool maps!
-		\end{itemize}
-	\end{frame}
-
 \subsection{Freiburg Galaxy}
 	\begin{frame}{Job Conf Migration}
 		\begin{itemize}
 			\item Job configuration migrated from XML to python
 			\item Under testing (Jenkins)
-			\item Enables dynamically choosing where to send jobs when they're received
-			\item Training roles can direct users jobs to condor
+			\item Enables dynamically choosing where to send jobs
+			\item Use case: Users in specific roles can be directed to specific VMs.
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{Unzipping of Uploaded Data}
+	\begin{frame}{Upload + Metadata VMs}
 		\begin{itemize}
-			\item Leverages our Cloud Condor Cluster
-			\item ``Upload'' VMs only handle upload jobs
-			\item All unzipping is done off-host
+			\item Leverages our bwCloud Condor Cluster
+			\item ``Upload'' VMs only handle upload jobs, ``metadata'' VMs are similar.
+			\item All uncompression of uploaded files is done off of \texttt{cn029}
 			\item \emph{Fewer} random slow downs
-		\end{itemize}
-	\end{frame}
-
-	\begin{frame}{41\% Reduction in Startup Time}
-		\begin{itemize}
-			\item \href{https://github.com/galaxyproject/galaxy/pull/4495}{galaxyproject/galaxy\#4495}
-			\item Tool loading code did spectacularly stupid things, re-parsing entire tool conf for every tool directory
-			\item Part of ongoing performance efforts
-			\item Many low hanging fruit for would-be-contributors!
 		\end{itemize}
 	\end{frame}
 
@@ -100,7 +117,7 @@
 			\item Bug reporting as ``plugins''
 			\item Plugins for: email, sentry, github, influxdb, logfile
 			\item Control over automated submission without user interaction (e.g.~sentry vs email)
-			\item \href{https://github.com/galaxyproject/galaxy/pull/4305}{galaxyproject/galaxy\#4305}
+			\item \ghpr{galaxyproject}{galaxy}{4305}
 		\end{itemize}
 	\end{frame}
 
@@ -108,14 +125,15 @@
 		\begin{itemize}
 			\item Major Galaxy configuration files now as some custom playbooks
 			\item Not the entirety of galaxy
+			\item Playbooks automatically run every hour
 			\item GitHub enables reviewing + ``auditing'' of configuration changes
-			\item Services auto-restarted on merges, \emph{no more SSHing}
+			\item \emph{Nearly} no more SSHing
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Bigger Click Targets}
 		\begin{itemize}
-			\item \href{https://github.com/galaxyproject/galaxy/pull/4470}{galaxyproject/galaxy\#4470}
+			\item \ghpr{galaxyproject}{galaxy}{4470}
 			\item I hate small click targets
 			\item Be the change you want to see in the world
 		\end{itemize}
@@ -124,8 +142,8 @@
 \subsection{Performance}
 	\begin{frame}{Zerg Mode}
 		\begin{itemize}
+			\item \emph{Zero-downtime restarts of Galaxy}
 			\item Configuration worked out by Nate Coraor (@natefoo)
-			\item Zero-downtime restarts of Galaxy
 			\item They work super great! We annotate the restart events in Grafana
 		\end{itemize}
 	\end{frame}
@@ -133,25 +151,25 @@
 \subsection{Cloud}
 	\begin{frame}{VGCN Images}
 		\begin{itemize}
-			\item Converted existing playbooks to more generic ``roles''
-			\item Integrated work from RZ for easier build process
+			\item Pre-configure Condor Master + Executor VM images
+			\item Converted existing playbooks to reusable roles
+			\item Integrated work from RZ for simplified build process
 			\item Now regularly building + deploying images
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{VGCN Infrastructure}
 		\begin{itemize}
-			\item Regular deployments of images sucked
-			\item Needed rolling restarts
+			\item Regularly deploying new images sucked
+			\item Rolling restarts are necessary
 			\item Infrastructure-as-code (e.g. Terraform/CloudFormation/Heat)
-				%TODO: image
 		\end{itemize}
+		\includegraphics[width=\textwidth]{vgcn.png}
 	\end{frame}
 
 	\begin{frame}{bwCloud}
 		\begin{itemize}
-			\item 1-week of training / handover
-			\item Maintenance of bwCloud, StudiCloud, rzCloud
+			\item Temporary maintainer
 			\item Full time employee replaces me (yay!)
 			\item No major improvements made, some networking issues triaged and bandaids applied around libvirtd
 		\end{itemize}
@@ -161,18 +179,18 @@
 
 	\begin{frame}{Galaxy subprocess hardening}
 		\begin{itemize}
-			\item \href{https://github.com/galaxyproject/galaxy/pull/4604}{galaxyproject/galaxy\#4604}
-			\item \texttt{subprocess.call("\ldots{}", shell=True)} is \emph{bad}
-			\item Replaced with arrays of command parts, removed \texttt{shell=True}
+			\item \ghpr{galaxyproject}{galaxy}{4604}
+			\item \textbf{BAD}\\ \texttt{subprocess.call("ls /some/path", shell=True)}
+			\item \textbf{GOOD}\\ \texttt{subprocess.call(["ls", "/some/path"])}
 			\item Missed some \texttt{:(}
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{LAN Restrictions}
 		\begin{itemize}
-			\item \href{https://github.com/galaxyproject/galaxy/pull/4289}{galaxyproject/galaxy\#4289}
+			\item \ghpr{galaxyproject}{galaxy}{4289}
 			\item Galaxy's upload lets you paste in URLs
-			\item Even ones inside your super secure network
+			\item Even URLs inside your super secure network (e.g.~\texttt{http://192.168.0.1:8080})
 			\item Galaxy can be used to probe infrastructure and possibly download restricted material
 		\end{itemize}
 	\end{frame}
@@ -181,14 +199,13 @@
 		\begin{itemize}
 			\item Tracking security issues in emails is not sensible
 			\item We now have a git repo for this
-			\item Working on a testing setup
+			\item Testing setup is WIP
 		\end{itemize}
 	\end{frame}
 
 
 \section[Ongoing]{Ongoing Projects}
 \begin{frame}{Ongoing Projects}
-	Projects in-flight
 \end{frame}
 
 \subsection[FR Galaxy]{\texttt{usegalaxy.eu}}
@@ -207,7 +224,7 @@
 			\item English and grammar checks of all written materials
 			\item Terms of Service (SLA, SLO) + Privacy Policy
 			\item Communications Materials
-			\item User-facing mailing list, plan out mail campaigns
+			\item User-facing mailing list, plan out mails
 		\end{itemize}
 	\end{frame}
 
@@ -230,10 +247,8 @@
 	\begin{frame}{JBrowe Chat Plugin}
 		Background:
 		\begin{itemize}
-			\item Apollo is based off of JBrowse
-			\item Can use JBrowse plugins
 			\item Apollo is great for collaborative, real-time editing
-			\item But it needs chat + feeling like other people are there.
+			\item \ldots{}but it feels very lonely since you cannot communicate
 		\end{itemize}
 		\ \\[0.5cm]
 		Done:
@@ -243,32 +258,50 @@
 		\ \\[0.5cm]
 		TODO:
 		\begin{itemize}
-			\item CSS
 			\item Needs more authentication options
 			\item Needs archiving / chat log database
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Production Services}
+		Background:
 		\begin{itemize}
-			\item Grafana, InfluxDB, Sentry, public-galaxy-servers, Jenkins
-			\item Slowly becoming core pieces of infrastructure
-			\item \emph{Must} be able to be redeployed quickly ($<$\SI{10}{\minute})
-			\item Backups to be solved
+			\item Increasing number services that become slowly critical
+			\item SLAs? SLOs?
+		\end{itemize}
+		\ \\[0.5cm]
+		Done:
+		\begin{itemize}
+			\item Ansible roles for deploying infrastructure (Grafana, InfluxDB, Sentry, public-galaxy-servers)
+		\end{itemize}
+		\ \\[0.5cm]
+		TODO:
+		\begin{itemize}
+			\item SLO: \emph{Must} be able to be redeployed quickly ($<$\SI{10}{\minute})
+			\item Backups
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Advanced Job Conf}
+		Background:
 		\begin{itemize}
-			\item Existing job conf is nice, can be reconfigured by restarting handlers and waiting \SIrange{5}{10}{\minute}
-			\item But we can do better
-			\item Secondary process would allow hot-swapping job confs
+			\item ``New'' job conf is nice
+			\item But can only be reconfigured by restarting handlers and waiting \SIrange{5}{10}{\minute}
+		\end{itemize}
+		\ \\[0.5cm]
+		TODO:
+		\begin{itemize}
+			\item Force it into a secondary process which can be re-deployed with zero downtime
+			\item Need to choose a method + test  (unix sockets, load balanced web service, \texttt{SO\_REUSEPORT}, etc.)
+			\item SLO: $\leq\frac{1}{100.000}$ jobs dropped in networked version of the job destination service
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Lecture Material Compilation + Archiving}
 		\begin{itemize}
-			\item Jenkins is now building NGS\_lectures
+			\item Jenkins is now building NGS\_lectures as an example
+			\item ``Reference'' build platform, everyone can compare results to
+				it (especially for people with custom \LaTeX styles)
 			\item Can serve + archive PDFs (forever?)
 			\item Need to define artefact retention policy
 			\item Need to apply to more projects
@@ -276,31 +309,59 @@
 	\end{frame}
 
 	\begin{frame}{User Filters}
+		Background:
 		\begin{itemize}
-			\item Galaxy user tool filters let users build their own toolbox
-			\item Users can hide sections they aren't interested in
-			\item Currently broken, will be fixed real soon now$^{\text{\tiny \sc{TM}}}$
+			\item Too many tools in the toolbox
+			\item Too few are relevant to specific users
+			\item With user toolbox filters users can ``build'' their own toolbox
+		\end{itemize}
+		\ \\[0.5cm]
+		TODO:
+		\begin{itemize}
+			\item Currently broken, will be fixed real soon now\texttrademark
 		\end{itemize}
 	\end{frame}
 
 \subsection{Galaxy Project}
 
 	\begin{frame}{pg\_tools}
+		Background:
 		\begin{itemize}
 			\item (Re)discovered script \texttt{pglite}
-			\item First set of tools being built
-			\item Datatypes in Galaxy
 			\item Will provide \emph{real} PostgreSQL databases during tool execution
 			\item Useful for chemiinformatics + genome annotation
+		\end{itemize}
+		\ \\[0.5cm]
+		Done:
+		\begin{itemize}
+			\item First set of tools being built
+			\item Datatypes in Galaxy
+		\end{itemize}
+		\ \\[0.5cm]
+		TODO:
+		\begin{itemize}
+			\item GMOD tool suite
+			\item chado-schema-builder brought back to life
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Mirroring Galaxy Repos}
+		Background:
 		\begin{itemize}
-			\item \url{https://gitlab.denbi.uni-freiburg.de}
+			\item Some devs worry: ``What if GitHub goes away?''
 			\item Plan is to mirror all of galaxyproject's repos
-			\item Recently discovered \texttt{git-appraise}
-			\item Should permit archiving PRs + discussion (+ issues?)
+		\end{itemize}
+		\ \\[0.5cm]
+		Done:
+		\begin{itemize}
+			\item Simple mirror of Galaxy codebase
+		\end{itemize}
+		\ \\[0.5cm]
+		TODO:
+		\begin{itemize}
+			\item Mirror all other repos
+			\item Update mirrors regularly (i.e. Jenkins job)
+			\item Recently discovered \texttt{git-appraise}. Should permit archiving PRs + discussion (+ issues?) all within portable git repo.
 		\end{itemize}
 	\end{frame}
 
@@ -315,12 +376,18 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{VGCN images built + uploaded}
+	\begin{frame}{Automating VGCN Image Building}
+		Background:
 		\begin{itemize}
-			\item Building VGCN images by hand is silly!
-			\item Let's make jenkins do it
-			\item Builds in bwCloud time out when Jenkins runs them (or I do by hand)
-			\item But they'll build fine in SJ's ``imager'' VM
+			\item Building VGCN images by hand is time consuming
+			\item Builds are quite reliable, unlikely to produce a broken VM
+			\item So let's make Jenkins build them on VGCN playbook changes
+		\end{itemize}
+		\ \\[0.5cm]
+		TODO:
+		\begin{itemize}
+			\item Builds in bwCloud time out when Jenkins runs them
+			\item But they'll build fine in SJ's ``imager'' cloud VM
 			\item ???
 		\end{itemize}
 	\end{frame}
@@ -328,20 +395,42 @@
 \subsection{Security}
 
 	\begin{frame}{CSP}
+		Background:
 		\begin{itemize}
-			\item CSP helps prevent content from being injected unexpectedly
-			\item E.g. can cause user's browser to disable inline scripting or inline styles
-			\item Currently in ``reporting'' mode
-			\item Will move to ``enforcing'' mode after \texttt{usegalaxy.eu} hard launches
+			\item CSP helps prevent huge swaths of security issues
+			\item Can prevent browsers from executing unexpected scripts, CSS, media, frames, etc.
+		\end{itemize}
+		\ \\[0.5cm]
+		Done:
+		\begin{itemize}
+			\item Currently in ``reporting'' mode, collecting any infractions
+		\end{itemize}
+		\ \\[0.5cm]
+		TODO:
+		\begin{itemize}
+			\item Need to analyze infractions, identify real issues (vs noise)
+			\item Need to cleanup galaxy, removing inlined styles, scripts
+			\item Will move to ``enforcing'' mode after issues are patched
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Cron jobs logged to Jenkins}
+		Background:
 		\begin{itemize}
 			\item Ansibilization lets us discover all manner of hidden jobs
 			\item Let's push the logs to a central location for auditing
 			\item Jenkins can ``monitor'' external jobs
-			\item Everyone gets visibility into our infrastructure
+			\item Public visibility $\Rightarrow$ forced accountability
+		\end{itemize}
+		\ \\[0.5cm]
+		Done:
+		\begin{itemize}
+			\item All cron tasks from \texttt{galaxy@cn029}
+		\end{itemize}
+		\ \\[0.5cm]
+		TODO:
+		\begin{itemize}
+			\item Identify cron jobs on other hosts, VMs, etc.
 		\end{itemize}
 	\end{frame}
 
@@ -354,32 +443,34 @@
 \subsection{Monitoring}
 
 	\begin{frame}{GRT Analysis Suite}
-		Question: What is in the GRT data? \\ \ \\
+		Question: What is in the GRT data? \\[0.6cm]
 		Proposed Solution:
 		\begin{itemize}
-			\item Want to deploy Jupyter / an web-based SQL query suite
+			\item Deploy Jupyter / an web-based SQL query suite with access to GRT data.
 			\item No real plan for making it useful, but it'd be shiny
 			\item Want to encourage analysis of public GRT data
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Testing Workflow execution}
-		Question: Is Galaxy working? \\ \ \\
+		Question: Is Galaxy working as expected? \\[0.6cm]
 		Proposed Solution:
 		\begin{itemize}
-			\item Regular, automated testing of Galaxy installation
+			\item Regular, automated testing of our Galaxy installation
 			\item Commonly executed workflows will give good idea
-			\item Can cover jobs going to condor + sge
+			\item Can cover jobs going to condor + sge + odd configuration we might have
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{More monitoring}
-		Question: Why is everything still slow? \\ \ \\
+		Question: Why is everything still slow? \\[0.6cm]
 		Proposed Solution:
 		\begin{itemize}
 			\item Upload jobs should be timed (time to upload, job execution, green history element)
 			\item More job timings available in the database
-			\item Need to track all of this, are things getting better for users?
+			\item Need to track all of this
+			\item In general, are things getting better or worse for users?
+			\item Is user-facing infra more or less reliable?
 		\end{itemize}
 	\end{frame}
 
@@ -388,7 +479,7 @@
 \subsection{Galaxy Project}
 
 	\begin{frame}{GIS}
-		Question: How can I analyse geographic data in Galaxy? \\ \ \\
+		Question: How can I analyse geographic data in Galaxy? \\[0.6cm]
 		Proposed Solution:
 		\begin{itemize}
 			\item French team wants to work on this
@@ -404,7 +495,7 @@
 \subsection{Security}
 
 	\begin{frame}{Galaxy OAuth2}
-		Question: How can I grant partial access to my account to a third party without violating every security policy ever? \\ \ \\
+		Question: How can I grant partial access to my account to a third party without violating every security policy ever? \\[0.6cm]
 		Proposed Solution:
 		\begin{itemize}
 			\item Implement \emph{OAuth2} over the Galaxy API
@@ -415,23 +506,22 @@
 	\end{frame}
 
 	\begin{frame}{User Generated Content}
-		Question: How can admins be 100\% absolutely sure that user generated content is safe?\\ \ \\
+		Question: How can admins be 100\% absolutely sure that user generated content is safe? \\[0.6cm]
 		Proposed Solution:
 		\begin{itemize}
-			\item Host content on a second domain
-			\item Just like GitHub
+			\item Host user-content on a second domain (i.e. HTML render of datasets)
+			\item Just like GitHub (\texttt{githubusercontent.com})
 			\item Will allow us to ignore / disable whitelisting of ``safe'' tools
-			\item All datasets will be rendered from a second domain (origin)
 			\item Token-based access to datasets instead of cookie-based
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Secrets Server}
-		Question: How can we securely store user-supplied secrets in the safest way possible?\\ \ \\
+		Question: How can we securely store user-supplied secrets in the safest way possible? \\[0.6cm]
 		Proposed Solution:
 		\begin{itemize}
 			\item Galaxy should not be responsible for storing super secret secrets (e.g. API keys to third party services)
-			\item Hashicorp's Secrets Server is \emph{built for this} from ground up
+			\item Hashicorp's Secrets Server is \emph{literally built for this and only this}
 			\item Integration paves way for tools with easier access to remote services (i.e. Apollo suite)
 		\end{itemize}
 	\end{frame}
@@ -440,16 +530,24 @@
 		Question: How can users with extreme data security requirements use Galaxy?\\ \ \\
 		Proposed Solution:
 		\begin{itemize}
-			\item Planning phase began during \texttt{\$oldjob}
-			\item Numerous sub-tasks:
-			\begin{itemize}
-				\item Securely wipe (DoD standard 32-pass) datasets and temporary files
-				\item Allow users to mark datasets, libraries, entire histories as ``secure''
-				\item Any datasets produced from these are also tagged ``secure'' and treated accordingly.
-				\item Data must be encrypted in transit + at rest (requires Secrets Server)
-			\end{itemize}
-			\item Important to numerous US Galaxies + Medical Users
+			\item Allow users to mark datasets, libraries, entire histories as ``secure''
+			\item Any datasets produced from these are also tagged ``secure'' and treated accordingly.
+			\item For datasets marked as ``secure'':
+				\begin{itemize}
+					\item Must securely wipe (DoD standard 32-pass) datasets and temporary files
+					\item Data must be encrypted in transit + at rest (requires Secrets Server)
+				\end{itemize}
 		\end{itemize}
 	\end{frame}
 
+	\begin{frame}{Caching Framework}
+		Question: How can we keep Galaxy from re-building the same tools, the same JSON blobs \textit{ad nauseam}?\\[0.6cm]
+		Proposed Solution:
+		\begin{itemize}
+			\item Provide a generic interface in codebase for caching data
+			\item Provide methods for expiring the cache as needed
+			\item Will support in-memory, on-disk, and networked caches (memcached)
+			\item Will convert subset of slow computations to use new cache
+		\end{itemize}
+	\end{frame}
 \end{document}

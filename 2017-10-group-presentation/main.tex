@@ -45,8 +45,22 @@
 			\item Galaxy Frontend: javascript exceptions + browser info + user identity
 			\item Helps catch + fix bugs!
 		\end{itemize}
-		% todo: picture
 	\end{frame}
+
+
+	{%
+		\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{sentry_1.png}}
+		\setbeamertemplate{navigation symbols}{}
+		\begin{frame}[plain]
+		\end{frame}
+	}
+
+	{%
+		\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{sentry_2.png}}
+		\setbeamertemplate{navigation symbols}{}
+		\begin{frame}[plain]
+		\end{frame}
+	}
 
 	\begin{frame}{Jenkins}
 		\begin{center}
@@ -67,11 +81,12 @@
 
 	\begin{frame}{public-galaxy-servers}
 		\begin{itemize}
-			\item Simple CSV file of public galaxy servers
+			\item CSV file of public galaxy servers
 			\item Simple script to contact server + record configuration
-			\item Uptime badges! % TODO: image
+			\item Uptime badges! \includegraphics[height=1em]{Freiburg_Galaxy.svg.png}
 			\item Cool maps!
 		\end{itemize}
+		\includegraphics[width=\textwidth]{map.png}
 	\end{frame}
 
 	\begin{frame}{Galactic Radio Telescope}
@@ -88,9 +103,9 @@
 	\begin{frame}{Job Conf Migration}
 		\begin{itemize}
 			\item Job configuration migrated from XML to python
-			\item Under testing (Jenkins)
+			\item Job conf now under testing (Jenkins)
 			\item Enables dynamically choosing where to send jobs
-			\item Use case: Users in specific roles can be directed to specific VMs.
+			\item Highlighted use case: Training-as-a-Service. Users in specific roles can be directed to dedicated VMs.
 		\end{itemize}
 	\end{frame}
 
@@ -109,13 +124,15 @@
 			\item Use it.
 				%TODO: image of schema
 		\end{itemize}
+		\includegraphics[height=0.8\textwidth]{pykwalify.png}
 	\end{frame}
 
 \subsection{Galaxy Project}
 	\begin{frame}{Bug Reporting Plugins}
 		\begin{itemize}
 			\item Bug reporting as ``plugins''
-			\item Plugins for: email, sentry, github, influxdb, logfile
+			\item Plugins for: email, sentry, GitHub, influxdb, logfile
+			\item Easy to develop new ones
 			\item Control over automated submission without user interaction (e.g.~sentry vs email)
 			\item \ghpr{galaxyproject}{galaxy}{4305}
 		\end{itemize}
@@ -144,7 +161,8 @@
 		\begin{itemize}
 			\item \emph{Zero-downtime restarts of Galaxy}
 			\item Configuration worked out by Nate Coraor (@natefoo)
-			\item They work super great! We annotate the restart events in Grafana
+			\item It is super effective!
+			\item We annotate the restart events in Grafana if you are curious when it happens
 		\end{itemize}
 	\end{frame}
 
@@ -186,12 +204,13 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{LAN Restrictions}
+	\begin{frame}{Reaching the promised LAN}
 		\begin{itemize}
 			\item \ghpr{galaxyproject}{galaxy}{4289}
 			\item Galaxy's upload lets you paste in URLs
 			\item Even URLs inside your super secure network (e.g.~\texttt{http://192.168.0.1:8080})
 			\item Galaxy can be used to probe infrastructure and possibly download restricted material
+			\item Now administrators must whitelist local network resources which should be accessible.
 		\end{itemize}
 	\end{frame}
 

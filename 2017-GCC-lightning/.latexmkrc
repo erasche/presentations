@@ -1,4 +1,4 @@
-$pdflatex = 'xelatex %O %S';
+$pdflatex = 'xelatex -shell-escape %O %S';
 
 add_cus_dep( 'glo', 'gls', 0, 'makeglossaries'   );
 sub makeglossaries {

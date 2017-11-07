@@ -1,22 +1,45 @@
 \documentclass[12pt]{phage3slides} %
 
 \title[JBrowse and Circos Update]{JBrowse and Circos Update}
-\author[ER, SH]{Eric Rasche \& Saskia Hiltemann}
-%\date{2017-06-29T13:50:00Z}
+\author[ER/SH]{Eric Rasche \& Saskia Hiltemann}
+\date{2017-06-30}
+\logo{\includegraphics[width=1.4cm]{logo}}
 
 \begin{document}
 \frame{\titlepage}
 
 
 \section{JBrowse}
+{
+  \usebackgroundtemplate{\includegraphics[height=\paperheight]{jbrowse.png}}
+  \setbeamertemplate{navigation symbols}{}
+  \begin{frame}[plain]
+  \end{frame}
+}
+
+\subsection{Plugins}
+{\setbeamertemplate{navigation symbols}{}
 \begin{frame}{JBrowse}
-	\begin{itemize}
-		\item Support for plugins
-		\item ComboTrackSelector, retains metadata (tool ID, tool version, link to job metadata)
-		\item Themes
-		\item Date in track name (better organisation in hierarchical track selector)
-	\end{itemize}
+	JBrowse Plugin Support! ({\color{gray}GCContent, ComboTrackSelector, Bookmarks})
+	\includegraphics[width=\textwidth]{plugin-gc.png} \\
+	\includegraphics[width=\textwidth]{plugin-book.png}
 \end{frame}
+}
+
+\subsection{Metadata}
+{\setbeamertemplate{navigation symbols}{}
+\begin{frame}{ComboTrackSelector}
+	\includegraphics[width=\textwidth]{plugin-combo}
+\end{frame}
+}
+
+\subsection{Themes}
+{
+  \usebackgroundtemplate{\includegraphics[height=\paperheight]{themes.png}}
+  \setbeamertemplate{navigation symbols}{}
+  \begin{frame}[plain]
+  \end{frame}
+}
 
 
 
@@ -29,15 +52,56 @@
 	\end{itemize}
 \end{frame}
 
+{%
+  \usebackgroundtemplate{\includegraphics[width=\paperwidth]{1.png}}
+  \setbeamertemplate{navigation symbols}{}
+  \begin{frame}[plain]
+  \end{frame}
+}
 
+
+{%
+  \usebackgroundtemplate{\includegraphics[width=\paperwidth]{black.s.png}}
+  \setbeamertemplate{navigation symbols}{}
+  \begin{frame}[plain]
+  \end{frame}
+}
+{%
+  \usebackgroundtemplate{\includegraphics[width=\paperwidth]{unsorted.s.png}}
+  \setbeamertemplate{navigation symbols}{}
+  \begin{frame}[plain]
+  \end{frame}
+}
+
+{%
+  \usebackgroundtemplate{\includegraphics[width=\paperwidth]{sorted.s.png}}
+  \setbeamertemplate{navigation symbols}{}
+  \begin{frame}[plain]
+  \end{frame}
+}
+
+{%
+  \usebackgroundtemplate{\includegraphics[width=\paperwidth]{sorted_inv.s.png}}
+  \setbeamertemplate{navigation symbols}{}
+  \begin{frame}[plain]
+  \end{frame}
+}
+
+
+{%
+  \usebackgroundtemplate{\includegraphics[width=\paperwidth]{toolform2.png}}
+  \setbeamertemplate{navigation symbols}{}
+  \begin{frame}[plain]
+  \end{frame}
+}
 
 \section{Q\&A}
 \begin{frame}{Q\&A}
-	Thank you \\\ \\
+	\includegraphics[width=\textwidth]{thankyou.png}
 	\begin{center}
+		\informationErascheTable
 		\begin{tabular}{rl}
 			\end{tabular}\\[1cm]
-			%\logosTamuCPT
 			\fundingNSFABIannotation
 	\end{center}
 \end{frame}

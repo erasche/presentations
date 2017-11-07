@@ -497,13 +497,14 @@
 
 \subsection{Galaxy Project}
 
-	\begin{frame}{GIS}
-		Question: How can I analyse geographic data in Galaxy? \\[0.6cm]
+	\begin{frame}{Caching Framework}
+		Question: How can we keep Galaxy from re-building the same tools, the same JSON blobs \textit{ad nauseam}?\\[0.6cm]
 		Proposed Solution:
 		\begin{itemize}
-			\item French team wants to work on this
-			\item GIS data is super fun, we can work with some interesting datasets
-			\item Lots of room to build stuff people will love
+			\item Provide a generic interface in codebase for caching data
+			\item Provide methods for expiring the cache as needed
+			\item Will support in-memory, on-disk, and networked caches (memcached)
+			\item Will convert subset of slow computations to use new cache
 		\end{itemize}
 	\end{frame}
 
@@ -556,17 +557,6 @@
 					\item Must securely wipe (DoD standard 32-pass) datasets and temporary files
 					\item Data must be encrypted in transit + at rest (requires Secrets Server)
 				\end{itemize}
-		\end{itemize}
-	\end{frame}
-
-	\begin{frame}{Caching Framework}
-		Question: How can we keep Galaxy from re-building the same tools, the same JSON blobs \textit{ad nauseam}?\\[0.6cm]
-		Proposed Solution:
-		\begin{itemize}
-			\item Provide a generic interface in codebase for caching data
-			\item Provide methods for expiring the cache as needed
-			\item Will support in-memory, on-disk, and networked caches (memcached)
-			\item Will convert subset of slow computations to use new cache
 		\end{itemize}
 	\end{frame}
 \end{document}

@@ -3,8 +3,9 @@
 
 \title[Projects]{My projects}
 \author{E. Rasche}
-\date{2017-11-09T08:00:00Z}
+\date{2017-11-09T09:00:00Z}
 \newcommand{\ghpr}[3]{\href{https://github.com/#1/#2/pull/#3}{#1/#2\##3}}
+\newcommand{\ghproject}[2]{\href{https://github.com/#1/#2/}{#1/#2}}
 
 
 \usepackage{siunitx}
@@ -24,26 +25,51 @@
 \subsection[Monit/Infra]{Monitoring + Infrastructure}
 	\begin{frame}{Initial Monitoring}
 		\begin{center}
-			\emph{New UFR Service}
+			\emph{New Service(s)}
 		\end{center}
 		\begin{itemize}
-			\item Telegraf $\rightarrow$ InfluxDB $\rightarrow$ Grafana
-			\item Open metrics / statistics
-			\item Sharing dashboards with Galaxy project
+			\item Telegraf (collect) $\rightarrow$ InfluxDB (store) $\rightarrow$ Grafana (view)
 			\item \url{https://grafana.denbi.uni-freiburg.de}
 			% TODO: image
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{Sentry}
+	{%
+		\usebackgroundtemplate{\includegraphics[height=\paperheight]{grafana1.png}}
+		\setbeamertemplate{navigation symbols}{}
+		\begin{frame}[plain]
+		\end{frame}
+	}
+
+	{%
+		\usebackgroundtemplate{\includegraphics[height=\paperheight]{grafana_2.png}}
+		\setbeamertemplate{navigation symbols}{}
+		\begin{frame}[plain]
+		\end{frame}
+	}
+
+	\begin{frame}{Initial Monitoring}
 		\begin{center}
-			\emph{New UFR Service}
+			\emph{\ldots{}but how is it useful to you?}
 		\end{center}
 		\begin{itemize}
-			\item Collects application exceptions
+			\item How is a webservice we develop being used?
+			\item How many requests did we receive?
+			\item Is my service online + responding?
+			\item How is my VM doing on memory/cpu/disk when I ran a new tool overnight?
+		\end{itemize}
+	\end{frame}
+
+
+	\begin{frame}{Sentry}
+		\begin{center}
+			\emph{New Service}
+		\end{center}
+		\begin{itemize}
+			\item Application (Galaxy, webservice, javascript site) exception collection
+			\item Helps catch + fix bugs!
 			\item Galaxy: stack traces, \texttt{log.warn}, \texttt{log.error}, \texttt{log.exception}
 			\item Galaxy Frontend: javascript exceptions + browser info + user identity
-			\item Helps catch + fix bugs!
 		\end{itemize}
 	\end{frame}
 
@@ -62,9 +88,27 @@
 		\end{frame}
 	}
 
+	{%
+		\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{sentry_3.png}}
+		\setbeamertemplate{navigation symbols}{}
+		\begin{frame}[plain]
+		\end{frame}
+	}
+
+	\begin{frame}{Sentry}
+		\begin{center}
+			\emph{\ldots{}but how is it useful to you?}
+		\end{center}
+		\begin{itemize}
+			\item When a javascript exception occurs in a user's browser and no one sees it, did it really happen?
+			\item Do you read your server logs?
+			\item Really? Every line?
+		\end{itemize}
+	\end{frame}
+
 	\begin{frame}{Jenkins}
 		\begin{center}
-			\emph{New UFR Service}
+			\emph{New Service}
 		\end{center}
 		\begin{itemize}
 			\item Like \textbf{Travis-CI} but different
@@ -127,6 +171,16 @@
 		\includegraphics[height=0.8\textwidth]{pykwalify.png}
 	\end{frame}
 
+	\begin{frame}{Ansibilization of Galaxy Configuration}
+		\begin{itemize}
+			\item Major Galaxy configuration files now as some custom playbooks
+			\item Not the entirety of galaxy
+			\item Playbooks automatically run every hour
+			\item GitHub enables reviewing + ``auditing'' of configuration changes
+			\item \emph{Nearly} no more SSHing
+		\end{itemize}
+	\end{frame}
+
 \subsection{Galaxy Project}
 	\begin{frame}{Bug Reporting Plugins}
 		\begin{itemize}
@@ -138,22 +192,13 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{Ansibilization of Galaxy Configuration}
-		\begin{itemize}
-			\item Major Galaxy configuration files now as some custom playbooks
-			\item Not the entirety of galaxy
-			\item Playbooks automatically run every hour
-			\item GitHub enables reviewing + ``auditing'' of configuration changes
-			\item \emph{Nearly} no more SSHing
-		\end{itemize}
-	\end{frame}
-
 	\begin{frame}{Bigger Click Targets}
 		\begin{itemize}
 			\item \ghpr{galaxyproject}{galaxy}{4470}
 			\item I hate small click targets
 			\item Be the change you want to see in the world
 		\end{itemize}
+		\includegraphics[scale=0.3]{click-target.png}
 	\end{frame}
 
 \subsection{Performance}
@@ -169,6 +214,8 @@
 \subsection{Cloud}
 	\begin{frame}{VGCN Images}
 		\begin{itemize}
+			\item \emph{Cluster in the Cloud}
+			\item \ghproject{usegalaxy-eu}{vgcn}
 			\item Pre-configure Condor Master + Executor VM images
 			\item Converted existing playbooks to reusable roles
 			\item Integrated work from RZ for simplified build process
@@ -178,6 +225,7 @@
 
 	\begin{frame}{VGCN Infrastructure}
 		\begin{itemize}
+			\item \ghproject{usegalaxy-eu}{vgcn-infrastructure}
 			\item Regularly deploying new images sucked
 			\item Rolling restarts are necessary
 			\item Infrastructure-as-code (e.g. Terraform/CloudFormation/Heat)
@@ -194,6 +242,14 @@
 	\end{frame}
 
 \subsection{Security}
+
+	\begin{frame}{Securing Galaxy}
+		\begin{itemize}
+			\item Tracking security issues in emails is not scalable
+			\item We now have a git repo for this
+			\item Testing setup is WIP
+		\end{itemize}
+	\end{frame}
 
 	\begin{frame}{Galaxy subprocess hardening}
 		\begin{itemize}
@@ -214,20 +270,12 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{Security Repo for Galaxyproject}
-		\begin{itemize}
-			\item Tracking security issues in emails is not sensible
-			\item We now have a git repo for this
-			\item Testing setup is WIP
-		\end{itemize}
-	\end{frame}
-
 
 \section[Ongoing]{Ongoing Projects}
 \begin{frame}{Ongoing Projects}
 \end{frame}
 
-\subsection[FR Galaxy]{\texttt{usegalaxy.eu}}
+\subsection[Freiburg Galaxy]{\texttt{usegalaxy.eu}}
 
 	\begin{frame}{usegalaxy.eu rollout}
 		Done:
@@ -263,7 +311,7 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}{JBrowe Chat Plugin}
+	\begin{frame}{JBrowse Chat Plugin}
 		Background:
 		\begin{itemize}
 			\item Apollo is great for collaborative, real-time editing
@@ -313,17 +361,6 @@
 			\item Force it into a secondary process which can be re-deployed with zero downtime
 			\item Need to choose a method + test  (unix sockets, load balanced web service, \texttt{SO\_REUSEPORT}, etc.)
 			\item SLO: $\leq\frac{1}{100.000}$ jobs dropped in networked version of the job destination service
-		\end{itemize}
-	\end{frame}
-
-	\begin{frame}{Lecture Material Compilation + Archiving}
-		\begin{itemize}
-			\item Jenkins is now building NGS\_lectures as an example
-			\item ``Reference'' build platform, everyone can compare results to
-				it (especially for people with custom \LaTeX styles)
-			\item Can serve + archive PDFs (forever?)
-			\item Need to define artefact retention policy
-			\item Need to apply to more projects
 		\end{itemize}
 	\end{frame}
 
@@ -391,8 +428,12 @@
 		\begin{itemize}
 			\item Adding Elixir AAI authentication to deNBI Cloud @ Freiburg
 			\item Unlike any other cloud, so we have special issues
-			\item \texttt{:(}
 		\end{itemize}
+		Have had this conversation numerous times:\\[0.5cm]
+
+		\quad Them: So\ldots{} why isn't it working yet? Why are you so slow at this? \\
+		\quad Me: [Explains setup] \\
+		\quad Them: Oh. Ohh yeah\ldots{} ok. \textit{[Nervous laughter]} Good luck. \\
 	\end{frame}
 
 	\begin{frame}{Automating VGCN Image Building}
@@ -413,7 +454,7 @@
 
 \subsection{Security}
 
-	\begin{frame}{CSP}
+	\begin{frame}{Content Security Policy (CSP)}
 		Background:
 		\begin{itemize}
 			\item CSP helps prevent huge swaths of security issues
@@ -460,16 +501,6 @@
 \end{frame}
 
 \subsection{Monitoring}
-
-	\begin{frame}{GRT Analysis Suite}
-		Question: What is in the GRT data? \\[0.6cm]
-		Proposed Solution:
-		\begin{itemize}
-			\item Deploy Jupyter / an web-based SQL query suite with access to GRT data.
-			\item No real plan for making it useful, but it'd be shiny
-			\item Want to encourage analysis of public GRT data
-		\end{itemize}
-	\end{frame}
 
 	\begin{frame}{Testing Workflow execution}
 		Question: Is Galaxy working as expected? \\[0.6cm]

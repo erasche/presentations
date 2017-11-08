@@ -64,7 +64,12 @@
 \setbeamercolor*{separation line}{bg=UniRot}
 \setbeamercolor*{fine separation line}{bg=UniRot}
 
-\hypersetup{colorlinks=true,allcolors=UniRot}
+\hypersetup{
+	colorlinks,linkcolor=,
+	linkcolor=UniRot,
+	citecolor=UniRot,
+	urlcolor=UniRot
+}
 
 % Disable navigation because erasche doesn't like it.
 \beamertemplatenavigationsymbolsempty

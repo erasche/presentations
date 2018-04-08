@@ -22,6 +22,7 @@
 \RequirePackage{amssymb,amsmath}
 \RequirePackage[utf8x]{inputenc}
 \RequirePackage{geometry}
+\RequirePackage{siunitx}
 
 \RequirePackage{graphicx}
 \graphicspath{{images/}{images/library/}{style/images/}}
@@ -73,3 +74,6 @@
 
 % Disable navigation because erasche doesn't like it.
 \beamertemplatenavigationsymbolsempty
+
+\newcommand{\ghpr}[3]{\href{https://github.com/#1/#2/pull/#3}{#1/#2\##3}}
+\newcommand{\ghproject}[2]{\href{https://github.com/#1/#2/}{#1/#2}}

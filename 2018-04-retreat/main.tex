@@ -56,6 +56,18 @@
 	\begin{frame}[plain]
 	\end{frame}
 }
+{%
+	\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{galaxy-6.png-border.png}}
+	\setbeamertemplate{navigation symbols}{}
+	\begin{frame}[plain]
+	\end{frame}
+}
+{%
+	\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{galaxy-7.png-border.png}}
+	\setbeamertemplate{navigation symbols}{}
+	\begin{frame}[plain]
+	\end{frame}
+}
 
 \begin{frame}{Overall System Goals}
 	We have to balance the needs of the system:
@@ -67,6 +79,7 @@
 		\item Related services are available to users
 	\end{itemize}
 	\vfill
+	\pause
 	With our needs:
 	\vfill
 	\begin{itemize}
@@ -77,10 +90,9 @@
 	\end{itemize}
 \end{frame}
 
-\section{Human Infra}
 \begin{frame}{The Humans Behind the Infrastructure}
 	We are more than a chatbox in gitter or the voices on the other side of the
-	wire.
+	phone.
 	\vfill
 	\begin{itemize}
 		\item We make mistakes
@@ -88,10 +100,18 @@
 		\item Sometimes problems are bigger than one person's abilities
 		\item So we have to work together efficiently and effectively
 	\end{itemize}
-	\vfill
-	We're human.
 \end{frame}
 
+\begin{frame}{tl;dr}
+	Must balance
+	\begin{itemize}
+		\item High system uptime (and the engineering required to achieve that)
+		\item Manageable amount of work for sysadmins
+		\item Guard against sources of error (esp. humans)
+	\end{itemize}
+\end{frame}
+
+\section{Human Infra}
 \begin{frame}{Managing the Insanity}
 	Some strategies:
 	\begin{itemize}
@@ -133,7 +153,6 @@
 			\item Explicitly training + Continual communication of knowledge
 			\item \texttt{make} must be accomplish every task
 			\item \texttt{make help} explains everything necessary to run it
-				and is the default target
 		\end{itemize}
 		%\item Decreases friction when moving between repositories
 	\end{itemize}
@@ -149,7 +168,7 @@
 		\item \emph{But keep it readable}
 	\end{itemize}
 	\vfill
-	The less I have to think $\Rightarrow$ Less chance for mistakes
+	Less I have to think $\Rightarrow$ Less chance for a mistake
 \end{frame}
 
 \subsection{Defense}
@@ -166,24 +185,30 @@
 
 \subsection{Validation}
 \begin{frame}{Validate Everything}
+	Why:
 	\begin{itemize}
 		\item It makes life easier
 		\item Catch errors before they're live
 		\item Better UX for users/devs
 	\end{itemize}
+	\vfill
 	Validate your:
 	\begin{itemize}
 		\item Configuration files
 		\item Code
+		\item Datasets
 		\item Servers/Functionality
 	\end{itemize}
 \end{frame}
 
 \subsection{Fridays}
 \begin{frame}{Read Only Fridays}
+	Do not make changes to production services on friday.
+
+	You will lose your weekend; you will be unhappy
+	\vfill
+	Instead:
 	\begin{itemize}
-		\item Do not make changes to production services on friday
-		\item You will lose your weekend; you will be unhappy
 		\item Document your own code
 		\item Document other people's code
 		\item Read/test new strategies locally
@@ -197,7 +222,7 @@
 		\item VMs will go down without warning
 		\item VMs can be deleted at any time
 		\item Everything is flexible
-		\item Everything is awful
+		\item Nothing is certain%\footnote{but VM death and the Meltdown/Spectre Tax}
 	\end{enumerate}
 \end{frame}
 
@@ -224,20 +249,22 @@
 \end{frame}
 
 
+\subsection{Empathy}
 \begin{frame}{Empathy}
 	\begin{itemize}
-		\item Empathy is huge part of being a sys admin (whether or not we realise it)
-		\item We share repsonsibility; for code, for success, for failure
-		\item Someone else will debug your code at 3am
-		\item Even small changes affect 100s of people
-		\item Have empathy when we break something for our users
+		\item Empathy is part of the job
+		\item Bad things happen $\Rightarrow$ be kind to each other/ourselves
+		%\item We share responsibility; for code, for success, for failure
+		%\item Someone else will debug your code at 3am
+		\item Small changes affect 100s-1000s of people
+		\item Having empathy for users when we break something helps defuse bad situations
 	\end{itemize}
 \end{frame}
 
 
 \section{Non-Human Infra}
 \begin{frame}{useGalaxy.eu infrastructure}
-	Some examples where we've applied these principles to services and it has helped us.
+	Some examples where we've applied these principles to our services and it has helped us.
 \end{frame}
 
 
@@ -257,7 +284,7 @@
 	\begin{itemize}
 		\item Enables Training Infrastructure as a Service
 		\item Makes life \emph{so} much easier
-		\item Tool destination (memory, cpu cores, environment) changes can take effect without a slow handler restart
+		\item Tool destination (memory, CPU cores, environment) changes can take effect without a slow handler restart
 		\item Can turn off a mis-behaving cluster instantaneously
 	\end{itemize}
 \end{frame}
@@ -266,7 +293,6 @@
 \begin{frame}{FTP}
 	\begin{itemize}
 		\item Example of the ideal human-managed service
-		\item Completely described by playbooks
 		\item All state is stored in playbooks or in NFS
 		\item When it fails or misbehaves in any way, we can just replace it
 	\end{itemize}
@@ -278,8 +304,7 @@
 		\begin{column}{.48\textwidth}
 			\begin{itemize}
 				\item Cluster in the Cloud
-				\item Easy to scale
-				\item Easy to upgrade image
+				\item Easy to roll out new images
 				\item Easy for humans to manage
 			\end{itemize}
 		\end{column}%
@@ -293,23 +318,13 @@
 	\includegraphics[width=\textwidth]{vgcn.png}
 \end{frame}
 
-\section{Future}
-\begin{frame}{Future Directions}
-	\begin{itemize}
-		\item Terraform and Infrastructure-as-Code
-		\item Automate detection + replacement of misbehaving services
-		\item Better in-team communication
-		\item Better communication with our users
-	\end{itemize}
-\end{frame}
-
-
-
 \section{End}
-\begin{frame}{Thank you}
-Thank you for your patience when outages happen. We are doing our best. Don't
-hesitate to let us know when things aren't working like expected, we care about
-it as much or more than you do.
+\begin{frame}{Thank y'all}
+Thank \emph{you} for the bug reports and your patience when outages happen.
+\vfill
+We are doing our best. Don't hesitate to let us know when things aren't working
+like expected! Maybe we aren't monitoring it yet.
+\vfill
 \end{frame}
 
 \section{References}

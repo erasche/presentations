@@ -80,6 +80,7 @@
 		\item ``By the aid of the CernVM-FS file catalogs, the \texttt{cvmfs\_server} utility knows beforehand (without remote listing) which files to transfer.''
 		\item Easily host only the data your users use
 		\item Do not have to know what that is ahead of time
+		\item ``Requires fragile manual tooling to keep up to date'' -- the Galaxy Project sysadmin (they originally used rsync)
 	\end{itemize}
 \end{frame}
 
@@ -90,6 +91,7 @@
 		\item Built-in catalog updating, stratum0 pushes a new catalog and everyone automatically updates
 		\item (again) Easily host only the data your users use
 		\item (again) Do not have to know what that is ahead of time
+		\item Requires us to build tooling to support this
 	\end{itemize}
 \end{frame}
 

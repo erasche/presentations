@@ -36,8 +36,7 @@ https://tinyurl.com/AnsibleWorkshop
 
 ## Ansible
 
-[Slides](https://galaxyproject.github.io/training-material/topics/admin/tutorials/ansible/slides.html)
-[Tutorial](https://galaxyproject.github.io/training-material/topics/admin/tutorials/ansible/tutorial.html)
+[Slides](https://galaxyproject.github.io/training-material/topics/admin/tutorials/ansible/slides.html), [Tutorial](https://galaxyproject.github.io/training-material/topics/admin/tutorials/ansible/tutorial.html)
 
 1. Navigate to https://training.galaxyproject.org
 
@@ -64,8 +63,7 @@ https://tinyurl.com/AnsibleWorkshop
 
 ## Terraform
 
-[Slides](https://galaxyproject.github.io/training-material/topics/admin/tutorials/terraform/slides.html)
-[Tutorial](https://galaxyproject.github.io/training-material/topics/admin/tutorials/terraform/tutorial.html)
+[Slides](https://galaxyproject.github.io/training-material/topics/admin/tutorials/terraform/slides.html), [Tutorial](https://galaxyproject.github.io/training-material/topics/admin/tutorials/terraform/tutorial.html)
 
 1. Navigate to https://training.galaxyproject.org
 

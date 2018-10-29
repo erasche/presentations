@@ -1,7 +1,7 @@
 # Let's get started!
 
 <div class="bottom">
-(These slides can be accessed via: https://tinyurl.com/AnsibleWorkshop)
+https://tinyurl.com/AnsibleWorkshop
 </div>
 
 ---

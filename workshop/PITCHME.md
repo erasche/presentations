@@ -6,6 +6,13 @@ https://tinyurl.com/AnsibleWorkshop
 
 ---
 
+My contact information:
+
+- [hxr@informatik.uni-freiburg.de](mailto:hxr@informatik.uni-freiburg.de)
+- [github:erasche](https://github.com/erasche)
+
+---
+
 ## Organizational remarks
 
 +++
@@ -27,6 +34,7 @@ https://tinyurl.com/AnsibleWorkshop
 ![](https://skillslab.tue.nl/pathtoimg.php?id=4)
 
 </div>
+
 
 ---
 

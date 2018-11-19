@@ -1,0 +1,234 @@
+\documentclass[12pt]{euslides}
+\usepackage{textcomp}
+
+\title[Galaxy EU]{State of the European Galaxy Project}
+\author{Helena Rasche}
+\date{2018-11-20}
+
+\begin{document}
+\frame{\titlepage}
+
+\section{About}
+\begin{frame}{}
+\includegraphics[width=0.9\textwidth]{galaxy-eu.512.png}
+\ \\
+\begin{center}
+	Community | Users | Training | Infrastructure
+\end{center}
+\end{frame}
+
+\begin{frame}{About Me}
+	\begin{itemize}
+		\item Joined team 16 months ago
+		\item UseGalaxy.eu System Administrator
+		\item de.NBI Cloud Freiburg Administrator \\(3.5k cores, 15TB ram)
+		\item Developed Galaxy Circos/JBrowse tools, RStudio GIE
+	\end{itemize}
+\end{frame}
+
+\section{Community}
+\begin{frame}{Community}
+	\begin{center}
+		\Large Community is the most important part of what we do
+	\end{center}
+\end{frame}
+
+\subsection{Subdomains}
+%\begin{frame}{Subdomains}
+{%
+	\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{galaxy-montage.png}}
+	\setbeamertemplate{navigation symbols}{}
+	\begin{frame}[plain]
+	\end{frame}
+}
+%\end{frame}
+
+\subsection{Partners}
+%\begin{frame}{Partners}
+{%
+	\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{websites.png}}
+	\setbeamertemplate{navigation symbols}{}
+	\begin{frame}[plain]
+	\end{frame}
+}
+%\end{frame}
+
+	%\begin{itemize}
+		%\item We want to see a European Galaxy Community
+		%\item Bringing together admins and users from across Europe
+		%\item Collaborative administration
+	%\end{itemize}
+
+\section{Users}
+\begin{frame}{Past Year on UseGalaxy.eu}
+	\begin{center}
+	\includegraphics[width=\textwidth]{new-users.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Users}
+	\begin{center}
+	\includegraphics[width=\textwidth]{user-stats.png}
+	\end{center}
+
+	\begin{tabular}{rrr}
+		\textbf{2017} &  60 active users/month &  10k jobs/month\\
+		\textbf{2018} & 580 active users/month & 100k jobs/month
+	\end{tabular}
+\end{frame}
+
+\section{Training}
+\begin{frame}{Training}
+	\begin{center}
+		We love training!
+
+		\begin{itemize}
+			\item Training Materials
+			\item Training Infrastructure
+			\item Training Testing
+		\end{itemize}
+	\end{center}
+\end{frame}
+
+\subsection{Materials}
+\begin{frame}{Community + Training}
+	\begin{itemize}
+		\item Amazing ``User Conference''
+		\item Successful BioHackathon
+		\item Improvements to training materials / infrastructure
+		\item 20 pull requests
+		\begin{itemize}
+			\item Translation Support
+			\item Search
+			\item Training handbook
+		\end{itemize}
+		\item 6 contributors
+		\item GTN Meeting
+		\item GTN CoFest for Genome Annotation
+	\end{itemize}
+\end{frame}
+
+
+\subsection{TIaaS}
+\begin{frame}{Training Infrastructure as a Service $|$ TIaaS}
+	What is it?
+	\begin{itemize}
+		\item Free Training Infrastructure for any Galaxy training.
+		\item Private Queue
+		\item No Administration
+		\item No Maintenance
+		\item Have someone to blame when the server burns down
+	\end{itemize}
+	\ \\
+	\url{galaxyproject.eu/tiaas}
+\end{frame}
+
+{%
+	\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{tiaas-nl.png}}
+	\setbeamertemplate{navigation symbols}{}
+	\begin{frame}[plain]
+	\end{frame}
+}
+
+\begin{frame}{TIaaS Usage}
+	In past 6 months:
+	\begin{itemize}
+		\item 14 Completed Trainings
+		\item 5 Upcoming Trainings
+		\item $>$500 Trainees
+	\end{itemize}
+\end{frame}
+
+{%
+	\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{tiaas-europe.png}}
+	\setbeamertemplate{navigation symbols}{}
+	\begin{frame}[plain]
+	\end{frame}
+}
+
+{%
+	\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{tiaas-world.png}}
+	\setbeamertemplate{navigation symbols}{}
+	\begin{frame}[plain]
+	\end{frame}
+}
+
+\subsection{Testing}
+\begin{frame}{Training + Infra: Workflow Testing}
+	\url{github.com/usegalaxy-eu/workflow-testing}\ \\
+\includegraphics[height=0.9\textheight]{workflow-testing.png}
+\end{frame}
+
+\subsection{Scalability}
+\begin{frame}{Scalability}
+	\begin{itemize}
+		\item Australia broadcast ``hybrid'' training across entire country
+		\item Some hypothetical plans for doing this in Europe
+		\item Dependent on finding grants
+	\end{itemize}
+\end{frame}
+
+\section{Infrastructure}
+\begin{frame}{Busy year at Galaxy EU}
+	Overhaul of Infrastructure
+	\begin{itemize}
+		\item New services: CI / Monitoring / HAProxy / CVMFS
+		\item Everything in Ansible
+		\item Everything Open
+		\item Cloud Infrastructure
+		\item Automation: Ansible + Terraform
+	\end{itemize}
+\end{frame}
+
+\subsection{Community}
+\begin{frame}{Community}
+	Remote Compute
+	\begin{itemize}
+		\item VGCN \url{github.com/usegalaxy-eu/vgcn}
+		\item Czech group + others interested
+		\item Compute power dedicated to UseGalaxy.eu
+	\end{itemize}
+
+	Why?
+	\begin{itemize}
+		\item No maintenance
+		\item No administration
+		\item Run our VM, give us your compute power \texttt{:)}
+	\end{itemize}
+\end{frame}
+
+\subsection{Migration}
+\begin{frame}{Migration}
+	\begin{itemize}
+		\item Old head node was dying --- migrated to a new one
+		\item Live! (Mostly) No one noticed
+	\end{itemize}
+\includegraphics[width=\textwidth]{handover.png}
+\end{frame}
+
+\subsection{Cloud}
+\begin{frame}{Cloud}
+	\begin{itemize}
+		\item Cloud Migration, moved entire infrastructure from old OpenStack to a new one.
+		\item Terraform!
+		\item $\approx{}$100 VMs in Cloud
+		\item $\approx{}$1,3k Cores
+		\item $\approx{}$8 TB Ram
+	\end{itemize}
+\end{frame}
+
+\subsection{Openness}
+\begin{frame}{Open Development + Contributions}
+	\begin{center}
+		\includegraphics[height=\textheight]{people.png}
+	\end{center}
+\end{frame}
+
+\section{Intersection}
+\begin{frame}{Community + Users + Training + Infrastructure}
+	\begin{center}
+		\includegraphics[height=\textheight]{intersection.png}
+	\end{center}
+\end{frame}
+
+\end{document}

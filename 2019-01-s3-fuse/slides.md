@@ -1,7 +1,7 @@
 ---
 title: S3 FUSE
 author: Helena Rasche
-date: \today
+date: 2019-01-09
 listings: true
 theme: white
 transition: none

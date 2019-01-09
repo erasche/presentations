@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Helena Rasche">
+  <title>S3 FUSE</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">S3 FUSE</h1>
+  <p class="author">Helena Rasche</p>
+</section>
+
+<section id="about-me" class="slide level1">
+<h1>About Me</h1>
+<ul>
+<li>UseGalaxy.eu system administrator
+<ul>
+<li>Galaxy: Bioinformatics workflow platform</li>
+<li>EU Server:
+<ul>
+<li>3.6k users</li>
+<li>~700 active/month</li>
+<li>&gt;100k jobs/month</li>
+<li>830 TB data</li>
+</ul></li>
+</ul></li>
+<li>Exploring S3 FUSE (+ other FUSE systems) in production</li>
+</ul>
+</section>
+<section id="fuse" class="slide level1">
+<h1>FUSE</h1>
+<p>&quot;Filesystem in Userspace&quot;</p>
+<figure>
+<img src="./images/FUSE_structure.svg.png" />
+</figure>
+<aside class="notes">
+<ul>
+<li>Write a piece of software that uses FUSE, the kernel will talk to it for handling syscalls related to that filesystem.</li>
+</ul>
+</aside>
+</section>
+<section id="fuse-examples" class="slide level1">
+<h1>FUSE Examples</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Project</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EncFS</td>
+<td>encrypted filesystem</td>
+</tr>
+<tr class="even">
+<td>GlusterFS</td>
+<td>clustered / distributed filesystem</td>
+</tr>
+<tr class="odd">
+<td>SSHFS</td>
+<td>mount remote filesystems with ssh</td>
+</tr>
+<tr class="even">
+<td>WikipediaFS</td>
+<td>edit wikipedia articles</td>
+</tr>
+<tr class="odd">
+<td>GalaxyFS</td>
+<td>access Galaxy datasets via filesystem</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<ul>
+<li>Any resource available, HTTP, etc, can be exposed as a filesystem.</li>
+<li>If you can think of a way to map a resource, you can write a FUSE filesystem.</li>
+</ul>
+</aside>
+</section>
+<section id="implementing-a-fuse-filesystem" class="slide level1">
+<h1>Implementing a FUSE Filesystem</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">    <span class="kw">def</span> create(<span class="va">self</span>, path, mode, fi<span class="op">=</span><span class="va">None</span>):
+    <span class="kw">def</span> read(<span class="va">self</span>, path, length, offset, fh):
+    <span class="kw">def</span> <span class="bu">open</span>(<span class="va">self</span>, path, flags):
+    <span class="kw">def</span> write(<span class="va">self</span>, path, buf, offset, fh):
+    <span class="kw">def</span> chmod(<span class="va">self</span>, path, mode):
+    <span class="kw">def</span> chown(<span class="va">self</span>, path, uid, gid):
+    <span class="kw">def</span> <span class="bu">getattr</span>(<span class="va">self</span>, path, fh<span class="op">=</span><span class="va">None</span>):
+    <span class="kw">def</span> readlink(<span class="va">self</span>, path):
+    <span class="kw">def</span> rmdir(<span class="va">self</span>, path):
+    <span class="kw">def</span> mkdir(<span class="va">self</span>, path, mode):
+    <span class="kw">def</span> unlink(<span class="va">self</span>, path):
+    <span class="kw">def</span> symlink(<span class="va">self</span>, name, target):</code></pre></div>
+<aside class="notes">
+<ul>
+<li>Implement some python and turn it into a filesystem.</li>
+</ul>
+</aside>
+</section>
+<section id="s3" class="slide level1">
+<h1>S3</h1>
+<ul>
+<li>&quot;Simple Storage Service&quot;</li>
+<li>Accessed via HTTP REST API</li>
+<li>(Intentionally) Unreliable</li>
+</ul>
+<figure>
+<img src="./images/aws-s3-bucket.png" />
+</figure>
+<aside class="notes">
+<ul>
+<li>Intentionally meaning you make tradeoffs</li>
+<li>For an &quot;infinitely&quot; scalable storage service, you trade read-after-write consistency for eventual consistency</li>
+</ul>
+</aside>
+</section>
+<section id="object-storage" class="slide level1">
+<h1>Object Storage</h1>
+<ul>
+<li>Allows storage of &quot;objects&quot;</li>
+<li>Objects consist of data + metadata</li>
+</ul>
+<figure>
+<img src="./images/meta.png" />
+</figure>
+<aside class="notes">
+<ul>
+<li>No specification for metadata</li>
+<li>Here is an example from using the s3cmd tool to upload data</li>
+</ul>
+</aside>
+</section>
+<section id="buckets" class="slide level1">
+<h1>Buckets</h1>
+<ul>
+<li>Objects are stored in &quot;buckets&quot;</li>
+<li>Buckets are just a namespace for objects</li>
+<li>Objects are stored under developer provided key</li>
+</ul>
+<figure>
+<img src="./images/out.png" />
+</figure>
+</section>
+<section id="tradeoffs" class="slide level1">
+<h1>Tradeoffs</h1>
+<ul>
+<li>Eventual Consistency</li>
+<li>Networked storage
+<ul>
+<li>Availability</li>
+<li>Must retry failed connections</li>
+</ul></li>
+<li>Other:
+<ul>
+<li>Data locality</li>
+<li>GDPR/Privacy/Regulations</li>
+<li>Pricing (upload/download expectations)</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Numerous downsides</li>
+</ul>
+</aside>
+</section>
+<section id="s3-fuse" class="slide level1">
+<h1>S3 FUSE</h1>
+<ul>
+<li>Access S3 as if it were a local filesystem</li>
+<li>Implementations vary:
+<ul>
+<li>most try to mirror local vs remote filesystems, identical hierarchies</li>
+<li>some chunk + upload unique blocks of data</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<p><strong>Not always a good idea</strong></p>
+<aside class="notes">
+<ul>
+<li>implementation matters</li>
+<li>every access can incur charges</li>
+<li>huge folders is a significant issue with s3fuse, not so with gooyfs.</li>
+</ul>
+</aside>
+</div>
+</section>
+<section id="implementations" class="slide level1">
+<h1>Implementations</h1>
+<p>Numerous implementations, all make tradeoffs</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Project</th>
+<th>Tradeoffs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://github.com/s3fs-fuse/s3fs-fuse"><code>s3fuse</code></a></td>
+<td>Basic support, but does not handle atomic directory renames, <code>open_excl</code>, or appending to files.</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/kahing/goofys"><code>gooyfs</code></a></td>
+<td>Main focus is speed, sacrifices all but basic operations</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/skoobe/riofs"><code>riofs</code></a></td>
+<td>Similar to s3fuse</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/s3ql/s3ql"><code>s3ql</code></a></td>
+<td>Most complete POSIX support, but s3 hierarchy is <em>opaque</em></td>
+</tr>
+</tbody>
+</table>
+<p>and <a href="https://github.com/s3ql/s3ql/wiki">many more...</a></p>
+</section>
+<section id="s3-fuse-1" class="slide level1">
+<h1>S3-FUSE</h1>
+<ul>
+<li>Broad use case: &quot;s3 as a filesystem&quot;</li>
+<li>Attempts 1:1 mapping</li>
+<li>Must manually enable caching for performant behaviour</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>once caching enabled, works ok.</li>
+</ul>
+</aside>
+<div class="fragment">
+<pre><code>[INF]       curl.cpp:HeadRequest(2516): [tpath=/a]
+[INF]       curl.cpp:PreHeadRequest(2453): [tpath=/a][bpath=][save=][sseckeypos=-1]
+[INF]       curl.cpp:prepare_url(4205): URL is https://s3.amazonaws.com/test-galaxians-org/a
+[INF]       curl.cpp:prepare_url(4237): URL changed is https://test-galaxians-org.s3.amazonaws.com/a
+[INF]       curl.cpp:insertV4Headers(2267): computing signature [HEAD] [/a] [] []
+[INF]       curl.cpp:url_to_host(100): url is https://s3.amazonaws.com
+[INF]       curl.cpp:RequestPerform(1962): HTTP response code 404 was returned, returning ENOENT
+[INF]       curl.cpp:HeadRequest(2516): [tpath=/a/]
+[INF]       curl.cpp:PreHeadRequest(2453): [tpath=/a/][bpath=][save=][sseckeypos=-1]
+[INF]       curl.cpp:prepare_url(4205): URL is https://s3.amazonaws.com/test-galaxians-org/a/
+[INF]       curl.cpp:prepare_url(4237): URL changed is https://test-galaxians-org.s3.amazonaws.com/a/
+[INF]       curl.cpp:insertV4Headers(2267): computing signature [HEAD] [/a/] [] []
+[INF]       curl.cpp:url_to_host(100): url is https://s3.amazonaws.com
+[INF]       curl.cpp:RequestPerform(1962): HTTP response code 404 was returned, returning ENOENT
+[INF]       curl.cpp:HeadRequest(2516): [tpath=/a_$folder$]
+[INF]       curl.cpp:PreHeadRequest(2453): [tpath=/a_$folder$][bpath=][save=][sseckeypos=-1]
+[INF]       curl.cpp:prepare_url(4205): URL is https://s3.amazonaws.com/test-galaxians-org/a_%24folder%24
+[INF]       curl.cpp:prepare_url(4237): URL changed is https://test-galaxians-org.s3.amazonaws.com/a_%24folder%24
+[INF]       curl.cpp:insertV4Headers(2267): computing signature [HEAD] [/a_$folder$] [] []
+[INF]       curl.cpp:url_to_host(100): url is https://s3.amazonaws.com
+[INF]       curl.cpp:RequestPerform(1962): HTTP response code 404 was returned, returning ENOENT
+[INF]   s3fs.cpp:list_bucket(2477): [path=/a]
+[INF]       curl.cpp:ListBucketRequest(2960): [tpath=/a]
+[INF]       curl.cpp:prepare_url(4205): URL is https://s3.amazonaws.com/test-galaxians-org?delimiter=/&amp;max-keys=2&amp;prefix=a/
+[INF]       curl.cpp:prepare_url(4237): URL changed is https://test-galaxians-org.s3.amazonaws.com?delimiter=/&amp;max-keys=2&amp;prefix=a/
+[INF]       curl.cpp:insertV4Headers(2267): computing signature [GET] [/] [delimiter=/&amp;max-keys=2&amp;prefix=a/] []
+[INF]       curl.cpp:url_to_host(100): url is https://s3.amazonaws.com
+[INF]       curl.cpp:RequestPerform(1940): HTTP response code 200
+[WAN] s3fs.cpp:append_objects_from_xml_ex(2575): contents_xp-&gt;nodesetval is empty.
+[WAN] s3fs.cpp:append_objects_from_xml_ex(2575): contents_xp-&gt;nodesetval is empty.
+[INF]       cache.cpp:AddNoObjectCache(429): add no object cache entry[path=/a]
+[INF] s3fs.cpp:s3fs_create(970): [path=/a][mode=100664][flags=33345]
+[INF]     s3fs.cpp:create_file_object(931): [path=/a][mode=100664]
+[INF]       curl.cpp:PutRequest(2693): [tpath=/a]
+[INF]       curl.cpp:PutRequest(2710): create zero byte file object.
+[INF]       curl.cpp:prepare_url(4205): URL is https://s3.amazonaws.com/test-galaxians-org/a
+[INF]       curl.cpp:prepare_url(4237): URL changed is https://test-galaxians-org.s3.amazonaws.com/a
+[INF]       curl.cpp:insertV4Headers(2267): computing signature [PUT] [/a] [] []
+[INF]       curl.cpp:url_to_host(100): url is https://s3.amazonaws.com
+[INF]       curl.cpp:PutRequest(2804): uploading... [path=/a][fd=-1][size=0]
+[INF]       curl.cpp:RequestPerform(1940): HTTP response code 200
+[INF]       cache.cpp:DelStat(565): delete stat cache entry[path=/a]
+[INF]       curl.cpp:HeadRequest(2516): [tpath=/a]
+[INF]       curl.cpp:PreHeadRequest(2453): [tpath=/a][bpath=][save=][sseckeypos=-1]
+[INF]       curl.cpp:prepare_url(4205): URL is https://s3.amazonaws.com/test-galaxians-org/a
+[INF]       curl.cpp:prepare_url(4237): URL changed is https://test-galaxians-org.s3.amazonaws.com/a
+[INF]       curl.cpp:insertV4Headers(2267): computing signature [HEAD] [/a] [] []
+[INF]       curl.cpp:url_to_host(100): url is https://s3.amazonaws.com
+[INF]       curl.cpp:RequestPerform(1940): HTTP response code 200
+[INF]       cache.cpp:AddStat(356): add stat cache entry[path=/a]
+[INF] s3fs.cpp:s3fs_getattr(812): [path=/a]
+[INF] s3fs.cpp:s3fs_flush(2185): [path=/a][fd=8]
+[INF]       fdcache.cpp:RowFlush(1425): [tpath=][path=/a][fd=8]
+[INF] s3fs.cpp:s3fs_flush(2185): [path=/a][fd=8]
+[INF]       fdcache.cpp:RowFlush(1425): [tpath=][path=/a][fd=8]
+[INF]       curl.cpp:PutRequest(2693): [tpath=/a]
+[INF]       curl.cpp:prepare_url(4205): URL is https://s3.amazonaws.com/test-galaxians-org/a
+[INF]       curl.cpp:prepare_url(4237): URL changed is https://test-galaxians-org.s3.amazonaws.com/a
+[INF]       curl.cpp:insertV4Headers(2267): computing signature [PUT] [/a] [] [0e8b03382728f012c44a7b16051f59559ef186fece1a664fce48a59f93caaded]
+[INF]       curl.cpp:url_to_host(100): url is https://s3.amazonaws.com
+[INF]       curl.cpp:PutRequest(2804): uploading... [path=/a][fd=8][size=225]
+[INF]       curl.cpp:RequestPerform(1940): HTTP response code 200
+[INF] s3fs.cpp:s3fs_release(2238): [path=/a][fd=8]
+[INF]       cache.cpp:DelStat(565): delete stat cache entry[path=/a]
+[INF]       fdcache.cpp:GetFdEntity(1986): [path=/a][fd=8]</code></pre>
+</div>
+</section>
+<section id="gooyfs" class="slide level1">
+<h1>Gooyfs</h1>
+<ul>
+<li>Narrow use case: performance at all costs</li>
+<li>Some restrictions:
+<ul>
+<li>only sequential writes supported</li>
+<li>does not store file mode/owner/group</li>
+<li>does not support symlink or hardlink</li>
+<li>ctime, atime is always the same as mtime</li>
+<li>cannot rename non-empty directories</li>
+<li>unlink returns success even if file is not present</li>
+<li>fsync is ignored, files are only flushed on close</li>
+</ul></li>
+<li>If caching is needed, requires layering FUSE filesystems with <a href="https://github.com/kahing/catfs">catfs</a></li>
+</ul>
+</section>
+<section id="s3ql" class="slide level1">
+<h1>S3QL</h1>
+<ul>
+<li>Narrow use case: essentially hourly backup of storage</li>
+<li>Interesting implementation:
+<ul>
+<li>Metadata (path, permissions, etc.) are in local SQLite DB</li>
+<li>Data is chunked + hashed, unique chunks uploaded</li>
+<li>De-duplication</li>
+<li>CoW</li>
+</ul></li>
+</ul>
+<figure>
+<img src="./images/s3ql.png" />
+</figure>
+</section>
+<section id="posix-compliance" class="slide level1">
+<h1>POSIX Compliance</h1>
+<blockquote>
+<p>A file system for the S3 API is a leaky abstraction. Don't expect POSIX file system semantics.</p>
+<p>-- Riofs developers</p>
+</blockquote>
+<ul>
+<li>S3 has use cases, acting as a posix compliant filesystem is <em>not</em> one of them.
+<ul>
+<li>E.g. <code>open_excl</code> is difficult</li>
+</ul></li>
+<li>eventual consistency is not expected by unix applications</li>
+<li>s3ql works around many issues by operating locally and storing a &quot;metadata&quot; journal</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Stop asking for it. seriously.</li>
+<li>most explicitly request &quot;ONLY mount read-write once&quot;</li>
+<li>some say to be prepared to just &quot;re-run your rsync&quot;</li>
+</ul>
+</aside>
+</section>
+<section id="s3-fuse-use-cases" class="slide level1">
+<h1>S3-FUSE Use Cases</h1>
+<ul>
+<li>WORM datasets (Write Once Read Many)
+<ul>
+<li>Logging data / legal requirements</li>
+<li>Reference data (e.g. <a href="https://aws.amazon.com/health/genomics/">AWS Genomics</a>, <a href="https://aws.amazon.com/1000genomes/">1000 Genomes Project</a>)</li>
+<li>Workflow systems</li>
+<li>Backups</li>
+</ul></li>
+<li>Whenever stale data is acceptable
+<ul>
+<li>Image data: user avatars, product pictures</li>
+<li>Static website hosting</li>
+</ul></li>
+</ul>
+</section>
+<section id="logging-use-case" class="slide level1">
+<h1>Logging Use Case</h1>
+<ul>
+<li>Legal requirements to not be updated</li>
+<li>FUSE permits use of logrotate</li>
+</ul>
+</section>
+<section id="reference-data" class="slide level1">
+<h1>Reference Data</h1>
+<ul>
+<li>Datasets can be made available easily
+<ul>
+<li>Publicly</li>
+<li>With restricted permissions</li>
+<li>(On AWS) at the expense of the requester</li>
+</ul></li>
+<li>Mounted locally with FUSE and used transparently</li>
+<li>Cache only requested chunks (implementation dependent)</li>
+<li>Similar to CVMFS
+<ul>
+<li>HTTP API</li>
+<li>Support for range requests</li>
+<li>Caching</li>
+</ul></li>
+</ul>
+</section>
+<section id="galaxy-use-case" class="slide level1">
+<h1>Galaxy Use Case</h1>
+<ul>
+<li>Jobs:
+<ul>
+<li>Inputs are read-only, not permitted to modify datasets in place</li>
+<li>Scratch is node-local storage</li>
+<li>Outputs can be written to S3 (with read-after-write)</li>
+<li>Datasets are <strong>never</strong> updated after creation</li>
+</ul></li>
+<li>Read-only ⇒ Few POSIX features required</li>
+<li><code>s3fuse</code> lets us swap to S3 in place, without modifying the system</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>We have found that s3-fuse is a good fit.</li>
+<li>it &quot;looks&quot; and behaves enough like a real filesystem for us:
+<ul>
+<li>we don't need atomic directory renames</li>
+<li>we don't need exclusive opens.</li>
+<li>just open/read/getattr/readdir</li>
+</ul></li>
+</ul>
+</aside>
+</section>
+<section id="conclusion" class="slide level1">
+<h1>Conclusion</h1>
+<blockquote>
+<p>Object storage is another way of saying that globally coherent fast posix file access is hard, so here's some thin layers over a key-value store, you do the rest</p>
+<p>-- 2015, KaiserPro</p>
+</blockquote>
+</section>
+<section id="conclusion-1" class="slide level1">
+<h1>Conclusion</h1>
+<ul>
+<li>S3 is really cool! It has a lot of nice features like:
+<ul>
+<li>&quot;infinite&quot; scalability</li>
+<li>programmatic API</li>
+<li>rich authentication (on AWS)</li>
+</ul></li>
+<li>But you must consider whether it is a good fit</li>
+<li>Even with S3-FUSE, it is <strong>not a general purpose filesystem</strong></li>
+</ul>
+<style type="text/css">
+.reveal { font-size: 30px; }
+.reveal section img { border: none; padding: 0.5em; }
+.img-50 { width: 50%; }
+</style>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
